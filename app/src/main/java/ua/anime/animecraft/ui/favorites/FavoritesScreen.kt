@@ -11,14 +11,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ua.anime.animecraft.FAVORITES
 import ua.anime.animecraft.R
+import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.BackButton
 import ua.anime.animecraft.ui.common.SkinsGrid
@@ -31,7 +38,16 @@ import ua.anime.animecraft.ui.theme.AppTheme
  */
 
 @Composable
-fun FavoritesScreen(backClicked: () -> Unit, itemClicked: (String) -> Unit) {
+fun FavoritesScreen(
+    backClicked: () -> Unit,
+    itemClicked: (String) -> Unit,
+    favoritesViewModel: FavoritesViewModel = hiltViewModel()
+) {
+    val favorites by favoritesViewModel.favoritesFlow.collectLifecycleAwareFlowAsState(listOf())
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+
+    LaunchedEffect(key1 = false) { favoritesViewModel.getFavorites() }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -52,9 +68,16 @@ fun FavoritesScreen(backClicked: () -> Unit, itemClicked: (String) -> Unit) {
                 color = AppTheme.colors.onBackground
             )
             Spacer(modifier = Modifier.height(32.dp))
-            SearchBar(value = "", onValueChanged = {})
+            SearchBar(value = searchQuery) {
+                searchQuery = it
+                favoritesViewModel.searchSkins(searchQuery)
+            }
             Spacer(modifier = Modifier.height(32.dp))
-            SkinsGrid(skins = listOf(), itemClick = itemClicked)
+            SkinsGrid(
+                skins = favorites,
+                itemClick = itemClicked,
+                likeClick = { favoritesViewModel.updateFavoriteSkin(it) }
+            )
         }
     }
 }

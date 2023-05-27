@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 import com.android.build.api.dsl.Packaging
 
 plugins {

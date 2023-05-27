@@ -5,7 +5,9 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import ua.anime.animecraft.data.repository.FavoriteRepositoryImpl
 import ua.anime.animecraft.data.repository.SkinsRepositoryImpl
+import ua.anime.animecraft.domain.repository.FavoritesRepository
 import ua.anime.animecraft.domain.repository.SkinsRepository
 
 /**
@@ -18,5 +20,9 @@ interface RepositoryModule {
 
     @Singleton
     @Binds
-    fun bindSkinsRepository(skinsRepositoryImpl: SkinsRepositoryImpl): SkinsRepository
+    fun bindSkinsRepository(repository: SkinsRepositoryImpl): SkinsRepository
+
+    @Singleton
+    @Binds
+    fun bindFavoritesRepository(repository: FavoriteRepositoryImpl): FavoritesRepository
 }

@@ -3,11 +3,13 @@ package ua.anime.animecraft.ui.main
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ua.anime.animecraft.core.android.AnimeCraftViewModel
 import ua.anime.animecraft.core.common.replaceAllElements
+import ua.anime.animecraft.domain.repository.FavoritesRepository
 import ua.anime.animecraft.domain.repository.SkinsRepository
+import ua.anime.animecraft.ui.extensions.filterListByName
 import ua.anime.animecraft.ui.model.Skin
 import javax.inject.Inject
 
@@ -20,11 +22,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val skinsRepository: SkinsRepository
+    private val skinsRepository: SkinsRepository,
+    private val favoritesRepository: FavoritesRepository
 ) : AnimeCraftViewModel() {
 
     private val _skinsFlow = MutableStateFlow<List<Skin>>(listOf())
-    val skinsFlow: StateFlow<List<Skin>> = _skinsFlow
+    val skinsFlow = _skinsFlow.asStateFlow()
 
     private var currentSearchInput: String = ""
 
@@ -48,7 +51,10 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private fun List<Skin>.filterListByName(name: String) = filter {
-        it.name.startsWith(name) || it.name.contains(name)
+    fun updateFavoriteSkin(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val favorite = skins.find { it.id == id }?.favorite?.not() ?: false
+            favoritesRepository.updateFavoriteSkin(id, favorite)
+        }
     }
 }

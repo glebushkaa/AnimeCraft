@@ -17,7 +17,12 @@ import ua.anime.animecraft.ui.model.Skin
  */
 
 @Composable
-fun SkinsGrid(modifier: Modifier = Modifier, skins: List<Skin>, itemClick: (String) -> Unit) {
+fun SkinsGrid(
+    modifier: Modifier = Modifier,
+    skins: List<Skin>,
+    itemClick: (String) -> Unit = {},
+    likeClick: (Int) -> Unit = {}
+) {
     LazyVerticalGrid(
         modifier = modifier,
         columns = GridCells.Fixed(2),
@@ -25,7 +30,7 @@ fun SkinsGrid(modifier: Modifier = Modifier, skins: List<Skin>, itemClick: (Stri
         horizontalArrangement = Arrangement.spacedBy(24.dp),
         content = {
             items(skins) {
-                PreviewItem(skin = it, itemClick = itemClick)
+                PreviewItem(skin = it, itemClick = itemClick, likeClick = likeClick)
             }
         }
     )
