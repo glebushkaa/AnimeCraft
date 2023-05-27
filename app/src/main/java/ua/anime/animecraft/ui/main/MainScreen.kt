@@ -40,7 +40,6 @@ fun MainScreen(
     itemClicked: (String) -> Unit,
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
-
     val skins by mainViewModel.skinsFlow.collectLifecycleAwareFlowAsState(initialValue = listOf())
 
     var searchQuery by rememberSaveable { mutableStateOf("") }
@@ -76,7 +75,7 @@ fun MainScreen(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 skins = skins,
                 itemClick = itemClicked,
-                likeClick = { mainViewModel.updateFavoriteSkin(it) },
+                likeClick = { mainViewModel.updateFavoriteSkin(it) }
             )
         }
     }

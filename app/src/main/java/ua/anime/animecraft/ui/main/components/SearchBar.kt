@@ -26,7 +26,6 @@ import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 import ua.anime.animecraft.ui.theme.searchBarShape
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.
  */

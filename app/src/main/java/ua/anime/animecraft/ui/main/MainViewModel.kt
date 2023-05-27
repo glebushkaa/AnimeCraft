@@ -1,6 +1,7 @@
 package ua.anime.animecraft.ui.main
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,8 +12,6 @@ import ua.anime.animecraft.domain.repository.FavoritesRepository
 import ua.anime.animecraft.domain.repository.SkinsRepository
 import ua.anime.animecraft.ui.extensions.filterListByName
 import ua.anime.animecraft.ui.model.Skin
-import javax.inject.Inject
-
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.
