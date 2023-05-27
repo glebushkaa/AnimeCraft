@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package ua.anime.animecraft.ui.main
 
 import androidx.compose.foundation.background
@@ -27,7 +29,6 @@ import ua.anime.animecraft.ui.main.components.SearchBar
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.
  */
@@ -44,10 +45,7 @@ fun MainScreen(
 
     var searchQuery by rememberSaveable { mutableStateOf("") }
 
-    // TODO Maybe redo to fetch within worker
-    LaunchedEffect(key1 = true) {
-        if (skins.isEmpty()) viewModel.getAllSkins()
-    }
+    LaunchedEffect(key1 = false) { viewModel.getAllSkins() }
 
     Box(modifier = Modifier.background(color = AppTheme.colors.background)) {
         Column(

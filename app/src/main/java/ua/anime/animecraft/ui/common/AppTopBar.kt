@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package ua.anime.animecraft.ui.common
 
 import androidx.compose.foundation.layout.Row
@@ -16,7 +18,6 @@ import ua.anime.animecraft.FAVORITES
 import ua.anime.animecraft.R
 import ua.anime.animecraft.SETTINGS
 import ua.anime.animecraft.ui.theme.AppTheme
-
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/12/2023.

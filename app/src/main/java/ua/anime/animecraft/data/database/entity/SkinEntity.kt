@@ -4,7 +4,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ua.anime.animecraft.data.database.SKIN_ENTITY
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.
  */
@@ -13,5 +12,7 @@ import ua.anime.animecraft.data.database.SKIN_ENTITY
 data class SkinEntity(
     @PrimaryKey(autoGenerate = false) val id: Int,
     val name: String,
-    val favorite: Boolean = false
+    val favorite: Boolean = false,
+    val gameImageUrl: String,
+    val previewImageUrl: String
 )

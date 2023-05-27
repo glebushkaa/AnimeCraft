@@ -1,6 +1,5 @@
 package ua.anime.animecraft.data.database
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.
  */

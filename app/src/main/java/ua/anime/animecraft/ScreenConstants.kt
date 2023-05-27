@@ -1,5 +1,6 @@
-package ua.anime.animecraft
+@file:Suppress("no-trailing-spaces")
 
+package ua.anime.animecraft
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/12/2023.
