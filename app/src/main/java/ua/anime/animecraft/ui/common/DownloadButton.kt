@@ -6,19 +6,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import ua.anime.animecraft.R
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
-
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.

@@ -2,13 +2,11 @@ package ua.anime.animecraft.ui.navigation
 
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import androidx.navigation.navDeepLink
 import ua.anime.animecraft.FAVORITES
 import ua.anime.animecraft.INFO
 import ua.anime.animecraft.MAIN
 import ua.anime.animecraft.SETTINGS
 import ua.anime.animecraft.SPLASH
-
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.
@@ -50,4 +48,3 @@ object Info : AnimeCraftDestination {
         navArgument(nameArg) { type = NavType.StringType }
     )
 }
-

@@ -42,7 +42,6 @@ import ua.anime.animecraft.ui.common.BackButton
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/15/2023.
  */
@@ -50,7 +49,7 @@ import ua.anime.animecraft.ui.theme.AppTheme
 private val testLanguageList = listOf(
     Language(0, R.string.english),
     Language(1, R.string.ukrainian),
-    Language(2, R.string.russian),
+    Language(2, R.string.russian)
 )
 
 @Composable

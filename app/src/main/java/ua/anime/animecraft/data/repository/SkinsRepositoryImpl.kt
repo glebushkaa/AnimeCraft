@@ -1,17 +1,17 @@
 package ua.anime.animecraft.data.repository
 
+import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import ua.anime.animecraft.data.database.dao.SkinsDao
 import ua.anime.animecraft.data.database.entity.SkinEntity
+import ua.anime.animecraft.data.mapper.to
 import ua.anime.animecraft.data.network.RealtimeSkinsApi
 import ua.anime.animecraft.data.network.StorageSkinsApi
-import ua.anime.animecraft.data.network.model.NetworkSkin
 import ua.anime.animecraft.domain.repository.SkinsRepository
 import ua.anime.animecraft.ui.model.Skin
-import javax.inject.Inject
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.
@@ -42,25 +42,3 @@ class SkinsRepositoryImpl @Inject constructor(
         skinsDao.insertSkins(list)
     }
 }
-
-private fun List<SkinEntity>.to() = map { it.to() }
-
-private fun SkinEntity.to() = Skin(
-    id = id,
-    name = name,
-    gameImageUrl = gameImageUrl,
-    previewImageUrl = previewImageUrl,
-    favorite = favorite
-)
-
-private fun NetworkSkin.to(
-    gameUrl: String,
-    previewUrl: String,
-    favorite: Boolean
-) = SkinEntity(
-    id = id,
-    name = name ?: "Skin",
-    gameImageUrl = gameUrl,
-    previewImageUrl = previewUrl,
-    favorite = favorite
-)

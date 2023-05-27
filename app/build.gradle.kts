@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 import com.android.build.api.dsl.Packaging
 
 plugins {
@@ -61,7 +63,7 @@ android {
         verbose.set(true)
         outputToConsole.set(true)
         ignoreFailures.set(false)
-        enableExperimentalRules.set(true)
+        enableExperimentalRules.set(false)
         filter {
             exclude("**/generated/**")
             include("**/kotlin/**")

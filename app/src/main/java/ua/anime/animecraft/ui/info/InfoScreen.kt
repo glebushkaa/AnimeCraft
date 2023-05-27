@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName")
+@file:Suppress("FunctionName", "experimental:function-signature")
 
 package ua.anime.animecraft.ui.info
 

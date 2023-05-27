@@ -15,7 +15,6 @@ import ua.anime.animecraft.ui.main.MainScreen
 import ua.anime.animecraft.ui.settings.SettingsScreen
 import ua.anime.animecraft.ui.splash.SplashScreen
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.
  */

@@ -38,14 +38,13 @@ fun MainScreen(
     settingsClicked: () -> Unit,
     likeClicked: () -> Unit,
     itemClicked: (String) -> Unit,
-    viewModel: MainViewModel = hiltViewModel()
+    mainViewModel: MainViewModel = hiltViewModel()
 ) {
-
-    val skins by viewModel.skinsFlow.collectLifecycleAwareFlowAsState(initialValue = listOf())
+    val skins by mainViewModel.skinsFlow.collectLifecycleAwareFlowAsState(initialValue = listOf())
 
     var searchQuery by rememberSaveable { mutableStateOf("") }
 
-    LaunchedEffect(key1 = false) { viewModel.getAllSkins() }
+    LaunchedEffect(key1 = false) { mainViewModel.getAllSkins() }
 
     Box(modifier = Modifier.background(color = AppTheme.colors.background)) {
         Column(
@@ -67,7 +66,7 @@ fun MainScreen(
             )
             SearchBar(value = searchQuery) {
                 searchQuery = it
-                viewModel.searchSkins(it)
+                mainViewModel.searchSkins(it)
             }
             Spacer(
                 modifier = Modifier.height(dimensionResource(id = R.dimen.offset_large))
@@ -75,7 +74,8 @@ fun MainScreen(
             SkinsGrid(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 skins = skins,
-                itemClick = itemClicked
+                itemClick = itemClicked,
+                likeClick = { mainViewModel.updateFavoriteSkin(it) }
             )
         }
     }

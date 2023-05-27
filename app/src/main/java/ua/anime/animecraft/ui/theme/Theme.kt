@@ -43,8 +43,6 @@ private val LightColorScheme = lightColorScheme(
 
 val LocalColorPalette = staticCompositionLocalOf { LightColorScheme }
 val LocalTypography = staticCompositionLocalOf { AppTypography() }
-//val LocalShapes = staticCompositionLocalOf { AppShapes() }
-//val LocalElevations = staticCompositionLocalOf { AppElevations() }
 
 @Composable
 fun AnimeCraftTheme(
@@ -64,9 +62,6 @@ fun AnimeCraftTheme(
     CompositionLocalProvider(
         LocalTypography provides AppTypography(),
         LocalColorPalette provides colorScheme,
-        /*LocalElevations provides AppElevations(),
-        LocalTextSelectionColors provides textSelectionColors,
-        LocalMinimumTouchTargetEnforcement provides false,*/
         content = content
     )
 }
@@ -81,14 +76,4 @@ object AppTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalColorPalette.current
-
-    /*val shapes: AppShapes
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalShapes.current
-
-    val elevations: AppElevations
-        @Composable
-        @ReadOnlyComposable
-        get() = LocalElevations.current*/
 }

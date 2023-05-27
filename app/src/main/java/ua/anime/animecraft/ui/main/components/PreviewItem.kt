@@ -43,8 +43,8 @@ import ua.anime.animecraft.ui.theme.AppTheme
 @Composable
 fun PreviewItem(
     skin: Skin,
-    downloadClick: () -> Unit = {},
-    likeClick: () -> Unit = {},
+    downloadClick: (Int) -> Unit = {},
+    likeClick: (Int) -> Unit = {},
     itemClick: (String) -> Unit = {}
 ) {
     Column(
@@ -69,9 +69,10 @@ fun PreviewItem(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            IconButton(modifier = Modifier.size(24.dp), onClick = likeClick) {
+            IconButton(modifier = Modifier.size(24.dp), onClick = { likeClick(skin.id) }) {
+                val iconResId = if (skin.favorite) R.drawable.ic_filled_like else R.drawable.ic_like
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_like),
+                    painter = painterResource(id = iconResId),
                     contentDescription = stringResource(id = R.string.like_icon),
                     tint = AppTheme.colors.primary
                 )
@@ -88,7 +89,7 @@ fun PreviewItem(
                     blurRadius = 2.dp,
                     color = AppTheme.colors.primary
                 ),
-            onClick = downloadClick
+            onClick = { downloadClick(skin.id) }
         )
     }
 }

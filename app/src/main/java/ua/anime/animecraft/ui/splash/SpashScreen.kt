@@ -21,14 +21,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 import ua.anime.animecraft.R
-import ua.anime.animecraft.ui.navigation.Main
-import ua.anime.animecraft.ui.navigation.navigateSingleTopTo
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
-
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 4/30/2023.
@@ -39,8 +35,6 @@ import ua.anime.animecraft.ui.theme.AppTheme
 fun SplashScreen(
     onFinish: () -> Unit
 ) {
-
-
     LaunchedEffect(key1 = true) {
         val splashDelay = 3000L
         delay(splashDelay)
