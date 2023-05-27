@@ -18,4 +18,7 @@
     <string name="settings">Settings</string>
     <string name="notifications_new_skins">Notification for new skins</string>
     <string name="dark_mode">Dark mode</string>
+    <string name="worker_notification_text">Downloading...</string>
+    <string name="worker_notification_title">Downloading skins</string>
+    <string name="work_skins_channel_name">skins_channel_name</string>
 </resources>
