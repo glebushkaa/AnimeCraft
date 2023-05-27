@@ -11,5 +11,5 @@ interface SkinsRepository {
 
     suspend fun getSkins(): List<Skin>
 
-    suspend fun changeSkinFavorite(favorite: Boolean)
+    suspend fun updateSkinFavorite(id: Int, favorite: Boolean)
 }

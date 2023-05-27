@@ -2,6 +2,8 @@ package ua.anime.animecraft.data.repository
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import ua.anime.animecraft.data.database.dao.FavoritesDao
+import ua.anime.animecraft.data.database.dao.SkinsDao
 import ua.anime.animecraft.data.network.RealtimeSkinsApi
 import ua.anime.animecraft.data.network.StorageSkinsApi
 import ua.anime.animecraft.domain.repository.SkinsRepository
@@ -15,7 +17,9 @@ import javax.inject.Inject
 
 class SkinsRepositoryImpl @Inject constructor(
     private val realtimeSkinsApi: RealtimeSkinsApi,
-    private val storageSkinsApi: StorageSkinsApi
+    private val storageSkinsApi: StorageSkinsApi,
+    private val skinsDao: SkinsDao,
+    private val favoritesDao: FavoritesDao
 ) : SkinsRepository {
 
     override suspend fun getSkins(): List<Skin> = coroutineScope {
@@ -31,7 +35,7 @@ class SkinsRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun changeSkinFavorite(favorite: Boolean) {
+    override suspend fun updateSkinFavorite(id: Int, favorite: Boolean) {
         TODO("Not yet implemented")
     }
 }
