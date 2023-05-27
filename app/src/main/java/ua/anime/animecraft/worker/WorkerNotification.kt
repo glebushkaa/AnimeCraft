@@ -5,7 +5,6 @@ import androidx.core.app.NotificationCompat
 import ua.anime.animecraft.R
 import ua.anime.animecraft.worker.SkinsWorkManager.Companion.WORK_SKINS_CHANNEL_ID
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/27/2023.
  */

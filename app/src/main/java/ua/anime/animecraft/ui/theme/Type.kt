@@ -23,7 +23,7 @@ data class AppTypography(
         fontFamily = openSansFontFamily,
         fontWeight = FontWeight.Black,
         fontSize = 64.sp,
-        letterSpacing = (-0.25).sp,
+        letterSpacing = (-0.25).sp
     ),
 
     val displayMedium: TextStyle = TextStyle(
@@ -178,5 +178,5 @@ data class AppTypography(
         fontSize = 20.sp,
         fontWeight = FontWeight.W600,
         fontFamily = openSansFontFamily
-    ),
+    )
 )
