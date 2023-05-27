@@ -13,7 +13,6 @@ import ua.anime.animecraft.domain.repository.SkinsRepository
 import ua.anime.animecraft.ui.model.Skin
 import javax.inject.Inject
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.
  */

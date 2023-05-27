@@ -1,3 +1,5 @@
+@file:Suppress("LongParameterList")
+
 package ua.anime.animecraft.ui.common
 
 import android.graphics.BlurMaskFilter
@@ -10,7 +12,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.
  */
@@ -21,7 +22,7 @@ fun Modifier.advanceShadow(
     blurRadius: Dp = 0.dp,
     offsetY: Dp = 0.dp,
     offsetX: Dp = 0.dp,
-    spread: Float = 0f,
+    spread: Float = 0f
 ) = drawBehind {
     this.drawIntoCanvas {
         val paint = Paint()

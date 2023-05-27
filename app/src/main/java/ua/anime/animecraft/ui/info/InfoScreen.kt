@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package ua.anime.animecraft.ui.info
 
 import androidx.compose.foundation.Image
@@ -26,7 +28,6 @@ import ua.anime.animecraft.ui.common.DownloadButton
 import ua.anime.animecraft.ui.common.advanceShadow
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
-
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/12/2023.

@@ -5,7 +5,6 @@ import android.app.Application
 import android.os.Bundle
 import java.lang.ref.WeakReference
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 4/30/2023.
  */

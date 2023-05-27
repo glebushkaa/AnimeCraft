@@ -1,10 +1,9 @@
 package ua.anime.animecraft.data.network
 
 import com.google.firebase.database.FirebaseDatabase
+import javax.inject.Inject
 import kotlinx.coroutines.tasks.await
 import ua.anime.animecraft.data.network.model.NetworkSkin
-import javax.inject.Inject
-
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.

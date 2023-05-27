@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package ua.anime.animecraft.ui.common
 
 import androidx.compose.foundation.layout.Arrangement
@@ -6,12 +8,9 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ua.anime.animecraft.ui.main.components.PreviewItem
 import ua.anime.animecraft.ui.model.Skin
-import ua.anime.animecraft.ui.theme.AnimeCraftTheme
-
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/12/2023.

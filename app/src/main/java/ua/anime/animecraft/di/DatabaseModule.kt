@@ -11,7 +11,6 @@ import ua.anime.animecraft.data.database.SKINS_DATABASE_NAME
 import ua.anime.animecraft.data.database.database.SkinsDatabase
 import javax.inject.Singleton
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/27/2023.
  */

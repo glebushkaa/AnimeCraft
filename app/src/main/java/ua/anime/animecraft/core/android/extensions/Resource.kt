@@ -2,7 +2,6 @@ package ua.anime.animecraft.core.android.extensions
 
 import ua.anime.animecraft.core.android.Resource
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 4/30/2023.
  */

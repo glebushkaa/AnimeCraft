@@ -1,3 +1,5 @@
+@file:Suppress("LongMethod", "FunctionName")
+
 package ua.anime.animecraft.ui.settings
 
 import androidx.compose.foundation.background

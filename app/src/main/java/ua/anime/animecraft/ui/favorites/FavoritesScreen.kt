@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package ua.anime.animecraft.ui.favorites
 
 import androidx.compose.foundation.background
@@ -24,23 +26,12 @@ import ua.anime.animecraft.ui.main.components.SearchBar
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/12/2023.
  */
 
-private val testStringList = listOf(
-    "Piter", "Test skin", "I don't know",
-    "Piter", "Test skin", "I don't know",
-    "Piter", "Test skin", "I don't know",
-    "Piter", "Test skin", "I don't know",
-)
-
 @Composable
-fun FavoritesScreen(
-    backClicked: () -> Unit,
-    itemClicked: (String) -> Unit
-) {
+fun FavoritesScreen(backClicked: () -> Unit, itemClicked: (String) -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -63,7 +54,7 @@ fun FavoritesScreen(
             Spacer(modifier = Modifier.height(32.dp))
             SearchBar(value = "", onValueChanged = {})
             Spacer(modifier = Modifier.height(32.dp))
-//            SkinsGrid(skins = testStringList, itemClick = itemClicked)
+            SkinsGrid(skins = listOf(), itemClick = itemClicked)
         }
     }
 }

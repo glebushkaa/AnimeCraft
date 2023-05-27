@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package ua.anime.animecraft.ui.main
 
 import androidx.compose.foundation.background
@@ -26,7 +28,6 @@ import ua.anime.animecraft.ui.common.SkinsGrid
 import ua.anime.animecraft.ui.main.components.SearchBar
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
-
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.

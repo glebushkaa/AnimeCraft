@@ -1,6 +1,5 @@
 package ua.anime.animecraft.core.android
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 4/30/2023.
  */

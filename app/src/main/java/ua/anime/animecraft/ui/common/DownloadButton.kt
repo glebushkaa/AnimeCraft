@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package ua.anime.animecraft.ui.common
 
 import androidx.compose.foundation.layout.fillMaxWidth

@@ -1,3 +1,4 @@
+@file:Suppress("FunctionName")
 @file:OptIn(ExperimentalMaterial3Api::class)
 
 package ua.anime.animecraft.ui.main.components

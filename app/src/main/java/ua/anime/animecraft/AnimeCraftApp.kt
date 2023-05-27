@@ -7,12 +7,11 @@ import android.os.Build
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 import timber.log.Timber
 import ua.anime.animecraft.core.log.ReportingTree
 import ua.anime.animecraft.worker.SkinsWorkFactory
 import ua.anime.animecraft.worker.SkinsWorkManager
-import javax.inject.Inject
-
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 4/30/2023.

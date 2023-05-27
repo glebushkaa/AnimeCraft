@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package ua.anime.animecraft.ui.splash
 
 import androidx.compose.foundation.Image
@@ -32,12 +34,16 @@ import ua.anime.animecraft.ui.theme.AppTheme
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 4/30/2023.
  */
 
+@Suppress("MagicNumber")
 @Composable
 fun SplashScreen(
     onFinish: () -> Unit
 ) {
+
+
     LaunchedEffect(key1 = true) {
-        delay(3000)
+        val splashDelay = 3000L
+        delay(splashDelay)
         onFinish()
     }
 

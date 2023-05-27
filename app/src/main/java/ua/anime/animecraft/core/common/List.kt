@@ -1,6 +1,5 @@
 package ua.anime.animecraft.core.common
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/27/2023.
  */

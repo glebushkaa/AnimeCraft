@@ -5,7 +5,6 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 import ua.anime.animecraft.data.database.entity.SkinEntity
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.
  */

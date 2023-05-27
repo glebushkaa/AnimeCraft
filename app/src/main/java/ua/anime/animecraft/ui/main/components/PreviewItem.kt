@@ -1,3 +1,4 @@
+@file:Suppress("FunctionName")
 @file:OptIn(ExperimentalMaterial3Api::class)
 
 package ua.anime.animecraft.ui.main.components
@@ -34,7 +35,6 @@ import ua.anime.animecraft.ui.common.DownloadButton
 import ua.anime.animecraft.ui.common.advanceShadow
 import ua.anime.animecraft.ui.model.Skin
 import ua.anime.animecraft.ui.theme.AppTheme
-
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.
