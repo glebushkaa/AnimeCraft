@@ -43,8 +43,8 @@ fun AnimeCraftHost(
                 likeClicked = {
                     navController.navigateSingleTopTo(Favorites.route)
                 },
-                itemClicked = { name ->
-                    navController.navigateSingleTopTo("${Info.route}/$name")
+                itemClicked = { id ->
+                    navController.navigateSingleTopTo("${Info.route}/$id")
                 }
             )
         }
@@ -58,8 +58,8 @@ fun AnimeCraftHost(
                 backClicked = {
                     navController.popBackStack()
                 },
-                itemClicked = { name ->
-                    navController.navigateSingleTopTo("${Info.route}/$name")
+                itemClicked = { id ->
+                    navController.navigateSingleTopTo("${Info.route}/$id")
                 }
             )
         }
@@ -67,10 +67,13 @@ fun AnimeCraftHost(
             route = Info.routeWithArgs,
             arguments = Info.arguments
         ) { navBackStackEntry ->
-            val name = navBackStackEntry.arguments?.getString(Info.nameArg)
-            InfoScreen(name) {
-                navController.popBackStack()
-            }
+            val id = navBackStackEntry.arguments?.getInt(Info.idArg) ?: 0
+            InfoScreen(
+                id = id,
+                backClicked = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

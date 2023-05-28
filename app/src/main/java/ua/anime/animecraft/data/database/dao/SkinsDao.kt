@@ -14,6 +14,12 @@ import ua.anime.animecraft.data.database.entity.SkinEntity
 @Dao
 interface SkinsDao {
 
+    @Query("SELECT * FROM skin WHERE id = :id")
+    fun getSkinFlow(id: Int): Flow<SkinEntity>
+
+    @Query("SELECT * FROM skin WHERE id = :id")
+    fun getSkin(id: Int): SkinEntity
+
     @Query("SELECT * FROM skin")
     fun getAllSkins(): List<SkinEntity>
 

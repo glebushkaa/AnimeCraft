@@ -32,6 +32,7 @@ import coil.compose.AsyncImage
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.common.capitalize
 import ua.anime.animecraft.ui.common.DownloadButton
+import ua.anime.animecraft.ui.common.LikeButton
 import ua.anime.animecraft.ui.common.advanceShadow
 import ua.anime.animecraft.ui.model.Skin
 import ua.anime.animecraft.ui.theme.AppTheme
@@ -45,7 +46,7 @@ fun PreviewItem(
     skin: Skin,
     downloadClick: (Int) -> Unit = {},
     likeClick: (Int) -> Unit = {},
-    itemClick: (String) -> Unit = {}
+    itemClick: (Int) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -55,7 +56,7 @@ fun PreviewItem(
         verticalArrangement = Arrangement.spacedBy(18.dp)
     ) {
         PreviewCard(imageUrl = skin.previewImageUrl) {
-            itemClick(skin.name)
+            itemClick(skin.id)
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -69,13 +70,8 @@ fun PreviewItem(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            IconButton(modifier = Modifier.size(24.dp), onClick = { likeClick(skin.id) }) {
-                val iconResId = if (skin.favorite) R.drawable.ic_filled_like else R.drawable.ic_like
-                Icon(
-                    painter = painterResource(id = iconResId),
-                    contentDescription = stringResource(id = R.string.like_icon),
-                    tint = AppTheme.colors.primary
-                )
+            LikeButton(favorite = skin.favorite) {
+                likeClick(skin.id)
             }
         }
         DownloadButton(

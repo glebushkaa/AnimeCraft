@@ -5,6 +5,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import ua.anime.animecraft.core.log.DEBUG_TAG
+import ua.anime.animecraft.core.log.debug
 import ua.anime.animecraft.data.database.dao.SkinsDao
 import ua.anime.animecraft.data.database.entity.SkinEntity
 import ua.anime.animecraft.data.mapper.to
@@ -23,8 +25,18 @@ class SkinsRepositoryImpl @Inject constructor(
     private val skinsDao: SkinsDao
 ) : SkinsRepository {
 
+    override suspend fun getSkin(id: Int): Skin {
+        val skin = skinsDao.getSkin(id).to()
+        debug(DEBUG_TAG) { skin.toString() }
+        return skin
+    }
+
     override suspend fun getSkinsFlow(): Flow<List<Skin>> {
         return skinsDao.getAllSkinsFlow().map(List<SkinEntity>::to)
+    }
+
+    override suspend fun getSkinFlow(id: Int): Flow<Skin> {
+        return skinsDao.getSkinFlow(id).map(SkinEntity::to)
     }
 
     override suspend fun updateLocalSkinsFromNetwork() = coroutineScope {

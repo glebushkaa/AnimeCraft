@@ -40,7 +40,7 @@ import ua.anime.animecraft.ui.theme.AppTheme
 @Composable
 fun FavoritesScreen(
     backClicked: () -> Unit,
-    itemClicked: (String) -> Unit,
+    itemClicked: (Int) -> Unit,
     favoritesViewModel: FavoritesViewModel = hiltViewModel()
 ) {
     val favorites by favoritesViewModel.favoritesFlow.collectLifecycleAwareFlowAsState(listOf())

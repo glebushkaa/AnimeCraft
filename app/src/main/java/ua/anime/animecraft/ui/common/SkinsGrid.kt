@@ -20,7 +20,7 @@ import ua.anime.animecraft.ui.model.Skin
 fun SkinsGrid(
     modifier: Modifier = Modifier,
     skins: List<Skin>,
-    itemClick: (String) -> Unit = {},
+    itemClick: (Int) -> Unit = {},
     likeClick: (Int) -> Unit = {}
 ) {
     LazyVerticalGrid(
