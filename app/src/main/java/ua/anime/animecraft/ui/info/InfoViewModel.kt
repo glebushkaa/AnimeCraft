@@ -1,14 +1,12 @@
 package ua.anime.animecraft.ui.info
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 import ua.anime.animecraft.core.android.AnimeCraftViewModel
-import ua.anime.animecraft.core.log.debug
 import ua.anime.animecraft.domain.repository.FavoritesRepository
 import ua.anime.animecraft.domain.repository.SkinsRepository
 import ua.anime.animecraft.ui.model.Skin

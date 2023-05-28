@@ -1,7 +1,7 @@
 @file:Suppress("FunctionName")
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package ua.anime.animecraft.ui.main.components
+package ua.anime.animecraft.ui.common
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box

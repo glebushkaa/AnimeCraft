@@ -14,4 +14,4 @@ data class Skin(
     val gameImageUrl: String,
     val previewImageUrl: String,
     val favorite: Boolean = false
-): Parcelable
+) : Parcelable
