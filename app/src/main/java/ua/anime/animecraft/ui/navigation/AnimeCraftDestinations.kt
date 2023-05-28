@@ -42,9 +42,9 @@ object Settings : AnimeCraftDestination {
 
 object Info : AnimeCraftDestination {
     override val route = INFO
-    const val nameArg = "nameArg"
-    val routeWithArgs = "$route/{$nameArg}"
+    const val idArg = "idArg"
+    val routeWithArgs = "$route/{$idArg}"
     val arguments = listOf(
-        navArgument(nameArg) { type = NavType.StringType }
+        navArgument(idArg) { type = NavType.IntType }
     )
 }

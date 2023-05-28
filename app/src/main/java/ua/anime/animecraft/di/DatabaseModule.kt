@@ -12,16 +12,16 @@ import ua.anime.animecraft.data.database.SKINS_DATABASE_NAME
 import ua.anime.animecraft.data.database.database.SkinsDatabase
 
 /**
- * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/27/2023.
+ * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/26/2023
  */
 
-@Module
 @InstallIn(SingletonComponent::class)
+@Module
 class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): SkinsDatabase =
+    fun provideSkinsDatabase(@ApplicationContext context: Context) =
         Room.databaseBuilder(context, SkinsDatabase::class.java, SKINS_DATABASE_NAME)
             .fallbackToDestructiveMigration()
             .build()

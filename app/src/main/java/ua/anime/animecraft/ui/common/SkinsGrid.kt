@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ua.anime.animecraft.ui.main.components.PreviewItem
 import ua.anime.animecraft.ui.model.Skin
 
 /**
@@ -20,7 +19,7 @@ import ua.anime.animecraft.ui.model.Skin
 fun SkinsGrid(
     modifier: Modifier = Modifier,
     skins: List<Skin>,
-    itemClick: (String) -> Unit = {},
+    itemClick: (Int) -> Unit = {},
     likeClick: (Int) -> Unit = {}
 ) {
     LazyVerticalGrid(

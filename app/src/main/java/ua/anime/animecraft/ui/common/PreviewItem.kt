@@ -1,7 +1,7 @@
 @file:Suppress("FunctionName")
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package ua.anime.animecraft.ui.main.components
+package ua.anime.animecraft.ui.common
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,28 +11,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.common.capitalize
-import ua.anime.animecraft.ui.common.DownloadButton
-import ua.anime.animecraft.ui.common.advanceShadow
 import ua.anime.animecraft.ui.model.Skin
 import ua.anime.animecraft.ui.theme.AppTheme
 
@@ -45,7 +39,7 @@ fun PreviewItem(
     skin: Skin,
     downloadClick: (Int) -> Unit = {},
     likeClick: (Int) -> Unit = {},
-    itemClick: (String) -> Unit = {}
+    itemClick: (Int) -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -55,7 +49,7 @@ fun PreviewItem(
         verticalArrangement = Arrangement.spacedBy(18.dp)
     ) {
         PreviewCard(imageUrl = skin.previewImageUrl) {
-            itemClick(skin.name)
+            itemClick(skin.id)
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -69,13 +63,8 @@ fun PreviewItem(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
-            IconButton(modifier = Modifier.size(24.dp), onClick = { likeClick(skin.id) }) {
-                val iconResId = if (skin.favorite) R.drawable.ic_filled_like else R.drawable.ic_like
-                Icon(
-                    painter = painterResource(id = iconResId),
-                    contentDescription = stringResource(id = R.string.like_icon),
-                    tint = AppTheme.colors.primary
-                )
+            LikeButton(favorite = skin.favorite) {
+                likeClick(skin.id)
             }
         }
         DownloadButton(

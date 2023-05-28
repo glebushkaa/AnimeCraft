@@ -24,8 +24,8 @@ import ua.anime.animecraft.MAIN
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.ui.common.AppTopBar
+import ua.anime.animecraft.ui.common.SearchBar
 import ua.anime.animecraft.ui.common.SkinsGrid
-import ua.anime.animecraft.ui.main.components.SearchBar
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
@@ -37,7 +37,7 @@ import ua.anime.animecraft.ui.theme.AppTheme
 fun MainScreen(
     settingsClicked: () -> Unit,
     likeClicked: () -> Unit,
-    itemClicked: (String) -> Unit,
+    itemClicked: (Int) -> Unit,
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     val skins by mainViewModel.skinsFlow.collectLifecycleAwareFlowAsState(initialValue = listOf())

@@ -39,3 +39,5 @@ inline fun wtf(tag: String, logMessage: () -> String) {
 }
 
 inline fun <reified T> T.tag(): String = T::class.java.simpleName
+
+const val DEBUG_TAG = "AnimeCraftDebug"
