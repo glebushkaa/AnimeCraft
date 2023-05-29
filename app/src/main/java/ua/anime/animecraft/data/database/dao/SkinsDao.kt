@@ -14,6 +14,9 @@ import ua.anime.animecraft.data.database.entity.SkinEntity
 @Dao
 interface SkinsDao {
 
+    @Query("SELECT (SELECT COUNT(id) FROM skin) == 0")
+    fun areSkinsEmpty(): Boolean
+
     @Query("SELECT * FROM skin WHERE id = :id")
     fun getSkinFlow(id: Int): Flow<SkinEntity>
 

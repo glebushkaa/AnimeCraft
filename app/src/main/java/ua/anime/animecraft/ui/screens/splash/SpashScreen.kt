@@ -1,6 +1,6 @@
 @file:Suppress("FunctionName")
 
-package ua.anime.animecraft.ui.splash
+package ua.anime.animecraft.ui.screens.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

@@ -1,6 +1,6 @@
 @file:Suppress("LongMethod", "FunctionName")
 
-package ua.anime.animecraft.ui.settings
+package ua.anime.animecraft.ui.screens.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -36,7 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ua.anime.animecraft.R
-import ua.anime.animecraft.SETTINGS
+import ua.anime.animecraft.ui.SETTINGS
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.BackButton
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme

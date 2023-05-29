@@ -11,7 +11,7 @@ import kotlinx.parcelize.Parcelize
 data class Skin(
     val id: Int,
     val name: String,
-    val gameImageUrl: String,
+    val gameImageFileName: String,
     val previewImageUrl: String,
     val favorite: Boolean = false
 ) : Parcelable

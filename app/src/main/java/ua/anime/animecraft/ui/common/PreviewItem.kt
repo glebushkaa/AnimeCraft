@@ -74,8 +74,8 @@ fun PreviewItem(
                     dimensionResource(id = R.dimen.download_button_height)
                 )
                 .advanceShadow(
-                    borderRadius = 60.dp,
-                    blurRadius = 2.dp,
+                    borderRadius = 20.dp,
+                    blurRadius = 8.dp,
                     color = AppTheme.colors.primary
                 ),
             onClick = { downloadClick(skin.id) }

@@ -10,8 +10,8 @@ import ua.anime.animecraft.ui.model.Skin
 fun SkinEntity.to() = Skin(
     id = id,
     name = name,
-    gameImageUrl = gameImageUrl,
-    previewImageUrl = previewImageUrl,
+    gameImageFileName = gameImageFileName,
+    previewImageUrl = previewImageFileName,
     favorite = favorite
 )
 

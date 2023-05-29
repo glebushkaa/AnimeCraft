@@ -18,7 +18,12 @@
     <string name="settings">Settings</string>
     <string name="notifications_new_skins">Notification for new skins</string>
     <string name="dark_mode">Dark mode</string>
-    <string name="worker_notification_text">Downloading...</string>
+    <string name="worker_notification_text">Downloading…</string>
     <string name="worker_notification_title">Downloading skins</string>
     <string name="work_skins_channel_name">skins_channel_name</string>
+    <string name="how_download_skin">How do I download this skin in Minecraft?</string>
+    <string name="download_skin_reason_description">Since you have a version of android over 10, we can not load a skin directly into the game.\n\nSo we will show you how to do it:</string>
+    <string name="skin_description_picture">Skin description picture</string>
+    <string name="dont_show_this_again">Don\'t show this again</string>
+    <string name="custom_skin">custom.png</string>
 </resources>

@@ -1,4 +1,4 @@
-package ua.anime.animecraft.ui.favorites
+package ua.anime.animecraft.ui.screens.favorites
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

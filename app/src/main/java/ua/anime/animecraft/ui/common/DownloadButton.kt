@@ -43,7 +43,10 @@ fun DownloadButtonPreview() {
     AnimeCraftTheme {
         DownloadButton(
             modifier = Modifier
-                .advanceShadow(borderRadius = 60.dp, blurRadius = 4.dp)
+                .advanceShadow(
+                    borderRadius = 20.dp,
+                    blurRadius = 8.dp
+                )
                 .fillMaxWidth()
                 .height(40.dp)
         ) {}

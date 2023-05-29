@@ -1,6 +1,6 @@
 @file:Suppress("FunctionName", "experimental:function-signature")
 
-package ua.anime.animecraft.ui.info
+package ua.anime.animecraft.ui.screens.info
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -85,8 +85,8 @@ fun InfoScreen(
                 .height(40.dp)
                 .padding(horizontal = 16.dp)
                 .advanceShadow(
-                    borderRadius = 60.dp,
-                    blurRadius = 4.dp,
+                    borderRadius = 20.dp,
+                    blurRadius = 8.dp,
                     color = AppTheme.colors.primary
                 )
         ) {}

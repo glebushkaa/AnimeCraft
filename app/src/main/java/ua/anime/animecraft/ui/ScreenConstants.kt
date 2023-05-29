@@ -1,4 +1,4 @@
-package ua.anime.animecraft
+package ua.anime.animecraft.ui
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/12/2023.

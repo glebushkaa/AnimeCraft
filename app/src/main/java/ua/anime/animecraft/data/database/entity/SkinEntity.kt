@@ -13,6 +13,6 @@ data class SkinEntity(
     @PrimaryKey(autoGenerate = false) val id: Int,
     val name: String,
     val favorite: Boolean = false,
-    val gameImageUrl: String,
-    val previewImageUrl: String
+    val gameImageFileName: String,
+    val previewImageFileName: String
 )
