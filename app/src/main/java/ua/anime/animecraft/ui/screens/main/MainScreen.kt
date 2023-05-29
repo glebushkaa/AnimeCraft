@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -21,14 +23,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.ui.MAIN
 import ua.anime.animecraft.ui.common.AppTopBar
+import ua.anime.animecraft.ui.common.RoundedProgressIndicator
 import ua.anime.animecraft.ui.common.SearchBar
 import ua.anime.animecraft.ui.common.SkinsGrid
 import ua.anime.animecraft.ui.dialogs.downloadskin.DownloadSkinDialog
+import ua.anime.animecraft.ui.model.Skin
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
@@ -45,11 +50,41 @@ fun MainScreen(
 ) {
     val skins by mainViewModel.skinsFlow.collectLifecycleAwareFlowAsState(initialValue = listOf())
 
-    var searchQuery by rememberSaveable { mutableStateOf("") }
-
-    var downloadClicked by rememberSaveable { mutableStateOf(false) }
-
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = AppTheme.colors.background)
+    ) {
+        if (skins.isEmpty()) {
+            RoundedProgressIndicator(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .size(100.dp),
+                color = AppTheme.colors.primary,
+                strokeWidth = 12.dp
+            )
+        } else {
+            MainScreenContent(
+                skins = skins,
+                settingsClicked = settingsClicked,
+                likeClicked = likeClicked,
+                itemClicked = itemClicked
+            )
+        }
+    }
     LaunchedEffect(key1 = false) { mainViewModel.getAllSkins() }
+}
+
+@Composable
+private fun MainScreenContent(
+    skins: List<Skin>,
+    settingsClicked: () -> Unit,
+    likeClicked: () -> Unit,
+    itemClicked: (Int) -> Unit,
+    mainViewModel: MainViewModel = hiltViewModel()
+) {
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+    var downloadClicked by rememberSaveable { mutableStateOf(false) }
 
     if (downloadClicked &&
         SDK_INT >= VERSION_CODES.Q &&
@@ -64,42 +99,40 @@ fun MainScreen(
         )
     }
 
-    Box(modifier = Modifier.background(color = AppTheme.colors.background)) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(
-                    start = dimensionResource(id = R.dimen.offset_regular),
-                    end = dimensionResource(id = R.dimen.offset_regular)
-                )
-        ) {
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_regular)))
-            AppTopBar(
-                currentScreen = MAIN,
-                settingsClicked = settingsClicked,
-                likeClicked = likeClicked
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(
+                start = dimensionResource(id = R.dimen.offset_regular),
+                end = dimensionResource(id = R.dimen.offset_regular)
             )
-            Spacer(
-                modifier = Modifier.height(dimensionResource(id = R.dimen.offset_large))
-            )
-            SearchBar(value = searchQuery) {
-                searchQuery = it
-                mainViewModel.searchSkins(it)
-            }
-            Spacer(
-                modifier = Modifier.height(dimensionResource(id = R.dimen.offset_large))
-            )
-            SkinsGrid(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                skins = skins,
-                itemClick = itemClicked,
-                likeClick = { mainViewModel.updateFavoriteSkin(it) },
-                downloadClick = {
-                    mainViewModel.saveGameSkinImage(it)
-                    downloadClicked = true
-                }
-            )
+    ) {
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_regular)))
+        AppTopBar(
+            currentScreen = MAIN,
+            settingsClicked = settingsClicked,
+            likeClicked = likeClicked
+        )
+        Spacer(
+            modifier = Modifier.height(dimensionResource(id = R.dimen.offset_large))
+        )
+        SearchBar(value = searchQuery) {
+            searchQuery = it
+            mainViewModel.searchSkins(it)
         }
+        Spacer(
+            modifier = Modifier.height(dimensionResource(id = R.dimen.offset_large))
+        )
+        SkinsGrid(
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            skins = skins,
+            itemClick = itemClicked,
+            likeClick = { mainViewModel.updateFavoriteSkin(it) },
+            downloadClick = {
+                mainViewModel.saveGameSkinImage(it)
+                downloadClicked = true
+            }
+        )
     }
 }
 
