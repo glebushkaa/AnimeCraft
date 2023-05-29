@@ -9,6 +9,7 @@ import androidx.work.WorkManager
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import timber.log.Timber
+import ua.anime.animecraft.core.activityholder.CurrentActivityHolder
 import ua.anime.animecraft.core.log.ReportingTree
 import ua.anime.animecraft.worker.SkinsWorkFactory
 import ua.anime.animecraft.worker.SkinsWorkManager
@@ -25,6 +26,7 @@ class AnimeCraftApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        CurrentActivityHolder.register(this)
         setupTimber()
         createSkinsNotificationChannel()
         startSkinWork()

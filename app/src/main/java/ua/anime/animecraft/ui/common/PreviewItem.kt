@@ -45,7 +45,10 @@ fun PreviewItem(
         modifier = Modifier
             .wrapContentHeight()
             .width(dimensionResource(id = R.dimen.preview_card_width))
-            .padding(4.dp),
+            .padding(
+                horizontal = dimensionResource(id = R.dimen.offset_tiny),
+                vertical = dimensionResource(id = R.dimen.offset_small)
+            ),
         verticalArrangement = Arrangement.spacedBy(18.dp)
     ) {
         PreviewCard(imageUrl = skin.previewImageUrl) {

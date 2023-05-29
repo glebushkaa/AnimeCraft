@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.delay
 import ua.anime.animecraft.R
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
@@ -33,12 +34,15 @@ import ua.anime.animecraft.ui.theme.AppTheme
 @Suppress("MagicNumber")
 @Composable
 fun SplashScreen(
-    onFinish: () -> Unit
+    onFinish: () -> Unit,
+    splashViewModel: SplashViewModel = hiltViewModel()
 ) {
     LaunchedEffect(key1 = true) {
-        val splashDelay = 3000L
-        delay(splashDelay)
-        onFinish()
+        delay(1000)
+        splashViewModel.showAppOpenAd(
+            adUnitId = "ca-app-pub-3940256099942544/3419835294",
+            onFinish = onFinish
+        )
     }
 
     Box(
@@ -72,6 +76,6 @@ fun SplashScreen(
 @Composable
 fun SplashScreenPreview() {
     AnimeCraftTheme(darkTheme = true) {
-        SplashScreen {}
+        SplashScreen(onFinish = {})
     }
 }
