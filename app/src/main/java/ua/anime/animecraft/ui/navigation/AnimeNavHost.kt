@@ -9,11 +9,11 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import ua.anime.animecraft.ui.favorites.FavoritesScreen
-import ua.anime.animecraft.ui.info.InfoScreen
-import ua.anime.animecraft.ui.main.MainScreen
-import ua.anime.animecraft.ui.settings.SettingsScreen
-import ua.anime.animecraft.ui.splash.SplashScreen
+import ua.anime.animecraft.ui.screens.favorites.FavoritesScreen
+import ua.anime.animecraft.ui.screens.info.InfoScreen
+import ua.anime.animecraft.ui.screens.main.MainScreen
+import ua.anime.animecraft.ui.screens.settings.SettingsScreen
+import ua.anime.animecraft.ui.screens.splash.SplashScreen
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.

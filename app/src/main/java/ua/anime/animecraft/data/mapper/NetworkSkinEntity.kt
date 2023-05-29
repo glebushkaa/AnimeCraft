@@ -10,7 +10,7 @@ import ua.anime.animecraft.data.network.model.NetworkSkin
 fun NetworkSkin.to(gameUrl: String, previewUrl: String, favorite: Boolean) = SkinEntity(
     id = id,
     name = name ?: "Skin",
-    gameImageUrl = gameUrl,
-    previewImageUrl = previewUrl,
+    gameImageFileName = gameUrl,
+    previewImageFileName = previewUrl,
     favorite = favorite
 )

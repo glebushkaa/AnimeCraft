@@ -94,6 +94,8 @@ dependencies {
 
     implementation(libs.coil.compose)
 
+    implementation(libs.appcompat)
+
 //    implementation(libs.play.services.ads)
 
     implementation(libs.timber)

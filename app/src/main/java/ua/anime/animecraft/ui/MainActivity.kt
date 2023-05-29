@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ua.anime.animecraft.ui.navigation.AnimeCraftHost
+import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -16,7 +17,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AnimeCraftApp()
+            AnimeCraftTheme {
+                AnimeCraftApp()
+            }
         }
     }
 

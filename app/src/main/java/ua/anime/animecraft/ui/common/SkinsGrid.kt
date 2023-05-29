@@ -20,7 +20,8 @@ fun SkinsGrid(
     modifier: Modifier = Modifier,
     skins: List<Skin>,
     itemClick: (Int) -> Unit = {},
-    likeClick: (Int) -> Unit = {}
+    likeClick: (Int) -> Unit = {},
+    downloadClick: (Int) -> Unit = {}
 ) {
     LazyVerticalGrid(
         modifier = modifier,
@@ -29,7 +30,12 @@ fun SkinsGrid(
         horizontalArrangement = Arrangement.spacedBy(24.dp),
         content = {
             items(skins) {
-                PreviewItem(skin = it, itemClick = itemClick, likeClick = likeClick)
+                PreviewItem(
+                    skin = it,
+                    itemClick = itemClick,
+                    likeClick = likeClick,
+                    downloadClick = downloadClick
+                )
             }
         }
     )

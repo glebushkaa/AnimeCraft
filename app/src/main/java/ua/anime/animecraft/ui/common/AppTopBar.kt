@@ -14,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import ua.anime.animecraft.FAVORITES
 import ua.anime.animecraft.R
-import ua.anime.animecraft.SETTINGS
+import ua.anime.animecraft.ui.FAVORITES
+import ua.anime.animecraft.ui.SETTINGS
 import ua.anime.animecraft.ui.theme.AppTheme
 
 /**

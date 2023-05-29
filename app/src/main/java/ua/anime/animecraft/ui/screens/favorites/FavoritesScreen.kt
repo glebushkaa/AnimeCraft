@@ -1,6 +1,6 @@
 @file:Suppress("FunctionName")
 
-package ua.anime.animecraft.ui.favorites
+package ua.anime.animecraft.ui.screens.favorites
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import ua.anime.animecraft.FAVORITES
+import ua.anime.animecraft.ui.FAVORITES
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.ui.common.AppTopBar

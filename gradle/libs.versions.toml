@@ -8,6 +8,7 @@ androidxCoreSplashscreen = "1.0.1"
 androidxLifecycle = "2.6.1"
 androidxStartup = "1.1.1"
 androidxDataStore = "1.0.0"
+appcompat = "1.6.1"
 hilt = "2.45"
 hilt-navigation-compose = "1.0.0"
 hilt-work = "1.0.0"
@@ -48,6 +49,7 @@ hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hilt-w
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
 firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx", version.ref = "firebaseAnalytics" }
 firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx", version.ref = "firebaseCrashlytics" }

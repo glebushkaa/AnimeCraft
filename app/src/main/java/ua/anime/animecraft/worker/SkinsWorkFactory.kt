@@ -5,6 +5,7 @@ import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import javax.inject.Inject
+import ua.anime.animecraft.data.downloadmanager.SkinsDownloadManager
 import ua.anime.animecraft.domain.repository.SkinsRepository
 
 /**
@@ -12,7 +13,8 @@ import ua.anime.animecraft.domain.repository.SkinsRepository
  */
 
 class SkinsWorkFactory @Inject constructor(
-    private val skinsRepository: SkinsRepository
+    private val skinsRepository: SkinsRepository,
+    private val skinsDownloadManager: SkinsDownloadManager
 ) : WorkerFactory() {
 
     override fun createWorker(
@@ -22,6 +24,7 @@ class SkinsWorkFactory @Inject constructor(
     ): ListenableWorker = SkinsWorkManager(
         context = appContext,
         workerParams = workerParameters,
-        skinsRepository = skinsRepository
+        skinsRepository = skinsRepository,
+        skinsDownloadManager = skinsDownloadManager
     )
 }

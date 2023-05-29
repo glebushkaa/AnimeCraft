@@ -2,11 +2,11 @@ package ua.anime.animecraft.data.repository
 
 import javax.inject.Inject
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import ua.anime.animecraft.core.log.DEBUG_TAG
-import ua.anime.animecraft.core.log.debug
+import kotlinx.coroutines.flow.onEach
 import ua.anime.animecraft.data.database.dao.SkinsDao
 import ua.anime.animecraft.data.database.entity.SkinEntity
 import ua.anime.animecraft.data.mapper.to
@@ -25,32 +25,46 @@ class SkinsRepositoryImpl @Inject constructor(
     private val skinsDao: SkinsDao
 ) : SkinsRepository {
 
+    private val skins = mutableMapOf<Int, Skin>()
+
+    override suspend fun getSkinsGameImageUrl(id: Int) = storageSkinsApi.getGameImageUrl(id)
+
+    override suspend fun getSkinsGameFileName(id: Int) = skins[id]?.gameImageFileName
+
+    override suspend fun getSkins(): List<Skin> {
+        return skinsDao.getAllSkins().map(SkinEntity::to)
+    }
+
     override suspend fun getSkin(id: Int): Skin {
-        val skin = skinsDao.getSkin(id).to()
-        debug(DEBUG_TAG) { skin.toString() }
-        return skin
+        return skinsDao.getSkin(id).to()
     }
 
     override suspend fun getSkinsFlow(): Flow<List<Skin>> {
-        return skinsDao.getAllSkinsFlow().map(List<SkinEntity>::to)
+        return skinsDao.getAllSkinsFlow().map(List<SkinEntity>::to).onEach {
+            it.forEach { skin -> skins[skin.id] = skin }
+        }
     }
 
     override suspend fun getSkinFlow(id: Int): Flow<Skin> {
         return skinsDao.getSkinFlow(id).map(SkinEntity::to)
     }
 
-    override suspend fun updateLocalSkinsFromNetwork() = coroutineScope {
+    override suspend fun updateLocalSkinsFromNetwork(
+        gameFileNamesMap: Map<Int, String>
+    ) = coroutineScope {
         val localSkins = skinsDao.getAllSkins()
         val networkSkins = realtimeSkinsApi.getAllSkins()
         val list = networkSkins.map {
             val previewImageUrl = async { storageSkinsApi.getPreviewImageUrl(it.id) }
-            val gameImageUrl = async { storageSkinsApi.getGameImageUrl(it.id) }
-            it.to(
-                gameUrl = gameImageUrl.await(),
-                previewUrl = previewImageUrl.await(),
-                favorite = localSkins.find { localSkin -> localSkin.id == it.id }?.favorite ?: false
-            )
+            async {
+                it.to(
+                    gameUrl = gameFileNamesMap[it.id] ?: "",
+                    previewUrl = previewImageUrl.await(),
+                    favorite = localSkins.find { localSkin -> localSkin.id == it.id }?.favorite
+                        ?: false
+                )
+            }
         }
-        skinsDao.insertSkins(list)
+        skinsDao.insertSkins(list.awaitAll())
     }
 }

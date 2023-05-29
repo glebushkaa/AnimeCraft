@@ -1,7 +1,9 @@
 @file:Suppress("FunctionName")
 
-package ua.anime.animecraft.ui.main
+package ua.anime.animecraft.ui.screens.main
 
+import android.os.Build.VERSION.SDK_INT
+import android.os.Build.VERSION_CODES
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,12 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import ua.anime.animecraft.MAIN
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
+import ua.anime.animecraft.ui.MAIN
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.SearchBar
 import ua.anime.animecraft.ui.common.SkinsGrid
+import ua.anime.animecraft.ui.dialogs.downloadskin.DownloadSkinDialog
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
@@ -44,7 +47,19 @@ fun MainScreen(
 
     var searchQuery by rememberSaveable { mutableStateOf("") }
 
+    var downloadClicked by rememberSaveable { mutableStateOf(false) }
+
     LaunchedEffect(key1 = false) { mainViewModel.getAllSkins() }
+
+    if (downloadClicked && SDK_INT >= VERSION_CODES.Q && mainViewModel.isDownloadDialogDisabled.not()) {
+        DownloadSkinDialog(
+            dismissRequest = { downloadClicked = false },
+            dontShowAgainClick = {
+                mainViewModel.disableDownloadDialogOpen()
+                downloadClicked = false
+            }
+        )
+    }
 
     Box(modifier = Modifier.background(color = AppTheme.colors.background)) {
         Column(
@@ -75,7 +90,11 @@ fun MainScreen(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
                 skins = skins,
                 itemClick = itemClicked,
-                likeClick = { mainViewModel.updateFavoriteSkin(it) }
+                likeClick = { mainViewModel.updateFavoriteSkin(it) },
+                downloadClick = {
+                    mainViewModel.saveGameSkinImage(it)
+                    downloadClicked = true
+                }
             )
         }
     }

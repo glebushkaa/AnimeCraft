@@ -1,4 +1,4 @@
-package ua.anime.animecraft.ui.info
+package ua.anime.animecraft.ui.screens.info
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

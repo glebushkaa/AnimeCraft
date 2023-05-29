@@ -2,11 +2,11 @@ package ua.anime.animecraft.ui.navigation
 
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import ua.anime.animecraft.FAVORITES
-import ua.anime.animecraft.INFO
-import ua.anime.animecraft.MAIN
-import ua.anime.animecraft.SETTINGS
-import ua.anime.animecraft.SPLASH
+import ua.anime.animecraft.ui.FAVORITES
+import ua.anime.animecraft.ui.INFO
+import ua.anime.animecraft.ui.MAIN
+import ua.anime.animecraft.ui.SETTINGS
+import ua.anime.animecraft.ui.SPLASH
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.
