@@ -23,9 +23,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import ua.anime.animecraft.ui.FAVORITES
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
+import ua.anime.animecraft.ui.FAVORITES
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.BackButton
 import ua.anime.animecraft.ui.common.SearchBar

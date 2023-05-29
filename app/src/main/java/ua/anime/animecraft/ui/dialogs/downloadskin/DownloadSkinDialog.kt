@@ -1,4 +1,5 @@
 @file:OptIn(ExperimentalFoundationApi::class)
+@file:Suppress("LongMethod", "FunctionName")
 
 package ua.anime.animecraft.ui.dialogs.downloadskin
 
@@ -44,7 +45,7 @@ private val imagesList = listOf(
 fun DownloadSkinDialog(
     modifier: Modifier = Modifier,
     dismissRequest: () -> Unit = { },
-    dontShowAgainClick: () -> Unit = { },
+    dontShowAgainClick: () -> Unit = { }
 ) {
     Dialog(onDismissRequest = dismissRequest) {
         Column(

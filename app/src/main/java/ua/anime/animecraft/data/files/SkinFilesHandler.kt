@@ -51,7 +51,7 @@ class SkinFilesHandler @Inject constructor(@ApplicationContext private val conte
             contentValues
         ) ?: return@runCatching
         resolver.openOutputStream(imageUri)?.use {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+            bitmap.compress(Bitmap.CompressFormat.PNG, IMAGE_QUALITY, it)
         }
     }.onFailure {
         error(it.tag(), it) { it.message ?: "SaveSkinToGallery error occurred" }
@@ -60,5 +60,6 @@ class SkinFilesHandler @Inject constructor(@ApplicationContext private val conte
     private companion object {
         const val MINECRAFT_DIRECTORY_PATH = "/games/com.mojang/minecraftpe/"
         const val IMAGE_MIME_TYPE = "image/png"
+        const val IMAGE_QUALITY = 100
     }
 }

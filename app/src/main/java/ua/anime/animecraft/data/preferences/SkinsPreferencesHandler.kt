@@ -23,7 +23,8 @@ class SkinsPreferencesHandler @Inject constructor(
 
     private fun initSkinsPreferences() {
         skinsPreferences = context.getSharedPreferences(
-            SKINS_PREFERENCES_NAME, Context.MODE_PRIVATE
+            SKINS_PREFERENCES_NAME,
+            Context.MODE_PRIVATE
         )
     }
 

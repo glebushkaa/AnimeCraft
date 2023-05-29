@@ -51,7 +51,10 @@ fun MainScreen(
 
     LaunchedEffect(key1 = false) { mainViewModel.getAllSkins() }
 
-    if (downloadClicked && SDK_INT >= VERSION_CODES.Q && mainViewModel.isDownloadDialogDisabled.not()) {
+    if (downloadClicked &&
+        SDK_INT >= VERSION_CODES.Q &&
+        mainViewModel.isDownloadDialogDisabled.not()
+    ) {
         DownloadSkinDialog(
             dismissRequest = { downloadClicked = false },
             dontShowAgainClick = {
