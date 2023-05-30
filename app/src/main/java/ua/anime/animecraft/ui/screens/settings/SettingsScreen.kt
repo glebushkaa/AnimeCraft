@@ -82,7 +82,7 @@ fun SettingsScreen(backClicked: () -> Unit = {}) {
 private fun SettingScreenContent(
     modifier: Modifier = Modifier,
     backClicked: () -> Unit = {},
-    settingsViewModel: SettingsViewModel = hiltViewModel(),
+    settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val isSystemInDarkMode = isSystemInDarkTheme()
     var selectedLanguage by remember { mutableStateOf(settingsViewModel.getSelectedLanguage()) }
