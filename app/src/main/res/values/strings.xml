@@ -26,4 +26,9 @@
     <string name="skin_description_picture">Skin description picture</string>
     <string name="dont_show_this_again">Don\'t show this again</string>
     <string name="custom_skin">custom.png</string>
+
+    <!--Ad-->
+    <string name="ad_app_id">ca-app-pub-3940256099942544/3419835294</string>
+    <string name="banner_ad_id">"ca-app-pub-3940256099942544/6300978111"</string>
+    <!--Ad-->
 </resources>

@@ -28,6 +28,7 @@ import coil.compose.AsyncImage
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.core.common.capitalize
+import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.BackButton
 import ua.anime.animecraft.ui.common.DownloadButton
 import ua.anime.animecraft.ui.common.LikeButton
@@ -91,6 +92,7 @@ fun InfoScreen(
                 )
         ) {}
         Spacer(modifier = Modifier.height(32.dp))
+        BannerAd()
     }
 }
 

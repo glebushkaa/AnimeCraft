@@ -1,4 +1,5 @@
 @file:Suppress("FunctionName")
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 package ua.anime.animecraft.ui.screens.favorites
 
@@ -9,6 +10,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.ui.FAVORITES
+import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.BackButton
 import ua.anime.animecraft.ui.common.SearchBar
@@ -48,38 +52,50 @@ fun FavoritesScreen(
 
     LaunchedEffect(key1 = false) { favoritesViewModel.getFavorites() }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AppTheme.colors.background)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-        ) {
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_regular)))
-            AppTopBar(currentScreen = FAVORITES)
-            BackButton(backClicked)
-            Spacer(modifier = Modifier.height(32.dp))
-            Text(
-                text = stringResource(id = R.string.favorites),
-                style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                color = AppTheme.colors.onBackground
+    Scaffold(
+        contentColor = AppTheme.colors.background,
+        containerColor = AppTheme.colors.background,
+        topBar = {
+            AppTopBar(
+                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.offset_regular)),
+                currentScreen = FAVORITES
             )
-            Spacer(modifier = Modifier.height(32.dp))
-            SearchBar(value = searchQuery) {
-                searchQuery = it
-                favoritesViewModel.searchSkins(searchQuery)
+        },
+        bottomBar = {
+            BannerAd()
+        },
+        content = {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        start = dimensionResource(id = R.dimen.offset_regular),
+                        end = dimensionResource(id = R.dimen.offset_regular),
+                        top = it.calculateTopPadding(),
+                        bottom = it.calculateBottomPadding()
+                    )
+            ) {
+                BackButton(backClicked)
+                Spacer(modifier = Modifier.height(32.dp))
+                Text(
+                    text = stringResource(id = R.string.favorites),
+                    style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                    color = AppTheme.colors.onBackground
+                )
+                Spacer(modifier = Modifier.height(32.dp))
+                SearchBar(value = searchQuery) { query ->
+                    searchQuery = query
+                    favoritesViewModel.searchSkins(searchQuery)
+                }
+                Spacer(modifier = Modifier.height(32.dp))
+                SkinsGrid(
+                    skins = favorites,
+                    itemClick = itemClicked,
+                    likeClick = favoritesViewModel::updateFavoriteSkin
+                )
             }
-            Spacer(modifier = Modifier.height(32.dp))
-            SkinsGrid(
-                skins = favorites,
-                itemClick = itemClicked,
-                likeClick = { favoritesViewModel.updateFavoriteSkin(it) }
-            )
         }
-    }
+    )
 }
 
 @Preview

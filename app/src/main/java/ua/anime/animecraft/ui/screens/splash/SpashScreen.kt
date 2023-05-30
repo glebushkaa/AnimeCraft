@@ -37,10 +37,12 @@ fun SplashScreen(
     onFinish: () -> Unit,
     splashViewModel: SplashViewModel = hiltViewModel()
 ) {
+    val openAdUnitId = stringResource(id = R.string.ad_app_id)
+
     LaunchedEffect(key1 = true) {
         delay(1000)
         splashViewModel.showAppOpenAd(
-            adUnitId = "ca-app-pub-3940256099942544/3419835294",
+            adUnitId = openAdUnitId,
             onFinish = onFinish
         )
     }

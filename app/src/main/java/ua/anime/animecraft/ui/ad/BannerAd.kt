@@ -1,16 +1,15 @@
 package ua.anime.animecraft.ui.ad
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
+import ua.anime.animecraft.R
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 
 /**
@@ -20,12 +19,18 @@ import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 @Composable
 fun BannerAd(modifier: Modifier = Modifier) {
     val currentWidth = LocalConfiguration.current.screenWidthDp
+    val bannerUnitId = stringResource(id = R.string.banner_ad_id)
     AndroidView(
         modifier = modifier,
         factory = { context ->
             AdView(context).apply {
-                setAdSize(AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(context,currentWidth))
-                adUnitId = "ca-app-pub-3940256099942544/6300978111"
+                setAdSize(
+                    AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+                        context,
+                        currentWidth
+                    )
+                )
+                adUnitId = bannerUnitId
                 val request = AdRequest.Builder().build()
                 loadAd(request)
             }
