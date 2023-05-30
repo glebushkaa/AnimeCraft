@@ -1,10 +1,10 @@
 package ua.anime.animecraft.ui.screens.splash
 
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.launch
 import ua.anime.animecraft.ad.api.AppOpenAdApi
 import ua.anime.animecraft.core.android.AnimeCraftViewModel
-import javax.inject.Inject
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/29/2023

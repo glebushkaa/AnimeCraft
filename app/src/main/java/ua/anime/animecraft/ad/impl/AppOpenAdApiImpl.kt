@@ -6,6 +6,9 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
+import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.suspendCancellableCoroutine
 import ua.anime.animecraft.ad.api.AdException
@@ -14,9 +17,6 @@ import ua.anime.animecraft.core.activityholder.CurrentActivityHolder
 import ua.anime.animecraft.core.log.error
 import ua.anime.animecraft.core.log.info
 import ua.anime.animecraft.core.log.tag
-import javax.inject.Inject
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/29/2023

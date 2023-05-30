@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package ua.anime.animecraft.ui.ad
 
 import androidx.compose.runtime.Composable

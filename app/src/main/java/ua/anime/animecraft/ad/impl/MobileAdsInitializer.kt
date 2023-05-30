@@ -7,13 +7,13 @@ import androidx.startup.Initializer
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import com.google.android.gms.ads.initialization.InitializationStatus
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import ua.anime.animecraft.BuildConfig
 import ua.anime.animecraft.core.log.debug
 import ua.anime.animecraft.core.log.error
 import ua.anime.animecraft.core.log.info
 import ua.anime.animecraft.core.log.tag
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/29/2023

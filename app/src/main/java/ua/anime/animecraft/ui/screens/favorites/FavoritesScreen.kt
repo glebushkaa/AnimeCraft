@@ -3,8 +3,6 @@
 
 package ua.anime.animecraft.ui.screens.favorites
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -57,7 +55,9 @@ fun FavoritesScreen(
         containerColor = AppTheme.colors.background,
         topBar = {
             AppTopBar(
-                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.offset_regular)),
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.offset_regular)
+                ),
                 currentScreen = FAVORITES
             )
         },
