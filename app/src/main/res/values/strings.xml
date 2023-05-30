@@ -12,23 +12,34 @@
     <string name="explore">Explore</string>
     <string name="favorites">Favorites</string>
     <string name="language">Language</string>
-    <string name="russian">Russian</string>
-    <string name="ukrainian">Ukrainian</string>
-    <string name="english">English</string>
     <string name="settings">Settings</string>
     <string name="notifications_new_skins">Notification for new skins</string>
     <string name="dark_mode">Dark mode</string>
     <string name="worker_notification_text">Downloading…</string>
     <string name="worker_notification_title">Downloading skins</string>
-    <string name="work_skins_channel_name">skins_channel_name</string>
+    <string name="work_skins_channel_name" translatable="false">skins_channel_name</string>
     <string name="how_download_skin">How do I download this skin in Minecraft?</string>
     <string name="download_skin_reason_description">Since you have a version of android over 10, we can not load a skin directly into the game.\n\nSo we will show you how to do it:</string>
     <string name="skin_description_picture">Skin description picture</string>
     <string name="dont_show_this_again">Don\'t show this again</string>
-    <string name="custom_skin">custom.png</string>
+    <string name="drop_down_arrow">Drop down arrow</string>
+    <string name="flag_image">Flag image</string>
+    <string name="custom_skin" translatable="false">custom.png</string>
+    <string name="confirm">Confirm</string>
 
     <!--Ad-->
-    <string name="ad_app_id">ca-app-pub-3940256099942544/3419835294</string>
-    <string name="banner_ad_id">"ca-app-pub-3940256099942544/6300978111"</string>
+    <string name="ad_app_id" translatable="false">ca-app-pub-3940256099942544/3419835294</string>
+    <string name="banner_ad_id" translatable="false">"ca-app-pub-3940256099942544/6300978111"</string>
     <!--Ad-->
+
+    <!--Languages-->
+    <string name="russian">Russian</string>
+    <string name="ukrainian">Ukrainian</string>
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
+    <string name="german">German</string>
+    <string name="french">French</string>
+    <string name="polish">Polish</string>
+    <string name="japanese">Japanese</string>
+    <!--Languages-->
 </resources>

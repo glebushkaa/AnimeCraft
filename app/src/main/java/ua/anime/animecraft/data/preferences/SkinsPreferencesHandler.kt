@@ -34,9 +34,16 @@ class SkinsPreferencesHandler @Inject constructor(
 
     fun getBoolean(key: String) = skinsPreferences?.getBoolean(key, false) ?: false
 
+    fun putString(key: String, value: String) {
+        skinsPreferences?.edit()?.putString(key, value)?.apply()
+    }
+
+    fun getString(key: String) = skinsPreferences?.getString(key, "")
+
     companion object {
         private const val SKINS_PREFERENCES_NAME = "skins_preferences"
 
         const val IS_DOWNLOAD_DIALOG_DISABLED = "is_download_dialog_disabled"
+        const val SELECTED_LANGUAGE = "selected_language"
     }
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AnimeCraft</string>
+    <string name="splash_picture">Splash-Bild</string>
+    <string name="search_icon">Suchsymbol</string>
+    <string name="find_skin">Haut finden…</string>
+    <string name="like_icon">Like-Symbol</string>
+    <string name="settings_icon">Symbol „Einstellungen“.</string>
+    <string name="preview_card">Vorschaukarte</string>
+    <string name="download">Herunterladen</string>
+    <string name="info_skin">Hautinformationen</string>
+    <string name="back">Zurück</string>
+    <string name="explore">Erkunden</string>
+    <string name="favorites">Favoriten</string>
+    <string name="language">Sprache</string>
+    <string name="settings">Einstellungen</string>
+    <string name="notifications_new_skins">Benachrichtigung für neue Skins</string>
+    <string name="dark_mode">Dunkler Modus</string>
+    <string name="worker_notification_text">Wird heruntergeladen…</string>
+    <string name="worker_notification_title">Skins herunterladen</string>
+    <string name="how_download_skin">Wie lade ich diesen Skin in Minecraft herunter?</string>
+    <string name="download_skin_reason_description">Da Sie eine Android-Version über 10 haben, können wir einen Skin nicht direkt in das Spiel laden.\n\nDeshalb zeigen wir Ihnen, wie es geht:</string>
+    <string name="skin_description_picture">Hautbeschreibungsbild</string>
+    <string name="dont_show_this_again">Zeige das nicht noch einmal</string>
+    <string name="drop_down_arrow">Dropdown-Pfeil</string>
+    <string name="flag_image">Flaggenbild</string>
+    <string name="confirm">Bestätigen Sie</string>
+
+    <!--Languages-->
+    <string name="russian">Russisch</string>
+    <string name="ukrainian">Ukrainisch</string>
+    <string name="english">Englisch</string>
+    <string name="spanish">Spanisch</string>
+    <string name="german">Deutsch</string>
+    <string name="french">Französisch</string>
+    <string name="polish">Polieren</string>
+    <string name="japanese">Japanisch</string>
+    <!--Languages-->
+</resources>

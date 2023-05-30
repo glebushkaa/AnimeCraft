@@ -42,13 +42,14 @@ import ua.anime.animecraft.ui.theme.AppTheme
 
 @Composable
 fun PreviewItem(
+    modifier: Modifier = Modifier,
     skin: Skin,
     downloadClick: (Int) -> Unit = {},
     likeClick: (Int) -> Unit = {},
     itemClick: (Int) -> Unit = {}
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .wrapContentHeight()
             .width(dimensionResource(id = R.dimen.preview_card_width))
             .padding(

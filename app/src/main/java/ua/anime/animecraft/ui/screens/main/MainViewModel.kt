@@ -38,6 +38,9 @@ class MainViewModel @Inject constructor(
 
     private val skins = mutableListOf<Skin>()
 
+    var isSkinsLoaded: Boolean = false
+        private set
+
     val isDownloadDialogDisabled: Boolean
         get() = skinsPreferencesHandler.getBoolean(IS_DOWNLOAD_DIALOG_DISABLED)
 
@@ -57,6 +60,7 @@ class MainViewModel @Inject constructor(
     fun getAllSkins() {
         viewModelScope.launch(Dispatchers.IO) {
             skinsRepository.getSkinsFlow().collect {
+                isSkinsLoaded = true
                 skins.replaceAllElements(it)
                 val filteredList = skins.filterListByName(currentSearchInput)
                 _skinsFlow.emit(filteredList)

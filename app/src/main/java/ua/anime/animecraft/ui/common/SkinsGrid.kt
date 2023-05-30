@@ -29,9 +29,9 @@ fun SkinsGrid(
         verticalArrangement = Arrangement.spacedBy(24.dp),
         horizontalArrangement = Arrangement.spacedBy(24.dp),
         content = {
-            items(skins) {
+            items(skins) { skin ->
                 PreviewItem(
-                    skin = it,
+                    skin = skin,
                     itemClick = itemClick,
                     likeClick = likeClick,
                     downloadClick = downloadClick
