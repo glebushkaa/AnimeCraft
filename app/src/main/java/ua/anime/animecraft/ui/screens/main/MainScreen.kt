@@ -5,14 +5,16 @@ package ua.anime.animecraft.ui.screens.main
 
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -99,8 +101,7 @@ private fun MainScreenContent(
             }
         )
     }
-    
-     Scaffold(
+    Scaffold(
         containerColor = AppTheme.colors.background,
         contentColor = AppTheme.colors.background,
         bottomBar = { BannerAd() },
