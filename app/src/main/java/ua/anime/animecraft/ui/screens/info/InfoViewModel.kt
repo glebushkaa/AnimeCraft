@@ -1,5 +1,6 @@
 package ua.anime.animecraft.ui.screens.info
 
+import android.os.Build
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -7,6 +8,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ua.anime.animecraft.core.android.AnimeCraftViewModel
+import ua.anime.animecraft.data.files.SkinFilesHandler
+import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
 import ua.anime.animecraft.domain.repository.FavoritesRepository
 import ua.anime.animecraft.domain.repository.SkinsRepository
 import ua.anime.animecraft.ui.model.Skin
@@ -18,11 +21,29 @@ import ua.anime.animecraft.ui.model.Skin
 @HiltViewModel
 class InfoViewModel @Inject constructor(
     private val skinsRepository: SkinsRepository,
-    private val favoritesRepository: FavoritesRepository
+    private val favoritesRepository: FavoritesRepository,
+    private val skinsPreferencesHandler: SkinsPreferencesHandler,
+    private val skinFilesHandler: SkinFilesHandler
 ) : AnimeCraftViewModel() {
 
     private val _skinFlow = MutableStateFlow<Skin?>(null)
     val skinFlow = _skinFlow.asStateFlow()
+
+    val isDownloadDialogDisabled: Boolean
+        get() = skinsPreferencesHandler.getBoolean(SkinsPreferencesHandler.IS_DOWNLOAD_DIALOG_DISABLED) ?: false
+
+    fun saveGameSkinImage() {
+        val gameImageFileName = _skinFlow.value?.gameImageFileName ?: return
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            skinFilesHandler.saveSkinToGallery(gameImageFileName)
+        } else {
+            skinFilesHandler.saveSkinToMinecraft(gameImageFileName)
+        }
+    }
+
+    fun disableDownloadDialogOpen() {
+        skinsPreferencesHandler.putBoolean(SkinsPreferencesHandler.IS_DOWNLOAD_DIALOG_DISABLED, true)
+    }
 
     fun loadSkin(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {

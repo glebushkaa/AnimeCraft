@@ -25,6 +25,7 @@
     <string name="drop_down_arrow">Flecha desplegable</string>
     <string name="flag_image">Imagen de la bandera</string>
     <string name="confirm">Confirme</string>
+    <string name="download_help_dialog">Descargar diálogo de ayuda</string>
 
     <!--Languages-->
     <string name="russian">Ruso</string>

@@ -6,6 +6,7 @@ import ua.anime.animecraft.core.android.AnimeCraftViewModel
 import ua.anime.animecraft.core.android.extensions.languagesList
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_DARK_MODE_ENABLED
+import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_DOWNLOAD_DIALOG_DISABLED
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.SELECTED_LANGUAGE
 import ua.anime.animecraft.ui.model.Language
 import ua.anime.animecraft.ui.utils.DarkModeHandler.updateDarkModeState
@@ -22,6 +23,10 @@ class SettingsViewModel @Inject constructor(
     var initialLanguage: Language? = languagesList[0]
         private set
 
+    val isDownloadDialogDisabled = skinsPreferencesHandler.getBoolean(
+        IS_DOWNLOAD_DIALOG_DISABLED
+    ) ?: false
+
     fun changeDarkMode(isDarkModeEnabled: Boolean) {
         updateDarkModeState(isDarkModeEnabled)
         skinsPreferencesHandler.putBoolean(IS_DARK_MODE_ENABLED, isDarkModeEnabled)
@@ -36,5 +41,9 @@ class SettingsViewModel @Inject constructor(
         val languagePref = skinsPreferencesHandler.getString(SELECTED_LANGUAGE)
         initialLanguage = languagesList.find { it.languageLocale == languagePref }
         return initialLanguage ?: languagesList[0]
+    }
+
+    fun updateDownloadDialogSetting(value: Boolean) {
+        skinsPreferencesHandler.putBoolean(IS_DOWNLOAD_DIALOG_DISABLED, value)
     }
 }

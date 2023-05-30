@@ -41,5 +41,6 @@
     <string name="french">French</string>
     <string name="polish">Polish</string>
     <string name="japanese">Japanese</string>
+    <string name="download_help_dialog">Download help dialog</string>
     <!--Languages-->
 </resources>

@@ -25,6 +25,7 @@
     <string name="drop_down_arrow">ドロップダウン矢印</string>
     <string name="flag_image">旗の画像</string>
     <string name="confirm">確認</string>
+    <string name="download_help_dialog">ヘルプダイアログのダウンロード</string>
 
     <!--Languages-->
     <string name="russian">ロシア</string>

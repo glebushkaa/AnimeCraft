@@ -25,6 +25,7 @@
     <string name="drop_down_arrow">Стрілка випадаючого меню</string>
     <string name="flag_image">Картинка прапору</string>
     <string name="confirm">Підтвердити</string>
+    <string name="download_help_dialog">Діалогове вікно допомоги</string>
 
     <!--Languages-->
     <string name="russian">Російська</string>
