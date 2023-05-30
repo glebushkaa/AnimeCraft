@@ -3,6 +3,7 @@
 
 package ua.anime.animecraft.ui.screens.settings
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -37,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.activityholder.CurrentActivityHolder
+import ua.anime.animecraft.core.android.extensions.languagesList
 import ua.anime.animecraft.ui.SETTINGS
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.BackButton
@@ -51,19 +53,29 @@ import ua.anime.animecraft.ui.theme.AppTheme
 
 @Composable
 fun SettingsScreen(
-    backClicked: () -> Unit,
+    backClicked: () -> Unit = {},
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
+    val isSystemInDarkMode = isSystemInDarkTheme()
     var selectedLanguage by remember { mutableStateOf(settingsViewModel.getSelectedLanguage()) }
     var newSkinsNotification by rememberSaveable { mutableStateOf(false) }
-    var darkMode by rememberSaveable { mutableStateOf(false) }
+    var darkMode by rememberSaveable {
+        mutableStateOf(settingsViewModel.isDarkModeEnabled() ?: isSystemInDarkMode)
+    }
     var expandedDropDown by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         contentColor = AppTheme.colors.background,
         containerColor = AppTheme.colors.background,
-        topBar = { AppTopBar(currentScreen = SETTINGS) },
+        topBar = {
+            AppTopBar(
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.offset_regular)
+                ),
+                currentScreen = SETTINGS
+            )
+        },
         content = {
             Column(
                 modifier = Modifier
@@ -93,7 +105,10 @@ fun SettingsScreen(
                 )
                 DarkModeItem(
                     darkMode = darkMode,
-                    onCheckedChange = { value -> darkMode = value }
+                    onCheckedChange = { value ->
+                        darkMode = value
+                        settingsViewModel.changeDarkMode(value)
+                    }
                 )
                 Text(
                     modifier = Modifier.padding(
@@ -192,7 +207,9 @@ private fun LanguageConfirmButton(
             .height(48.dp),
         shape = RoundedCornerShape(10.dp),
         elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp),
-        colors = ButtonDefaults.buttonColors(contentColor = AppTheme.colors.primary),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = AppTheme.colors.primary
+        ),
         onClick = {
             settingsViewModel.updateLanguagePreference(selectedLanguage.languageLocale)
             CurrentActivityHolder.getCurrentActivity()?.recreate()
@@ -201,15 +218,28 @@ private fun LanguageConfirmButton(
         Text(
             text = stringResource(R.string.confirm),
             style = AppTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
-            color = AppTheme.colors.onBackground
+            color = AppTheme.colors.onSurface
         )
     }
 }
 
 @Preview
 @Composable
-fun SettingsScreenPreview() {
-    AnimeCraftTheme {
-        SettingsScreen({})
+fun LanguageConfirmButtonPreview() {
+    AnimeCraftTheme(darkTheme = true) {
+        LanguageConfirmButton(
+            modifier = Modifier.padding(
+                top = dimensionResource(id = R.dimen.offset_regular)
+            ),
+            selectedLanguage = languagesList[0]
+        )
     }
 }
+
+/*@Preview
+@Composable
+fun SettingsScreenPreview() {
+    AnimeCraftTheme(darkTheme = true) {
+        SettingsScreen({})
+    }
+}*/

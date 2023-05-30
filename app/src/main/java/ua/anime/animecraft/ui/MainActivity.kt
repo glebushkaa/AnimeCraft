@@ -6,13 +6,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.core.android.extensions.updateLanguage
 import ua.anime.animecraft.ui.navigation.AnimeCraftHost
 import ua.anime.animecraft.ui.screens.settings.SettingsViewModel
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
+import ua.anime.animecraft.ui.utils.DarkModeHandler.darkModeState
+import ua.anime.animecraft.ui.utils.DarkModeHandler.updateDarkModeState
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -24,7 +29,10 @@ class MainActivity : ComponentActivity() {
         val language = settingsViewModel.getSelectedLanguage()
         updateLanguage(language.languageLocale, language.countryLocale)
         setContent {
-            AnimeCraftTheme {
+            val isSystemInDarkMode = isSystemInDarkTheme()
+            updateDarkModeState(settingsViewModel.isDarkModeEnabled() ?: isSystemInDarkMode)
+            val isDarkTheme by darkModeState.collectLifecycleAwareFlowAsState(isSystemInDarkMode)
+            AnimeCraftTheme(darkTheme = isDarkTheme) {
                 AnimeCraftApp()
             }
         }

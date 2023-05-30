@@ -21,8 +21,8 @@ import ua.anime.animecraft.ui.screens.splash.SplashScreen
 
 @Composable
 fun AnimeCraftHost(
-    navController: NavHostController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController
 ) {
     NavHost(navController = navController, startDestination = Splash.route, modifier = modifier) {
         composable(route = Splash.route) {
