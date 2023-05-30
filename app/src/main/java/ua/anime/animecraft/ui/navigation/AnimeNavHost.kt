@@ -51,9 +51,11 @@ fun AnimeCraftHost(
             )
         }
         composable(route = Settings.route) {
-            SettingsScreen {
-                navController.popBackStack()
-            }
+            SettingsScreen(
+                backClicked = {
+                    navController.popBackStack()
+                }
+            )
         }
         composable(route = Favorites.route) {
             FavoritesScreen(

@@ -5,8 +5,6 @@ package ua.anime.animecraft.ui.screens.main
 
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,7 +34,6 @@ import ua.anime.animecraft.ui.common.RoundedProgressIndicator
 import ua.anime.animecraft.ui.common.SearchBar
 import ua.anime.animecraft.ui.common.SkinsGrid
 import ua.anime.animecraft.ui.dialogs.downloadskin.DownloadSkinDialog
-import ua.anime.animecraft.ui.model.Skin
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
@@ -52,40 +49,6 @@ fun MainScreen(
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     val skins by mainViewModel.skinsFlow.collectLifecycleAwareFlowAsState(initialValue = listOf())
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(color = AppTheme.colors.background)
-    ) {
-        if (skins.isEmpty()) {
-            RoundedProgressIndicator(
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(100.dp),
-                color = AppTheme.colors.primary,
-                strokeWidth = 12.dp
-            )
-        } else {
-            MainScreenContent(
-                skins = skins,
-                settingsClicked = settingsClicked,
-                likeClicked = likeClicked,
-                itemClicked = itemClicked
-            )
-        }
-    }
-    LaunchedEffect(key1 = false) { mainViewModel.getAllSkins() }
-}
-
-@Composable
-private fun MainScreenContent(
-    skins: List<Skin>,
-    settingsClicked: () -> Unit,
-    likeClicked: () -> Unit,
-    itemClicked: (Int) -> Unit,
-    mainViewModel: MainViewModel = hiltViewModel()
-) {
     var searchQuery by rememberSaveable { mutableStateOf("") }
     var downloadClicked by rememberSaveable { mutableStateOf(false) }
 
@@ -102,6 +65,7 @@ private fun MainScreenContent(
         )
     }
     Scaffold(
+        modifier = Modifier.fillMaxSize(),
         containerColor = AppTheme.colors.background,
         contentColor = AppTheme.colors.background,
         bottomBar = { BannerAd() },
@@ -136,6 +100,16 @@ private fun MainScreenContent(
                 Spacer(
                     modifier = Modifier.height(dimensionResource(id = R.dimen.offset_large))
                 )
+
+                if (!mainViewModel.isSkinsLoaded && skins.isEmpty()) {
+                    RoundedProgressIndicator(
+                        modifier = Modifier
+                            .align(Alignment.CenterHorizontally)
+                            .size(100.dp),
+                        color = AppTheme.colors.primary,
+                        strokeWidth = 12.dp
+                    )
+                }
                 SkinsGrid(
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     skins = skins,
@@ -149,6 +123,7 @@ private fun MainScreenContent(
             }
         }
     )
+    LaunchedEffect(key1 = false) { mainViewModel.getAllSkins() }
 }
 
 @Preview(showBackground = true)

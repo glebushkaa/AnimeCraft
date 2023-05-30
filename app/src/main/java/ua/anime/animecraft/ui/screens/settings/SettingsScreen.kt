@@ -1,10 +1,8 @@
 @file:Suppress("LongMethod", "FunctionName")
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 package ua.anime.animecraft.ui.screens.settings
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,17 +12,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RadioButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -35,10 +34,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ua.anime.animecraft.R
+import ua.anime.animecraft.core.activityholder.CurrentActivityHolder
 import ua.anime.animecraft.ui.SETTINGS
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.BackButton
+import ua.anime.animecraft.ui.model.Language
+import ua.anime.animecraft.ui.screens.settings.components.LanguageDropDown
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
@@ -46,126 +49,158 @@ import ua.anime.animecraft.ui.theme.AppTheme
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/15/2023.
  */
 
-private val testLanguageList = listOf(
-    Language(0, R.string.english),
-    Language(1, R.string.ukrainian),
-    Language(2, R.string.russian)
-)
-
 @Composable
 fun SettingsScreen(
-    backClicked: () -> Unit
+    backClicked: () -> Unit,
+    settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
+    var selectedLanguage by remember { mutableStateOf(settingsViewModel.getSelectedLanguage()) }
     var newSkinsNotification by rememberSaveable { mutableStateOf(false) }
     var darkMode by rememberSaveable { mutableStateOf(false) }
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AppTheme.colors.background)
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-        ) {
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_regular)))
-            AppTopBar(currentScreen = SETTINGS)
-            BackButton(backClicked)
-            Spacer(modifier = Modifier.height(32.dp))
-            Text(
-                text = stringResource(id = R.string.settings),
-                style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                color = AppTheme.colors.onBackground
-            )
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_huge)))
-            Row(
-                modifier = Modifier
-                    .wrapContentWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(
-                    modifier = Modifier.size(24.dp),
-                    checked = newSkinsNotification,
-                    onCheckedChange = { newSkinsNotification = it },
-                    colors = CheckboxDefaults.colors(
-                        checkedColor = AppTheme.colors.primary,
-                        uncheckedColor = AppTheme.colors.primary,
-                        checkmarkColor = Color.White
-                    )
-                )
-                Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.offset_regular)))
-                Text(
-                    text = stringResource(id = R.string.notifications_new_skins),
-                    style = AppTheme.typography.bodyLarge,
-                    color = AppTheme.colors.onBackground
-                )
-            }
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_medium)))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(
-                    modifier = Modifier.size(24.dp),
-                    checked = darkMode,
-                    onCheckedChange = { darkMode = it },
-                    colors = CheckboxDefaults.colors(
-                        checkedColor = AppTheme.colors.primary,
-                        uncheckedColor = AppTheme.colors.primary,
-                        checkmarkColor = Color.White
-                    )
-                )
-                Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.offset_regular)))
-                Text(
-                    text = stringResource(id = R.string.dark_mode),
-                    style = AppTheme.typography.bodyLarge,
-                    color = AppTheme.colors.onBackground
-                )
-            }
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_average)))
-            LanguageSection(list = testLanguageList)
-        }
-    }
-}
+    var expandedDropDown by rememberSaveable { mutableStateOf(false) }
 
-@Composable
-fun LanguageSection(list: List<Language>) {
-    var selectedItemId by rememberSaveable { mutableStateOf(0) }
-    Column {
-        Text(
-            text = stringResource(id = R.string.language),
-            style = AppTheme.typography.titleLarge,
-            color = AppTheme.colors.onBackground
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        LazyColumn(content = {
-            items(list) {
-                LanguageItem(language = it, selected = it.id == selectedItemId) { id ->
-                    selectedItemId = id
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        contentColor = AppTheme.colors.background,
+        containerColor = AppTheme.colors.background,
+        topBar = { AppTopBar(currentScreen = SETTINGS) },
+        content = {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        start = dimensionResource(id = R.dimen.offset_regular),
+                        end = dimensionResource(id = R.dimen.offset_regular),
+                        top = it.calculateTopPadding(),
+                        bottom = it.calculateBottomPadding()
+                    )
+            ) {
+                BackButton(backClicked)
+                Text(
+                    modifier = Modifier.padding(
+                        vertical = dimensionResource(id = R.dimen.offset_huge)
+                    ),
+                    text = stringResource(id = R.string.settings),
+                    style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                    color = AppTheme.colors.onBackground
+                )
+                NotificationNewSkinsItem(
+                    modifier = Modifier.padding(
+                        bottom = dimensionResource(id = R.dimen.offset_medium)
+                    ),
+                    newSkinsNotification = newSkinsNotification,
+                    onChanged = { value -> newSkinsNotification = value }
+                )
+                DarkModeItem(
+                    darkMode = darkMode,
+                    onCheckedChange = { value -> darkMode = value }
+                )
+                Text(
+                    modifier = Modifier.padding(
+                        vertical = dimensionResource(id = R.dimen.offset_average)
+                    ),
+                    text = stringResource(id = R.string.language),
+                    style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+                    color = AppTheme.colors.onBackground
+                )
+                LanguageDropDown(
+                    language = selectedLanguage,
+                    expanded = expandedDropDown,
+                    onClick = { value -> expandedDropDown = value },
+                    languageSelected = { value -> selectedLanguage = value }
+                )
+                if (selectedLanguage != settingsViewModel.initialLanguage && !expandedDropDown) {
+                    LanguageConfirmButton(
+                        modifier = Modifier.padding(
+                            top = dimensionResource(id = R.dimen.offset_regular)
+                        ),
+                        selectedLanguage = selectedLanguage
+                    )
                 }
             }
-        }, verticalArrangement = Arrangement.spacedBy(8.dp))
+        }
+    )
+}
+
+@Composable
+private fun DarkModeItem(
+    modifier: Modifier = Modifier,
+    darkMode: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(
+            modifier = Modifier.size(24.dp),
+            checked = darkMode,
+            onCheckedChange = onCheckedChange,
+            colors = CheckboxDefaults.colors(
+                checkedColor = AppTheme.colors.primary,
+                uncheckedColor = AppTheme.colors.primary,
+                checkmarkColor = Color.White
+            )
+        )
+        Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.offset_regular)))
+        Text(
+            text = stringResource(id = R.string.dark_mode),
+            style = AppTheme.typography.bodyLarge,
+            color = AppTheme.colors.onBackground
+        )
     }
 }
 
 @Composable
-fun LanguageItem(language: Language, selected: Boolean, onClick: (Int) -> Unit) {
+private fun NotificationNewSkinsItem(
+    modifier: Modifier = Modifier,
+    newSkinsNotification: Boolean,
+    onChanged: (Boolean) -> Unit
+) {
     Row(
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        RadioButton(
+        Checkbox(
             modifier = Modifier.size(24.dp),
-            selected = selected,
-            onClick = { onClick(language.id) },
-            colors = RadioButtonDefaults.colors(
-                selectedColor = AppTheme.colors.primary,
-                unselectedColor = AppTheme.colors.primary
+            checked = newSkinsNotification,
+            onCheckedChange = onChanged,
+            colors = CheckboxDefaults.colors(
+                checkedColor = AppTheme.colors.primary,
+                uncheckedColor = AppTheme.colors.primary,
+                checkmarkColor = Color.White
             )
         )
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.offset_regular)))
         Text(
-            text = stringResource(id = language.resId),
+            text = stringResource(id = R.string.notifications_new_skins),
             style = AppTheme.typography.bodyLarge,
+            color = AppTheme.colors.onBackground
+        )
+    }
+}
+
+@Composable
+private fun LanguageConfirmButton(
+    modifier: Modifier = Modifier,
+    settingsViewModel: SettingsViewModel = hiltViewModel(),
+    selectedLanguage: Language
+) {
+    Button(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(48.dp),
+        shape = RoundedCornerShape(10.dp),
+        elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp),
+        colors = ButtonDefaults.buttonColors(contentColor = AppTheme.colors.primary),
+        onClick = {
+            settingsViewModel.updateLanguagePreference(selectedLanguage.languageLocale)
+            CurrentActivityHolder.getCurrentActivity()?.recreate()
+        }
+    ) {
+        Text(
+            text = stringResource(R.string.confirm),
+            style = AppTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
             color = AppTheme.colors.onBackground
         )
     }
@@ -175,19 +210,6 @@ fun LanguageItem(language: Language, selected: Boolean, onClick: (Int) -> Unit) 
 @Composable
 fun SettingsScreenPreview() {
     AnimeCraftTheme {
-        SettingsScreen {}
+        SettingsScreen({})
     }
 }
-
-@Preview
-@Composable
-fun LanguageSectionPreview() {
-    AnimeCraftTheme(darkTheme = true) {
-        LanguageSection(testLanguageList)
-    }
-}
-
-data class Language(
-    val id: Int,
-    val resId: Int
-)

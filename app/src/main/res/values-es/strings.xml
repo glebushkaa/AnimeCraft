@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AnimeCraft</string>
+    <string name="splash_picture">Salpicaduras</string>
+    <string name="search_icon">Icono de búsqueda</string>
+    <string name="find_skin">Encuentra piel…</string>
+    <string name="like_icon">Como icono</string>
+    <string name="settings_icon">Icono de configuración</string>
+    <string name="preview_card">Vista previa de la tarjeta</string>
+    <string name="download">Descargar</string>
+    <string name="info_skin">Información sobre la piel</string>
+    <string name="back">Volver</string>
+    <string name="explore">Explore</string>
+    <string name="favorites">Favoritos</string>
+    <string name="language">Idioma</string>
+    <string name="settings">Ajustes</string>
+    <string name="notifications_new_skins">Notificación de nuevas pieles</string>
+    <string name="dark_mode">Modo oscuro</string>
+    <string name="worker_notification_text">Descargando…</string>
+    <string name="worker_notification_title">Descargar máscaras</string>
+    <string name="how_download_skin">¿Cómo puedo descargar esta skin en Minecraft?</string>
+    <string name="download_skin_reason_description">Puesto que usted tiene una versión de android superior a 10, no podemos cargar una piel directamente en el juego.\NPor lo tanto, le mostraremos cómo hacerlo:</string>
+    <string name="skin_description_picture">Descripción de la piel</string>
+    <string name="dont_show_this_again">No vuelvas a mostrar esto</string>
+    <string name="drop_down_arrow">Flecha desplegable</string>
+    <string name="flag_image">Imagen de la bandera</string>
+    <string name="confirm">Confirme</string>
+
+    <!--Languages-->
+    <string name="russian">Ruso</string>
+    <string name="ukrainian">Ucraniano</string>
+    <string name="english">Inglés</string>
+    <string name="spanish">Español</string>
+    <string name="german">Alemán</string>
+    <string name="french">Francés</string>
+    <string name="polish">Polaco</string>
+    <string name="japanese">Japonés</string>
+    <!--Languages-->
+</resources>

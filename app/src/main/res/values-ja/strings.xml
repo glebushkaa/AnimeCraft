@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AnimeCraft</string>
+    <string name="splash_picture">スプラッシュピクチャー</string>
+    <string name="search_icon">検索アイコン</string>
+    <string name="find_skin">スキンを見つけて…</string>
+    <string name="like_icon">いいねアイコン</string>
+    <string name="settings_icon">設定アイコン</string>
+    <string name="preview_card">プレビューカード</string>
+    <string name="download">ダウンロード</string>
+    <string name="info_skin">スキン情報</string>
+    <string name="back">戻る</string>
+    <string name="explore">探検</string>
+    <string name="favorites">お気に入り</string>
+    <string name="language">言語</string>
+    <string name="settings">設定</string>
+    <string name="notifications_new_skins">新しいスキンのお知らせ</string>
+    <string name="dark_mode">ダークモード</string>
+    <string name="worker_notification_text">ダウンロード中…</string>
+    <string name="worker_notification_title">スキンのダウンロード</string>
+    <string name="how_download_skin">Minecraft でこのスキンをダウンロードするにはどうすればよいですか?</string>
+    <string name="download_skin_reason_description">Android のバージョンが 10 を超えているため、スキンをゲームに直接ロードすることはできません。\n\nその方法を次に示します。</string>
+    <string name="skin_description_picture">スキン説明画像</string>
+    <string name="dont_show_this_again">これを二度と表示しないでください</string>
+    <string name="drop_down_arrow">ドロップダウン矢印</string>
+    <string name="flag_image">旗の画像</string>
+    <string name="confirm">確認</string>
+
+    <!--Languages-->
+    <string name="russian">ロシア</string>
+    <string name="ukrainian">ウクライナ語</string>
+    <string name="english">英語</string>
+    <string name="spanish">スペイン語</string>
+    <string name="german">ドイツ人</string>
+    <string name="french">フランス語</string>
+    <string name="polish">研磨</string>
+    <string name="japanese">日本</string>
+    <!--Languages-->
+</resources>
