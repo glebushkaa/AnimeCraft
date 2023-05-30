@@ -42,7 +42,7 @@ class MainViewModel @Inject constructor(
         private set
 
     val isDownloadDialogDisabled: Boolean
-        get() = skinsPreferencesHandler.getBoolean(IS_DOWNLOAD_DIALOG_DISABLED)
+        get() = skinsPreferencesHandler.getBoolean(IS_DOWNLOAD_DIALOG_DISABLED) ?: false
 
     fun saveGameSkinImage(id: Int) {
         val gameImageFileName = skins.find { it.id == id }?.gameImageFileName ?: return

@@ -32,7 +32,7 @@ class SkinsPreferencesHandler @Inject constructor(
         skinsPreferences?.edit()?.putBoolean(key, value)?.apply()
     }
 
-    fun getBoolean(key: String) = skinsPreferences?.getBoolean(key, false) ?: false
+    fun getBoolean(key: String) = skinsPreferences?.getBoolean(key, false)
 
     fun putString(key: String, value: String) {
         skinsPreferences?.edit()?.putString(key, value)?.apply()
@@ -45,5 +45,6 @@ class SkinsPreferencesHandler @Inject constructor(
 
         const val IS_DOWNLOAD_DIALOG_DISABLED = "is_download_dialog_disabled"
         const val SELECTED_LANGUAGE = "selected_language"
+        const val IS_DARK_MODE_ENABLED = "is_dark_mode_enabled"
     }
 }
