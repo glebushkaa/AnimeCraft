@@ -25,6 +25,7 @@ import ua.anime.animecraft.ui.theme.AppTheme
 
 @Composable
 fun AppTopBar(
+    modifier: Modifier = Modifier,
     settingsClicked: () -> Unit = {},
     likeClicked: () -> Unit = {},
     currentScreen: String
@@ -34,7 +35,7 @@ fun AppTopBar(
     val settingsIcon =
         if (currentScreen == SETTINGS) R.drawable.ic_filled_settings else R.drawable.ic_settings
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight(),
         verticalAlignment = Alignment.CenterVertically

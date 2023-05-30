@@ -26,14 +26,16 @@ fun AnimeCraftHost(
 ) {
     NavHost(navController = navController, startDestination = Splash.route, modifier = modifier) {
         composable(route = Splash.route) {
-            SplashScreen {
-                navController.navigate(route = Main.route) {
-                    popUpTo(Splash.route) {
-                        inclusive = true
-                        saveState = true
+            SplashScreen(
+                onFinish = {
+                    navController.navigate(route = Main.route) {
+                        popUpTo(Splash.route) {
+                            inclusive = true
+                            saveState = true
+                        }
                     }
                 }
-            }
+            )
         }
         composable(route = Main.route) {
             MainScreen(

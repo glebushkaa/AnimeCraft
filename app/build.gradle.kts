@@ -96,7 +96,7 @@ dependencies {
 
     implementation(libs.appcompat)
 
-//    implementation(libs.play.services.ads)
+    implementation(libs.play.services.ads)
 
     implementation(libs.timber)
 

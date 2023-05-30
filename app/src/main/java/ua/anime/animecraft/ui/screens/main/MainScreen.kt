@@ -1,4 +1,5 @@
-@file:Suppress("FunctionName")
+@file:Suppress("FunctionName", "LongMethod")
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 package ua.anime.animecraft.ui.screens.main
 
@@ -12,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.ui.MAIN
+import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.RoundedProgressIndicator
 import ua.anime.animecraft.ui.common.SearchBar
@@ -97,42 +101,54 @@ private fun MainScreenContent(
             }
         )
     }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(
-                start = dimensionResource(id = R.dimen.offset_regular),
-                end = dimensionResource(id = R.dimen.offset_regular)
+    Scaffold(
+        containerColor = AppTheme.colors.background,
+        contentColor = AppTheme.colors.background,
+        bottomBar = { BannerAd() },
+        topBar = {
+            AppTopBar(
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.offset_regular)
+                ),
+                currentScreen = MAIN,
+                settingsClicked = settingsClicked,
+                likeClicked = likeClicked
             )
-    ) {
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_regular)))
-        AppTopBar(
-            currentScreen = MAIN,
-            settingsClicked = settingsClicked,
-            likeClicked = likeClicked
-        )
-        Spacer(
-            modifier = Modifier.height(dimensionResource(id = R.dimen.offset_large))
-        )
-        SearchBar(value = searchQuery) {
-            searchQuery = it
-            mainViewModel.searchSkins(it)
-        }
-        Spacer(
-            modifier = Modifier.height(dimensionResource(id = R.dimen.offset_large))
-        )
-        SkinsGrid(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            skins = skins,
-            itemClick = itemClicked,
-            likeClick = { mainViewModel.updateFavoriteSkin(it) },
-            downloadClick = {
-                mainViewModel.saveGameSkinImage(it)
-                downloadClicked = true
+        },
+        content = {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(
+                        start = dimensionResource(id = R.dimen.offset_regular),
+                        end = dimensionResource(id = R.dimen.offset_regular),
+                        top = it.calculateTopPadding(),
+                        bottom = it.calculateBottomPadding()
+                    )
+            ) {
+                Spacer(
+                    modifier = Modifier.height(dimensionResource(id = R.dimen.offset_large))
+                )
+                SearchBar(value = searchQuery) { query ->
+                    searchQuery = query
+                    mainViewModel.searchSkins(query)
+                }
+                Spacer(
+                    modifier = Modifier.height(dimensionResource(id = R.dimen.offset_large))
+                )
+                SkinsGrid(
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    skins = skins,
+                    itemClick = itemClicked,
+                    likeClick = { id -> mainViewModel.updateFavoriteSkin(id) },
+                    downloadClick = { id ->
+                        mainViewModel.saveGameSkinImage(id)
+                        downloadClicked = true
+                    }
+                )
             }
-        )
-    }
+        }
+    )
 }
 
 @Preview(showBackground = true)
