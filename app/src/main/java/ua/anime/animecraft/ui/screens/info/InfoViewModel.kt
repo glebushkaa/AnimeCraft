@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import ua.anime.animecraft.core.android.AnimeCraftViewModel
 import ua.anime.animecraft.data.files.SkinFilesHandler
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
+import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_DOWNLOAD_DIALOG_DISABLED
 import ua.anime.animecraft.domain.repository.FavoritesRepository
 import ua.anime.animecraft.domain.repository.SkinsRepository
 import ua.anime.animecraft.ui.model.Skin
@@ -29,8 +30,9 @@ class InfoViewModel @Inject constructor(
     private val _skinFlow = MutableStateFlow<Skin?>(null)
     val skinFlow = _skinFlow.asStateFlow()
 
-    val isDownloadDialogDisabled: Boolean
-        get() = skinsPreferencesHandler.getBoolean(SkinsPreferencesHandler.IS_DOWNLOAD_DIALOG_DISABLED) ?: false
+    val isDownloadDialogDisabled = skinsPreferencesHandler.getBoolean(
+        IS_DOWNLOAD_DIALOG_DISABLED
+    ) ?: false
 
     fun saveGameSkinImage() {
         val gameImageFileName = _skinFlow.value?.gameImageFileName ?: return
@@ -42,7 +44,7 @@ class InfoViewModel @Inject constructor(
     }
 
     fun disableDownloadDialogOpen() {
-        skinsPreferencesHandler.putBoolean(SkinsPreferencesHandler.IS_DOWNLOAD_DIALOG_DISABLED, true)
+        skinsPreferencesHandler.putBoolean(IS_DOWNLOAD_DIALOG_DISABLED, true)
     }
 
     fun loadSkin(id: Int) {

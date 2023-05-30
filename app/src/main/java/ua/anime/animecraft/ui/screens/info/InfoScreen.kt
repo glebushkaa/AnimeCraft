@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName", "experimental:function-signature")
+@file:Suppress("FunctionName", "experimental:function-signature", "LongMethod")
 
 package ua.anime.animecraft.ui.screens.info
 
