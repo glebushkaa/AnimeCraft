@@ -1,8 +1,9 @@
-@file:Suppress("FunctionName")
+@file:Suppress("FunctionName", "LongMethod")
 @file:OptIn(ExperimentalMaterial3Api::class)
 
 package ua.anime.animecraft.ui.screens.favorites
 
+import android.os.Build
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,6 +33,7 @@ import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.BackButton
 import ua.anime.animecraft.ui.common.SearchBar
 import ua.anime.animecraft.ui.common.SkinsGrid
+import ua.anime.animecraft.ui.dialogs.downloadskin.DownloadSkinDialog
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
@@ -47,8 +49,22 @@ fun FavoritesScreen(
 ) {
     val favorites by favoritesViewModel.favoritesFlow.collectLifecycleAwareFlowAsState(listOf())
     var searchQuery by rememberSaveable { mutableStateOf("") }
+    var downloadClicked by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(key1 = false) { favoritesViewModel.getFavorites() }
+
+    if (downloadClicked &&
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
+        favoritesViewModel.isDownloadDialogDisabled.not()
+    ) {
+        DownloadSkinDialog(
+            dismissRequest = { downloadClicked = false },
+            dontShowAgainClick = {
+                favoritesViewModel.disableDownloadDialogOpen()
+                downloadClicked = false
+            }
+        )
+    }
 
     Scaffold(
         contentColor = AppTheme.colors.background,
@@ -91,7 +107,11 @@ fun FavoritesScreen(
                 SkinsGrid(
                     skins = favorites,
                     itemClick = itemClicked,
-                    likeClick = favoritesViewModel::updateFavoriteSkin
+                    likeClick = favoritesViewModel::updateFavoriteSkin,
+                    downloadClick = { id ->
+                        favoritesViewModel.saveGameSkinImage(id)
+                        downloadClicked = true
+                    }
                 )
             }
         }

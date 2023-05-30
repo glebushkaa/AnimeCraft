@@ -25,6 +25,7 @@
     <string name="drop_down_arrow">Стрелочка выпадающего списка</string>
     <string name="flag_image">Картинка флага</string>
     <string name="confirm">Подтвердить</string>
+    <string name="download_help_dialog">Диалоговое окно помощи</string>
 
     <!--Languages-->
     <string name="russian">Русский</string>

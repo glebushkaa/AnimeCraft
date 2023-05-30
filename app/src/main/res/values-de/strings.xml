@@ -25,6 +25,7 @@
     <string name="drop_down_arrow">Dropdown-Pfeil</string>
     <string name="flag_image">Flaggenbild</string>
     <string name="confirm">Bestätigen Sie</string>
+    <string name="download_help_dialog">Hilfe-Dialog herunterladen</string>
 
     <!--Languages-->
     <string name="russian">Russisch</string>

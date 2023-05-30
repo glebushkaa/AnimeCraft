@@ -1,7 +1,8 @@
-@file:Suppress("FunctionName", "experimental:function-signature")
+@file:Suppress("FunctionName", "experimental:function-signature", "LongMethod")
 
 package ua.anime.animecraft.ui.screens.info
 
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +42,7 @@ import ua.anime.animecraft.ui.common.DownloadButton
 import ua.anime.animecraft.ui.common.LikeButton
 import ua.anime.animecraft.ui.common.RoundedProgressIndicator
 import ua.anime.animecraft.ui.common.advanceShadow
+import ua.anime.animecraft.ui.dialogs.downloadskin.DownloadSkinDialog
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
@@ -55,7 +58,20 @@ fun InfoScreen(
 ) {
     val skin by infoViewModel.skinFlow.collectLifecycleAwareFlowAsState(initialValue = null)
 
-    LaunchedEffect(key1 = false) { infoViewModel.loadSkin(id) }
+    var downloadClicked by rememberSaveable { mutableStateOf(false) }
+
+    if (downloadClicked &&
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
+        infoViewModel.isDownloadDialogDisabled.not()
+    ) {
+        DownloadSkinDialog(
+            dismissRequest = { downloadClicked = false },
+            dontShowAgainClick = {
+                infoViewModel.disableDownloadDialogOpen()
+                downloadClicked = false
+            }
+        )
+    }
 
     Column(
         modifier = Modifier
@@ -97,10 +113,14 @@ fun InfoScreen(
                     blurRadius = 8.dp,
                     color = AppTheme.colors.primary
                 )
-        ) {}
+        ) {
+            infoViewModel.saveGameSkinImage()
+            downloadClicked = true
+        }
         Spacer(modifier = Modifier.height(32.dp))
         BannerAd()
     }
+    LaunchedEffect(key1 = false) { infoViewModel.loadSkin(id) }
 }
 
 @Composable

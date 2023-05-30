@@ -38,7 +38,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.activityholder.CurrentActivityHolder
-import ua.anime.animecraft.core.android.extensions.languagesList
 import ua.anime.animecraft.ui.SETTINGS
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.BackButton
@@ -52,18 +51,7 @@ import ua.anime.animecraft.ui.theme.AppTheme
  */
 
 @Composable
-fun SettingsScreen(
-    backClicked: () -> Unit = {},
-    settingsViewModel: SettingsViewModel = hiltViewModel()
-) {
-    val isSystemInDarkMode = isSystemInDarkTheme()
-    var selectedLanguage by remember { mutableStateOf(settingsViewModel.getSelectedLanguage()) }
-    var newSkinsNotification by rememberSaveable { mutableStateOf(false) }
-    var darkMode by rememberSaveable {
-        mutableStateOf(settingsViewModel.isDarkModeEnabled() ?: isSystemInDarkMode)
-    }
-    var expandedDropDown by rememberSaveable { mutableStateOf(false) }
-
+fun SettingsScreen(backClicked: () -> Unit = {}) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         contentColor = AppTheme.colors.background,
@@ -77,68 +65,124 @@ fun SettingsScreen(
             )
         },
         content = {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(
-                        start = dimensionResource(id = R.dimen.offset_regular),
-                        end = dimensionResource(id = R.dimen.offset_regular),
-                        top = it.calculateTopPadding(),
-                        bottom = it.calculateBottomPadding()
-                    )
-            ) {
-                BackButton(backClicked)
-                Text(
-                    modifier = Modifier.padding(
-                        vertical = dimensionResource(id = R.dimen.offset_huge)
-                    ),
-                    text = stringResource(id = R.string.settings),
-                    style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                    color = AppTheme.colors.onBackground
-                )
-                NotificationNewSkinsItem(
-                    modifier = Modifier.padding(
-                        bottom = dimensionResource(id = R.dimen.offset_medium)
-                    ),
-                    newSkinsNotification = newSkinsNotification,
-                    onChanged = { value -> newSkinsNotification = value }
-                )
-                DarkModeItem(
-                    darkMode = darkMode,
-                    onCheckedChange = { value ->
-                        darkMode = value
-                        settingsViewModel.changeDarkMode(value)
-                    }
-                )
-                Text(
-                    modifier = Modifier.padding(
-                        vertical = dimensionResource(id = R.dimen.offset_average)
-                    ),
-                    text = stringResource(id = R.string.language),
-                    style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                    color = AppTheme.colors.onBackground
-                )
-                LanguageDropDown(
-                    language = selectedLanguage,
-                    expanded = expandedDropDown,
-                    onClick = { value -> expandedDropDown = value },
-                    languageSelected = { value -> selectedLanguage = value }
-                )
-                if (selectedLanguage != settingsViewModel.initialLanguage && !expandedDropDown) {
-                    LanguageConfirmButton(
-                        modifier = Modifier.padding(
-                            top = dimensionResource(id = R.dimen.offset_regular)
-                        ),
-                        selectedLanguage = selectedLanguage
-                    )
-                }
-            }
+            SettingScreenContent(
+                modifier = Modifier.padding(
+                    start = dimensionResource(id = R.dimen.offset_regular),
+                    end = dimensionResource(id = R.dimen.offset_regular),
+                    top = it.calculateTopPadding(),
+                    bottom = it.calculateBottomPadding()
+                ),
+                backClicked = backClicked
+            )
         }
     )
 }
 
 @Composable
-private fun DarkModeItem(
+private fun SettingScreenContent(
+    modifier: Modifier = Modifier,
+    backClicked: () -> Unit = {},
+    settingsViewModel: SettingsViewModel = hiltViewModel()
+) {
+    val isSystemInDarkMode = isSystemInDarkTheme()
+    var selectedLanguage by remember { mutableStateOf(settingsViewModel.getSelectedLanguage()) }
+    var newSkinsNotification by rememberSaveable { mutableStateOf(false) }
+    var downloadHelpDialogSetting by rememberSaveable { mutableStateOf(false) }
+    var darkMode by rememberSaveable {
+        mutableStateOf(settingsViewModel.isDarkModeEnabled() ?: isSystemInDarkMode)
+    }
+    var expandedDropDown by rememberSaveable { mutableStateOf(false) }
+
+    Column(modifier = modifier.fillMaxSize()) {
+        BackButton(backClicked)
+        Text(
+            modifier = Modifier.padding(
+                vertical = dimensionResource(id = R.dimen.offset_huge)
+            ),
+            text = stringResource(id = R.string.settings),
+            style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+            color = AppTheme.colors.onBackground
+        )
+        NotificationNewSkinsSetting(
+            modifier = Modifier.padding(
+                bottom = dimensionResource(id = R.dimen.offset_medium)
+            ),
+            newSkinsNotification = newSkinsNotification,
+            onChanged = { value -> newSkinsNotification = value }
+        )
+        DarkModeSetting(
+            darkMode = darkMode,
+            onCheckedChange = { value ->
+                darkMode = value
+                settingsViewModel.changeDarkMode(value)
+            }
+        )
+        if (settingsViewModel.isDownloadDialogDisabled) {
+            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_medium)))
+            DownloadHelpDialogSetting(
+                enabled = downloadHelpDialogSetting,
+                onCheckedChange = { value ->
+                    settingsViewModel.updateDownloadDialogSetting(!value)
+                    downloadHelpDialogSetting = value
+                }
+            )
+        }
+        Text(
+            modifier = Modifier.padding(
+                vertical = dimensionResource(id = R.dimen.offset_average)
+            ),
+            text = stringResource(id = R.string.language),
+            style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+            color = AppTheme.colors.onBackground
+        )
+        LanguageDropDown(
+            language = selectedLanguage,
+            expanded = expandedDropDown,
+            onClick = { value -> expandedDropDown = value },
+            languageSelected = { value -> selectedLanguage = value }
+        )
+        if (selectedLanguage != settingsViewModel.initialLanguage && !expandedDropDown) {
+            LanguageConfirmButton(
+                modifier = Modifier.padding(
+                    top = dimensionResource(id = R.dimen.offset_regular)
+                ),
+                selectedLanguage = selectedLanguage
+            )
+        }
+    }
+}
+
+@Composable
+private fun DownloadHelpDialogSetting(
+    modifier: Modifier = Modifier,
+    enabled: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Checkbox(
+            modifier = Modifier.size(24.dp),
+            checked = enabled,
+            onCheckedChange = onCheckedChange,
+            colors = CheckboxDefaults.colors(
+                checkedColor = AppTheme.colors.primary,
+                uncheckedColor = AppTheme.colors.primary,
+                checkmarkColor = Color.White
+            )
+        )
+        Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.offset_regular)))
+        Text(
+            text = stringResource(id = R.string.download_help_dialog),
+            style = AppTheme.typography.bodyLarge,
+            color = AppTheme.colors.onBackground
+        )
+    }
+}
+
+@Composable
+private fun DarkModeSetting(
     modifier: Modifier = Modifier,
     darkMode: Boolean,
     onCheckedChange: (Boolean) -> Unit
@@ -167,7 +211,7 @@ private fun DarkModeItem(
 }
 
 @Composable
-private fun NotificationNewSkinsItem(
+private fun NotificationNewSkinsSetting(
     modifier: Modifier = Modifier,
     newSkinsNotification: Boolean,
     onChanged: (Boolean) -> Unit
@@ -225,21 +269,8 @@ private fun LanguageConfirmButton(
 
 @Preview
 @Composable
-fun LanguageConfirmButtonPreview() {
-    AnimeCraftTheme(darkTheme = true) {
-        LanguageConfirmButton(
-            modifier = Modifier.padding(
-                top = dimensionResource(id = R.dimen.offset_regular)
-            ),
-            selectedLanguage = languagesList[0]
-        )
-    }
-}
-
-/*@Preview
-@Composable
 fun SettingsScreenPreview() {
     AnimeCraftTheme(darkTheme = true) {
         SettingsScreen({})
     }
-}*/
+}

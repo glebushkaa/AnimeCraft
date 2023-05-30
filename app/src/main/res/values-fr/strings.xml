@@ -25,6 +25,7 @@
     <string name="drop_down_arrow">Flèche vers le bas</string>
     <string name="flag_image">Image du drapeau</string>
     <string name="confirm">Confirmer</string>
+    <string name="download_help_dialog">Télécharger le dialogue d\'aide</string>
 
     <!--Languages-->
     <string name="russian">Russe</string>
