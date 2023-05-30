@@ -30,7 +30,7 @@
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="${applicationId}.androidx-startup"
+            android:authorities="ua.anime.animecraft.androidx-startup"
             android:exported="false"
             tools:replace="android:authorities"
             tools:node="merge">
@@ -40,7 +40,7 @@
                 tools:node="remove" />
 
             <meta-data
-                android:name="${applicationId}.ad.impl.MobileAdsInitializer"
+                android:name="ua.anime.animecraft.ad.impl.MobileAdsInitializer"
                 android:value="androidx.startup" />
         </provider>
 
