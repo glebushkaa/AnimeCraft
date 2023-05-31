@@ -225,7 +225,7 @@ private fun SmilesSelector(
                             onClick = { onSmileChanged(smile) }
                         ),
                     painter = painterResource(id = smile.resId),
-                    contentDescription = "Smile image",
+                    contentDescription = stringResource(R.string.smile_image),
                     colorFilter = if (smile.id == selectedSmile.id) null else AppTheme.grayscaleFilter
                 )
             }

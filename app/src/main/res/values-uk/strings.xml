@@ -40,5 +40,11 @@
     <string name="do_you_enjoy_our_app">Do you enjoy our app?</string>
     <string name="rate_us">Rate us</string>
     <string name="not_now">Not now</string>
+    <string name="smile_image">Smile image</string>
+    <string name="sorry_to_hear">Sorry to hear that...</string>
+    <string name="tell_us_your_feedback">Tell us your feedback...</string>
+    <string name="please_provide_your_thoughts">Please provide your thoughts and reasons in the text box. We value your feedback and would like to hear from you.</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
     <!--Languages-->
 </resources>
