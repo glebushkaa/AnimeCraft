@@ -26,6 +26,20 @@
     <string name="flag_image">旗の画像</string>
     <string name="confirm">確認</string>
     <string name="download_help_dialog">ヘルプダイアログのダウンロード</string>
+    <string name="provide_your_feedback">お客様の評価は私たちにとって重要です。ぜひ、ご意見をお聞かせください。ありがとうございました！</string>
+    <string name="do_you_enjoy_our_app">私たちのアプリを楽しんでいますか？</string>
+    <string name="rate_us">評価する</string>
+    <string name="not_now">今はまだ</string>
+    <string name="smile_image">スマイルイメージ</string>
+    <string name="sorry_to_hear">お気の毒に…</string>
+    <string name="tell_us_your_feedback">ご意見をお聞かせください…</string>
+    <string name="please_provide_your_thoughts">感想や理由などをテキストボックスにご記入ください。お客様のご意見を大切にし、お聞かせください</string>
+    <string name="cancel">キャンセル</string>
+    <string name="submit">送信</string>
+    <string name="thank_you">ありがとうございます！</string>
+    <string name="we_will_enhance_app">今後もアプリの充実を目指し、協力していきたいと思います！</string>
+    <string name="you_are_welcome">どういたしまして</string>
+    <string name="thank_you_image">お礼の画像</string>
 
     <!--Languages-->
     <string name="russian">ロシア</string>
@@ -36,15 +50,5 @@
     <string name="french">フランス語</string>
     <string name="polish">研磨</string>
     <string name="japanese">日本</string>
-    <string name="provide_your_feedback">Your rating matters to us. Please take a moment to provide your feedback. Thank you!</string>
-    <string name="do_you_enjoy_our_app">Do you enjoy our app?</string>
-    <string name="rate_us">Rate us</string>
-    <string name="not_now">Not now</string>
-    <string name="smile_image">Smile image</string>
-    <string name="sorry_to_hear">Sorry to hear that...</string>
-    <string name="tell_us_your_feedback">Tell us your feedback...</string>
-    <string name="please_provide_your_thoughts">Please provide your thoughts and reasons in the text box. We value your feedback and would like to hear from you.</string>
-    <string name="cancel">Cancel</string>
-    <string name="submit">Submit</string>
     <!--Languages-->
 </resources>

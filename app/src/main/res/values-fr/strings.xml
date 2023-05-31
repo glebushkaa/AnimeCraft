@@ -26,6 +26,20 @@
     <string name="flag_image">Image du drapeau</string>
     <string name="confirm">Confirmer</string>
     <string name="download_help_dialog">Télécharger le dialogue d\'aide</string>
+    <string name="provide_your_feedback">Votre évaluation est importante pour nous. Veuillez prendre un moment pour nous faire part de vos commentaires. Nous vous en remercions.</string>
+    <string name="do_you_enjoy_our_app">Vous appréciez notre application ?</string>
+    <string name="rate_us">Notez-nous</string>
+    <string name="not_now">Pas maintenant</string>
+    <string name="smile_image">Image du sourire</string>
+    <string name="sorry_to_hear">Désolé de l\'apprendre…</string>
+    <string name="tell_us_your_feedback">Faites-nous part de vos commentaires…</string>
+    <string name="please_provide_your_thoughts">Veuillez nous faire part de vos réflexions et de vos raisons dans la zone de texte. Nous apprécions votre retour d\'information et aimerions vous entendre.</string>
+    <string name="cancel">Annuler</string>
+    <string name="submit">Soumettre</string>
+    <string name="thank_you">Merci de votre attention!</string>
+    <string name="we_will_enhance_app">Nous continuerons à travailler ensemble pour améliorer notre application!</string>
+    <string name="you_are_welcome">De rien</string>
+    <string name="thank_you_image">Merci l\'image</string>
 
     <!--Languages-->
     <string name="russian">Russe</string>
@@ -36,15 +50,5 @@
     <string name="french">Français</string>
     <string name="polish">Polonais</string>
     <string name="japanese">Japonais</string>
-    <string name="provide_your_feedback">Your rating matters to us. Please take a moment to provide your feedback. Thank you!</string>
-    <string name="do_you_enjoy_our_app">Do you enjoy our app?</string>
-    <string name="rate_us">Rate us</string>
-    <string name="not_now">Not now</string>
-    <string name="smile_image">Smile image</string>
-    <string name="sorry_to_hear">Sorry to hear that...</string>
-    <string name="tell_us_your_feedback">Tell us your feedback...</string>
-    <string name="please_provide_your_thoughts">Please provide your thoughts and reasons in the text box. We value your feedback and would like to hear from you.</string>
-    <string name="cancel">Cancel</string>
-    <string name="submit">Submit</string>
     <!--Languages-->
 </resources>

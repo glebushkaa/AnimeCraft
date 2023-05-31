@@ -40,6 +40,9 @@ class SkinsPreferencesHandler @Inject constructor(
 
     fun getString(key: String) = skinsPreferences?.getString(key, "")
 
+    fun getInt(key: String) = skinsPreferences?.getInt(key, 0)
+    fun putInt(key: String, value: Int) = skinsPreferences?.edit()?.putInt(key, value)?.apply()
+
     companion object {
         private const val SKINS_PREFERENCES_NAME = "skins_preferences"
 
@@ -47,5 +50,7 @@ class SkinsPreferencesHandler @Inject constructor(
         const val SELECTED_LANGUAGE = "selected_language"
         const val IS_DARK_MODE_ENABLED = "is_dark_mode_enabled"
         const val IS_RATE_DIALOG_DISABLED = "is_rate_mode_enabled"
+        const val TIMES_APP_OPENED = "times_app_opened"
+        const val IS_RATE_COMPLETED = "is_rate_completed"
     }
 }

@@ -26,6 +26,20 @@
     <string name="flag_image">Картинка флага</string>
     <string name="confirm">Подтвердить</string>
     <string name="download_help_dialog">Диалоговое окно помощи</string>
+    <string name="provide_your_feedback">Ваша оценка важна для нас. Пожалуйста, найдите время, чтобы оставить свой отзыв. Спасибо!</string>
+    <string name="do_you_enjoy_our_app">Нравится ли вам наше приложение?</string>
+    <string name="rate_us">Оцените нас</string>
+    <string name="not_now">Не сейчас</string>
+    <string name="smile_image">Изображение улыбки</string>
+    <string name="sorry_to_hear">Жаль это слышать…</string>
+    <string name="tell_us_your_feedback">Сообщите нам свой отзыв…</string>
+    <string name="please_provide_your_thoughts">Пожалуйста, изложите свои мысли и причины в текстовом поле. Мы ценим ваши отзывы и хотели бы услышать вас.</string>
+    <string name="cancel">Отмена</string>
+    <string name="submit">Отправить</string>
+    <string name="thank_you">Спасибо!</string>
+    <string name="we_will_enhance_app">Мы будем продолжать работать вместе, чтобы улучшить наше приложение!</string>
+    <string name="you_are_welcome">Всегда пожалуйста</string>
+    <string name="thank_you_image">Спасибо изображению</string>
 
     <!--Languages-->
     <string name="russian">Русский</string>
@@ -36,15 +50,5 @@
     <string name="french">Французский</string>
     <string name="polish">Польский</string>
     <string name="japanese">Японский</string>
-    <string name="provide_your_feedback">Your rating matters to us. Please take a moment to provide your feedback. Thank you!</string>
-    <string name="do_you_enjoy_our_app">Do you enjoy our app?</string>
-    <string name="rate_us">Rate us</string>
-    <string name="not_now">Not now</string>
-    <string name="smile_image">Smile image</string>
-    <string name="sorry_to_hear">Sorry to hear that...</string>
-    <string name="tell_us_your_feedback">Tell us your feedback...</string>
-    <string name="please_provide_your_thoughts">Please provide your thoughts and reasons in the text box. We value your feedback and would like to hear from you.</string>
-    <string name="cancel">Cancel</string>
-    <string name="submit">Submit</string>
     <!--Languages-->
 </resources>

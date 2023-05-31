@@ -1,6 +1,7 @@
+@file:Suppress("LongMethod", "FunctionName", "MagicNumber")
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package ua.anime.animecraft.ui.dialogs.feedback
+package ua.anime.animecraft.ui.dialogs.rating.feedback
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,39 +28,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import ua.anime.animecraft.R
-import ua.anime.animecraft.ui.common.FilledDialogButton
-import ua.anime.animecraft.ui.common.OutlinedDialogButton
+import ua.anime.animecraft.ui.common.buttons.FilledDialogButton
+import ua.anime.animecraft.ui.common.buttons.OutlinedDialogButton
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
-import ua.anime.animecraft.ui.theme.AppTheme.dialogProperties
 import ua.anime.animecraft.ui.theme.dialogButtonShape
 import ua.anime.animecraft.ui.theme.dialogsShape
-
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/31/2023.
  */
 
 @Composable
-fun FeedbackDialog(
-    onDismissRequest: () -> Unit = {},
-    onFeedbackSent: (String) -> Unit = {},
-    onCanceled: () -> Unit = {}
-) {
-    Dialog(onDismissRequest = onDismissRequest, properties = dialogProperties) {
-        FeedbackDialogContent(
-            onFeedbackSent = onFeedbackSent,
-            onCanceled = onCanceled
-        )
-    }
-}
-
-@Composable
-private fun FeedbackDialogContent(
+fun FeedbackDialogContent(
     modifier: Modifier = Modifier,
     onFeedbackSent: (String) -> Unit,
     onCanceled: () -> Unit
@@ -78,6 +63,7 @@ private fun FeedbackDialogContent(
             modifier = Modifier
                 .padding(vertical = dimensionResource(id = R.dimen.offset_large))
                 .align(CenterHorizontally),
+            textAlign = TextAlign.Center,
             text = stringResource(R.string.sorry_to_hear),
             style = AppTheme.typography.headlineSmall.copy(
                 fontWeight = FontWeight.Bold
@@ -116,6 +102,7 @@ private fun FeedbackDialogContent(
             style = AppTheme.typography.bodyMedium.copy(
                 fontWeight = FontWeight.SemiBold
             ),
+            textAlign = TextAlign.Center,
             color = AppTheme.colors.onBackground
         )
         BottomFeedbackDialogButtons(
@@ -165,8 +152,6 @@ private fun BottomFeedbackDialogButtons(
 @Composable
 fun FeedbackDialogPreview() {
     AnimeCraftTheme(darkTheme = true) {
-        FeedbackDialogContent(onFeedbackSent = {}) {
-
-        }
+        FeedbackDialogContent(onFeedbackSent = {}) {}
     }
 }

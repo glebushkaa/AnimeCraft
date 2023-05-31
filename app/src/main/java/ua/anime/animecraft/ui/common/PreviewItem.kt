@@ -33,6 +33,9 @@ import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.common.capitalize
+import ua.anime.animecraft.ui.common.buttons.DownloadButton
+import ua.anime.animecraft.ui.common.buttons.LikeButton
+import ua.anime.animecraft.ui.extensions.advanceShadow
 import ua.anime.animecraft.ui.model.Skin
 import ua.anime.animecraft.ui.theme.AppTheme
 

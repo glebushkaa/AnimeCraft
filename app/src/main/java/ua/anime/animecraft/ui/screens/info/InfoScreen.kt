@@ -37,12 +37,12 @@ import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.core.common.capitalize
 import ua.anime.animecraft.ui.ad.BannerAd
-import ua.anime.animecraft.ui.common.BackButton
-import ua.anime.animecraft.ui.common.DownloadButton
-import ua.anime.animecraft.ui.common.LikeButton
 import ua.anime.animecraft.ui.common.RoundedProgressIndicator
-import ua.anime.animecraft.ui.common.advanceShadow
+import ua.anime.animecraft.ui.common.buttons.BackButton
+import ua.anime.animecraft.ui.common.buttons.DownloadButton
+import ua.anime.animecraft.ui.common.buttons.LikeButton
 import ua.anime.animecraft.ui.dialogs.downloadskin.DownloadSkinDialog
+import ua.anime.animecraft.ui.extensions.advanceShadow
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 

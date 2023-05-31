@@ -1,6 +1,7 @@
+@file:Suppress("FunctionName", "MagicNumber")
 @file:OptIn(ExperimentalAnimationApi::class)
 
-package ua.anime.animecraft.ui.dialogs.rate
+package ua.anime.animecraft.ui.dialogs.rating.rate
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -37,16 +38,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
-import androidx.hilt.navigation.compose.hiltViewModel
 import ua.anime.animecraft.R
-import ua.anime.animecraft.ui.common.DontShowAgainButton
-import ua.anime.animecraft.ui.common.FilledDialogButton
-import ua.anime.animecraft.ui.common.OutlinedDialogButton
-import ua.anime.animecraft.ui.screens.settings.SettingsViewModel
+import ua.anime.animecraft.ui.common.buttons.DontShowAgainButton
+import ua.anime.animecraft.ui.common.buttons.FilledDialogButton
+import ua.anime.animecraft.ui.common.buttons.OutlinedDialogButton
+import ua.anime.animecraft.ui.dialogs.rating.Smile
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
-import ua.anime.animecraft.ui.theme.AppTheme.dialogProperties
 import ua.anime.animecraft.ui.theme.dialogsShape
 
 /**
@@ -82,32 +80,6 @@ private val smilesList = listOf(
 )
 
 @Composable
-fun RateDialog(
-    dismissRequest: () -> Unit = {},
-    rateClicked: (Int) -> Unit = {},
-    settingsViewModel: SettingsViewModel = hiltViewModel()
-) {
-
-    Dialog(
-        onDismissRequest = dismissRequest,
-        properties = dialogProperties
-    ) {
-        RateDialogContent(
-            modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.offset_large)),
-            dismissRequest = dismissRequest,
-            dontShowAgainClick = {
-                settingsViewModel.disableRateDialog()
-                dismissRequest()
-            },
-            rateClicked = {
-                rateClicked(it)
-                dismissRequest()
-            }
-        )
-    }
-}
-
-@Composable
 fun RateDialogContent(
     modifier: Modifier = Modifier,
     dismissRequest: () -> Unit = {},
@@ -123,7 +95,12 @@ fun RateDialogContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            modifier = Modifier.padding(top = dimensionResource(id = R.dimen.offset_large)),
+            modifier = Modifier.padding(
+                top = dimensionResource(id = R.dimen.offset_large),
+                start = dimensionResource(id = R.dimen.offset_regular),
+                end = dimensionResource(id = R.dimen.offset_regular)
+            ),
+            textAlign = TextAlign.Center,
             text = stringResource(R.string.do_you_enjoy_our_app),
             style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
             color = AppTheme.colors.onBackground
@@ -139,7 +116,9 @@ fun RateDialogContent(
             }
         )
         Text(
-            modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.offset_regular)),
+            modifier = Modifier.padding(
+                horizontal = dimensionResource(id = R.dimen.offset_regular)
+            ),
             text = stringResource(R.string.provide_your_feedback),
             style = AppTheme.typography.titleMediumExtra.copy(fontWeight = FontWeight.Normal),
             color = AppTheme.colors.onBackground,
@@ -210,23 +189,33 @@ private fun SmilesSelector(
         )
     ) {
         smilesList.forEach { smile ->
-            AnimatedContent(targetState = smile.id == selectedSmile.id,
+            AnimatedContent(
+                targetState = smile.id == selectedSmile.id,
                 transitionSpec = {
                     if (targetState) {
                         scaleIn(tween(300)) with scaleOut(tween(300))
-                    } else fadeIn(tween(0)) with fadeOut(tween(0))
-                }) {
+                    } else {
+                        fadeIn(tween(0)) with fadeOut(tween(0))
+                    }
+                }
+            ) {
                 Image(
                     modifier = Modifier
                         .size(48.dp)
                         .clickable(
-                            interactionSource = remember { MutableInteractionSource() },
+                            interactionSource = remember {
+                                MutableInteractionSource()
+                            },
                             indication = null,
                             onClick = { onSmileChanged(smile) }
                         ),
                     painter = painterResource(id = smile.resId),
                     contentDescription = stringResource(R.string.smile_image),
-                    colorFilter = if (smile.id == selectedSmile.id) null else AppTheme.grayscaleFilter
+                    colorFilter = if (smile.id == selectedSmile.id) {
+                        null
+                    } else {
+                        AppTheme.grayscaleFilter
+                    }
                 )
             }
         }
@@ -237,12 +226,11 @@ private fun SmilesSelector(
 @Composable
 fun RateDialogPreview() {
     AnimeCraftTheme(darkTheme = true) {
-        RateDialog()
+        RateDialogContent(
+            modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.offset_large)),
+            dismissRequest = { },
+            dontShowAgainClick = { },
+            rateClicked = {}
+        )
     }
 }
-
-data class Smile(
-    val id: Int,
-    val resId: Int,
-    val grade: Int
-)

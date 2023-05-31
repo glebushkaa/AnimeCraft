@@ -11,6 +11,8 @@ import javax.inject.Inject
 import timber.log.Timber
 import ua.anime.animecraft.core.activityholder.CurrentActivityHolder
 import ua.anime.animecraft.core.log.ReportingTree
+import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
+import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.TIMES_APP_OPENED
 import ua.anime.animecraft.worker.SkinsWorkFactory
 import ua.anime.animecraft.worker.SkinsWorkManager
 
@@ -24,12 +26,21 @@ class AnimeCraftApp : Application() {
     @Inject
     lateinit var skinsWorkFactory: SkinsWorkFactory
 
+    @Inject
+    lateinit var skinsPreferencesHandler: SkinsPreferencesHandler
+
     override fun onCreate() {
         super.onCreate()
         CurrentActivityHolder.register(this)
         setupTimber()
         createSkinsNotificationChannel()
         startSkinWork()
+        increaseTimesAppOpened()
+    }
+
+    private fun increaseTimesAppOpened() {
+        val timesAppOpened = skinsPreferencesHandler.getInt(TIMES_APP_OPENED) ?: 0
+        skinsPreferencesHandler.putInt(TIMES_APP_OPENED, timesAppOpened + 1)
     }
 
     private fun startSkinWork() {

@@ -1,8 +1,10 @@
-package ua.anime.animecraft.ui.common
+@file:Suppress("FunctionName")
 
+package ua.anime.animecraft.ui.common.buttons
+
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,22 +19,22 @@ import ua.anime.animecraft.ui.theme.dialogButtonShape
  */
 
 @Composable
-fun FilledDialogButton(
+fun OutlinedDialogButton(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit = {},
     textStyle: TextStyle = AppTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold)
 ) {
-    Button(
+    OutlinedButton(
         modifier = modifier,
         onClick = onClick,
         contentPadding = PaddingValues(0.dp),
         shape = dialogButtonShape,
-        colors = ButtonDefaults.buttonColors(containerColor = AppTheme.colors.primary)
+        border = BorderStroke(2.dp, AppTheme.colors.primary)
     ) {
         Text(
             text = text,
-            color = AppTheme.colors.onBackground,
+            color = AppTheme.colors.primary,
             style = textStyle
         )
     }

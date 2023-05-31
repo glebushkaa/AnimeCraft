@@ -1,4 +1,6 @@
-package ua.anime.animecraft.ui.common
+@file:Suppress("FunctionName")
+
+package ua.anime.animecraft.ui.common.buttons
 
 import androidx.compose.foundation.clickable
 import androidx.compose.material3.Text

@@ -7,6 +7,7 @@ import android.content.Intent.EXTRA_SUBJECT
 import android.content.Intent.EXTRA_TEXT
 import android.net.Uri
 import android.text.TextUtils
+import androidx.core.content.ContextCompat
 import java.util.Locale
 
 /**
@@ -26,17 +27,21 @@ fun Context.updateLanguage(language: String, country: String) {
     resources.updateConfiguration(configuration, resources.displayMetrics)
 }
 
-// TODO change email
+/**
+ * TODO change email
+ * TODO extract strings to resources
+ */
 fun Context.sendFeedback(message: String) {
+    val context = this
     val intent = Intent.createChooser(
         Intent().apply {
             action = Intent.ACTION_SENDTO
             data = Uri.parse("mailto:")
-            putExtra(EXTRA_EMAIL, "gleb.mokryy@gmail.com")
+            putExtra(EXTRA_EMAIL, arrayOf("gleb.mokryy@gmail.com"))
             putExtra(EXTRA_TEXT, message.trim())
             putExtra(EXTRA_SUBJECT, "AnimeCraft Feedback")
         },
         "AnimeCraft Feedback"
     )
-    startActivity(intent, null)
+    ContextCompat.startActivity(context, intent, null)
 }
