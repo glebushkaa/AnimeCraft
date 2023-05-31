@@ -1,6 +1,11 @@
 package ua.anime.animecraft.core.android.extensions
 
 import android.content.Context
+import android.content.Intent
+import android.content.Intent.EXTRA_EMAIL
+import android.content.Intent.EXTRA_SUBJECT
+import android.content.Intent.EXTRA_TEXT
+import android.net.Uri
 import android.text.TextUtils
 import java.util.Locale
 
@@ -19,4 +24,19 @@ fun Context.updateLanguage(language: String, country: String) {
         setLocale(locale)
     }
     resources.updateConfiguration(configuration, resources.displayMetrics)
+}
+
+// TODO change email
+fun Context.sendFeedback(message: String) {
+    val intent = Intent.createChooser(
+        Intent().apply {
+            action = Intent.ACTION_SENDTO
+            data = Uri.parse("mailto:")
+            putExtra(EXTRA_EMAIL, "gleb.mokryy@gmail.com")
+            putExtra(EXTRA_TEXT, message.trim())
+            putExtra(EXTRA_SUBJECT, "AnimeCraft Feedback")
+        },
+        "AnimeCraft Feedback"
+    )
+    startActivity(intent, null)
 }

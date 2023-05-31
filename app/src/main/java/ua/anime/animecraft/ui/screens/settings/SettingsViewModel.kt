@@ -7,6 +7,7 @@ import ua.anime.animecraft.core.android.extensions.languagesList
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_DARK_MODE_ENABLED
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_DOWNLOAD_DIALOG_DISABLED
+import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_RATE_DIALOG_DISABLED
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.SELECTED_LANGUAGE
 import ua.anime.animecraft.ui.model.Language
 import ua.anime.animecraft.ui.utils.DarkModeHandler.updateDarkModeState
@@ -26,6 +27,14 @@ class SettingsViewModel @Inject constructor(
     val isDownloadDialogDisabled = skinsPreferencesHandler.getBoolean(
         IS_DOWNLOAD_DIALOG_DISABLED
     ) ?: false
+
+    val isRateDialogDisabled = skinsPreferencesHandler.getBoolean(
+        IS_RATE_DIALOG_DISABLED
+    ) ?: false
+
+    fun disableRateDialog() {
+        skinsPreferencesHandler.putBoolean(IS_RATE_DIALOG_DISABLED, true)
+    }
 
     fun changeDarkMode(isDarkModeEnabled: Boolean) {
         updateDarkModeState(isDarkModeEnabled)

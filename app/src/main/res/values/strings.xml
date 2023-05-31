@@ -42,5 +42,9 @@
     <string name="polish">Polish</string>
     <string name="japanese">Japanese</string>
     <string name="download_help_dialog">Download help dialog</string>
+    <string name="provide_your_feedback">Your rating matters to us. Please take a moment to provide your feedback. Thank you!</string>
+    <string name="do_you_enjoy_our_app">Do you enjoy our app?</string>
+    <string name="rate_us">Rate us</string>
+    <string name="not_now">Not now</string>
     <!--Languages-->
 </resources>

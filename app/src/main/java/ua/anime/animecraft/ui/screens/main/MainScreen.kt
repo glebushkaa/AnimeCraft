@@ -25,6 +25,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.delay
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.ui.MAIN
@@ -34,6 +35,7 @@ import ua.anime.animecraft.ui.common.RoundedProgressIndicator
 import ua.anime.animecraft.ui.common.SearchBar
 import ua.anime.animecraft.ui.common.SkinsGrid
 import ua.anime.animecraft.ui.dialogs.downloadskin.DownloadSkinDialog
+import ua.anime.animecraft.ui.dialogs.rate.RateDialog
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
@@ -52,6 +54,8 @@ fun MainScreen(
     var searchQuery by rememberSaveable { mutableStateOf("") }
     var downloadClicked by rememberSaveable { mutableStateOf(false) }
 
+    var rateDialogShown by rememberSaveable { mutableStateOf(false) }
+
     if (downloadClicked &&
         SDK_INT >= VERSION_CODES.Q &&
         mainViewModel.isDownloadDialogDisabled.not()
@@ -64,6 +68,14 @@ fun MainScreen(
             }
         )
     }
+
+    if (rateDialogShown) {
+        RateDialog(
+            dismissRequest = { rateDialogShown = false },
+            rateClicked = { rateDialogShown = false }
+        )
+    }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = AppTheme.colors.background,
@@ -123,7 +135,11 @@ fun MainScreen(
             }
         }
     )
-    LaunchedEffect(key1 = false) { mainViewModel.getAllSkins() }
+    LaunchedEffect(key1 = false) {
+        mainViewModel.getAllSkins()
+        delay(1000)
+        rateDialogShown = true
+    }
 }
 
 @Preview(showBackground = true)

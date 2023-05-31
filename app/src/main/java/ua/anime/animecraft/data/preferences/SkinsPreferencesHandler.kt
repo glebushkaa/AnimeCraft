@@ -46,5 +46,6 @@ class SkinsPreferencesHandler @Inject constructor(
         const val IS_DOWNLOAD_DIALOG_DISABLED = "is_download_dialog_disabled"
         const val SELECTED_LANGUAGE = "selected_language"
         const val IS_DARK_MODE_ENABLED = "is_dark_mode_enabled"
+        const val IS_RATE_DIALOG_DISABLED = "is_rate_mode_enabled"
     }
 }

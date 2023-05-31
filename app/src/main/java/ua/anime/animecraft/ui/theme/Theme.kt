@@ -13,8 +13,11 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.window.DialogProperties
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
@@ -80,4 +83,14 @@ object AppTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalColorPalette.current
+
+    val dialogProperties = DialogProperties(
+        dismissOnBackPress = true,
+        dismissOnClickOutside = true,
+        usePlatformDefaultWidth = false
+    )
+
+    val grayscaleFilter = ColorFilter.colorMatrix(
+        colorMatrix = ColorMatrix().apply { setToSaturation(0f) }
+    )
 }

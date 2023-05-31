@@ -28,8 +28,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import ua.anime.animecraft.R
+import ua.anime.animecraft.ui.common.DontShowAgainButton
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
+import ua.anime.animecraft.ui.theme.dialogsShape
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/28/2023
@@ -47,12 +49,12 @@ fun DownloadSkinDialog(
     dismissRequest: () -> Unit = { },
     dontShowAgainClick: () -> Unit = { }
 ) {
-    Dialog(onDismissRequest = dismissRequest) {
+    Dialog(onDismissRequest = dismissRequest, properties = AppTheme.dialogProperties) {
         Column(
             modifier = modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .background(color = AppTheme.colors.background, shape = RoundedCornerShape(16.dp))
+                .background(color = AppTheme.colors.surface, shape = dialogsShape)
         ) {
             Text(
                 modifier = Modifier.padding(
@@ -90,22 +92,13 @@ fun DownloadSkinDialog(
                     contentDescription = stringResource(R.string.skin_description_picture)
                 )
             }
-            TextButton(
+            DontShowAgainButton(
                 modifier = Modifier.padding(
                     vertical = dimensionResource(id = R.dimen.offset_medium),
                     horizontal = dimensionResource(id = R.dimen.offset_large)
                 ),
-                contentPadding = PaddingValues(0.dp),
                 onClick = dontShowAgainClick
-            ) {
-                Text(
-                    text = stringResource(R.string.dont_show_this_again),
-                    color = AppTheme.colors.onBackground.copy(alpha = 0.6f),
-                    style = AppTheme.typography.bodySmall.copy(
-                        textDecoration = TextDecoration.Underline
-                    )
-                )
-            }
+            )
         }
     }
 }
