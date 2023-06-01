@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName", "MagicNumber")
+@file:Suppress("FunctionName", "MagicNumber", "LongMethod")
 @file:OptIn(ExperimentalAnimationApi::class)
 
 package ua.anime.animecraft.ui.dialogs.rating
@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -16,6 +17,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.sendFeedback
 import ua.anime.animecraft.ui.dialogs.rating.feedback.FeedbackDialogContent
@@ -31,8 +34,8 @@ fun RatingDialog(
     onDismissRequest: () -> Unit = {},
     onRatingDialogDisable: () -> Unit = {},
     onRatingDialogCompleted: () -> Unit = {}
-
 ) {
+    val scope = rememberCoroutineScope()
     val context = LocalContext.current
     var currentRatingDialog by rememberSaveable { mutableStateOf(RatingDialogMode.RATING) }
 
@@ -69,9 +72,12 @@ fun RatingDialog(
                             horizontal = dimensionResource(id = R.dimen.offset_regular)
                         ),
                         onFeedbackSent = {
-                            context.sendFeedback(it)
-                            onRatingDialogCompleted()
-                            currentRatingDialog = RatingDialogMode.THANKS
+                            scope.launch {
+                                context.sendFeedback(it)
+                                delay(1000)
+                                onRatingDialogCompleted()
+                                currentRatingDialog = RatingDialogMode.THANKS
+                            }
                         },
                         onCanceled = {
                             onDismissRequest()

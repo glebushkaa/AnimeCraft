@@ -1,5 +1,6 @@
 package ua.anime.animecraft.core.android.extensions
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.EXTRA_EMAIL
@@ -9,10 +10,15 @@ import android.net.Uri
 import android.text.TextUtils
 import androidx.core.content.ContextCompat
 import java.util.Locale
+import ua.anime.animecraft.core.log.error
+import ua.anime.animecraft.core.log.tag
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/30/2023
  */
+
+private const val SHARE_TYPE = "text/plain"
+private const val SHARE_TITLE = "Share app"
 
 fun Context.updateLanguage(language: String, country: String) {
     val locale: Locale = if (TextUtils.isEmpty(country)) {
@@ -25,6 +31,19 @@ fun Context.updateLanguage(language: String, country: String) {
         setLocale(locale)
     }
     resources.updateConfiguration(configuration, resources.displayMetrics)
+}
+
+fun Context.shareApp(link: String) {
+    try {
+        val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            type = SHARE_TYPE
+            putExtra(EXTRA_TEXT, link)
+        }
+        startActivity(Intent.createChooser(intent, SHARE_TITLE))
+    } catch (exception: ActivityNotFoundException) {
+        error(this@shareApp.tag(), exception) { exception.message ?: "" }
+    }
 }
 
 /**
@@ -42,6 +61,25 @@ fun Context.sendFeedback(message: String) {
             putExtra(EXTRA_SUBJECT, "AnimeCraft Feedback")
         },
         "AnimeCraft Feedback"
+    )
+    ContextCompat.startActivity(context, intent, null)
+}
+
+/**
+ * TODO change email
+ * TODO extract strings to resources
+ */
+fun Context.sendReport(message: String) {
+    val context = this
+    val intent = Intent.createChooser(
+        Intent().apply {
+            action = Intent.ACTION_SENDTO
+            data = Uri.parse("mailto:")
+            putExtra(EXTRA_EMAIL, arrayOf("gleb.mokryy@gmail.com"))
+            putExtra(EXTRA_TEXT, message.trim())
+            putExtra(EXTRA_SUBJECT, "AnimeCraft Report")
+        },
+        "AnimeCraft Report"
     )
     ContextCompat.startActivity(context, intent, null)
 }

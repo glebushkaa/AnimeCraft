@@ -9,3 +9,4 @@ import androidx.compose.ui.unit.dp
 val searchBarShape = RoundedCornerShape(20.dp)
 val dialogsShape = RoundedCornerShape(16.dp)
 val dialogButtonShape = RoundedCornerShape(10.dp)
+val settingButtonShape = RoundedCornerShape(10.dp)

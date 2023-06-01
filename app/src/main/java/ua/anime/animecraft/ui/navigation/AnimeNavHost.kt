@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName")
+@file:Suppress("FunctionName", "LongMethod")
 
 package ua.anime.animecraft.ui.navigation
 
@@ -12,6 +12,8 @@ import androidx.navigation.compose.composable
 import ua.anime.animecraft.ui.screens.favorites.FavoritesScreen
 import ua.anime.animecraft.ui.screens.info.InfoScreen
 import ua.anime.animecraft.ui.screens.main.MainScreen
+import ua.anime.animecraft.ui.screens.settings.LanguageScreen
+import ua.anime.animecraft.ui.screens.settings.ReportScreen
 import ua.anime.animecraft.ui.screens.settings.SettingsScreen
 import ua.anime.animecraft.ui.screens.splash.SplashScreen
 
@@ -53,6 +55,26 @@ fun AnimeCraftHost(
         composable(route = Settings.route) {
             SettingsScreen(
                 backClicked = {
+                    navController.popBackStack()
+                },
+                onLanguageScreenNavigate = {
+                    navController.navigateSingleTopTo(LanguageSettings.route)
+                },
+                onReportScreenNavigate = {
+                    navController.navigateSingleTopTo(ReportSettings.route)
+                }
+            )
+        }
+        composable(route = LanguageSettings.route) {
+            LanguageScreen(
+                onBackClicked = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        composable(route = ReportSettings.route) {
+            ReportScreen(
+                onBackClicked = {
                     navController.popBackStack()
                 }
             )

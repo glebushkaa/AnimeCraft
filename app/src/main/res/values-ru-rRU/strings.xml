@@ -50,5 +50,11 @@
     <string name="french">Французский</string>
     <string name="polish">Польский</string>
     <string name="japanese">Японский</string>
+    <string name="change_language">Change language</string>
+    <string name="send_report">Send report</string>
+    <string name="share_app">Share app</string>
+    <string name="tell_us_your_report">Tell us your report...</string>
+    <string name="report">Report</string>
+    <string name="send_feedback">Send feedback</string>
     <!--Languages-->
 </resources>
