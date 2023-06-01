@@ -1,8 +1,9 @@
-@file:Suppress("LongMethod", "FunctionName")
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:Suppress("LongMethod", "FunctionName", "LongParameterList")
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
 package ua.anime.animecraft.ui.screens.settings
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,9 +14,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,25 +22,30 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
-import ua.anime.animecraft.core.activityholder.CurrentActivityHolder
+import ua.anime.animecraft.core.android.extensions.sendFeedback
+import ua.anime.animecraft.core.android.extensions.shareApp
+import ua.anime.animecraft.core.common.ONE_SECOND
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.buttons.BackButton
-import ua.anime.animecraft.ui.model.Language
+import ua.anime.animecraft.ui.dialogs.rating.ShareFeedbackDialog
 import ua.anime.animecraft.ui.navigation.SETTINGS
-import ua.anime.animecraft.ui.screens.settings.components.LanguageDropDown
+import ua.anime.animecraft.ui.screens.settings.components.SettingButton
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
@@ -51,7 +54,32 @@ import ua.anime.animecraft.ui.theme.AppTheme
  */
 
 @Composable
-fun SettingsScreen(backClicked: () -> Unit = {}) {
+fun SettingsScreen(
+    backClicked: () -> Unit = {},
+    onLanguageScreenNavigate: () -> Unit = {},
+    onReportScreenNavigate: () -> Unit = {}
+) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+
+    var shareFeedbackSelected by rememberSaveable { mutableStateOf(false) }
+    val shareAppLink = stringResource(id = R.string.share_app_link)
+
+    AnimatedVisibility(visible = shareFeedbackSelected) {
+        ShareFeedbackDialog(
+            onDismissRequest = {
+                shareFeedbackSelected = false
+            },
+            onFeedbackSent = {
+                scope.launch {
+                    context.sendFeedback(it)
+                    delay(ONE_SECOND)
+                    shareFeedbackSelected = false
+                }
+            }
+        )
+    }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         contentColor = AppTheme.colors.background,
@@ -72,7 +100,11 @@ fun SettingsScreen(backClicked: () -> Unit = {}) {
                     top = it.calculateTopPadding(),
                     bottom = it.calculateBottomPadding()
                 ),
-                backClicked = backClicked
+                backClicked = backClicked,
+                onLanguageScreenNavigate = onLanguageScreenNavigate,
+                onReportScreenNavigate = onReportScreenNavigate,
+                onShareClicked = { context.shareApp(shareAppLink) },
+                onFeedbackClicked = { shareFeedbackSelected = true }
             )
         }
     )
@@ -82,16 +114,19 @@ fun SettingsScreen(backClicked: () -> Unit = {}) {
 private fun SettingScreenContent(
     modifier: Modifier = Modifier,
     backClicked: () -> Unit = {},
+    onLanguageScreenNavigate: () -> Unit = {},
+    onShareClicked: () -> Unit = {},
+    onReportScreenNavigate: () -> Unit = {},
+    onFeedbackClicked: () -> Unit = {},
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val isSystemInDarkMode = isSystemInDarkTheme()
-    var selectedLanguage by remember { mutableStateOf(settingsViewModel.getSelectedLanguage()) }
+
     var newSkinsNotification by rememberSaveable { mutableStateOf(false) }
     var downloadHelpDialogSetting by rememberSaveable { mutableStateOf(false) }
     var darkMode by rememberSaveable {
         mutableStateOf(settingsViewModel.isDarkModeEnabled() ?: isSystemInDarkMode)
     }
-    var expandedDropDown by rememberSaveable { mutableStateOf(false) }
 
     Column(modifier = modifier.fillMaxSize()) {
         BackButton(backClicked)
@@ -127,28 +162,27 @@ private fun SettingScreenContent(
                 }
             )
         }
-        Text(
-            modifier = Modifier.padding(
-                vertical = dimensionResource(id = R.dimen.offset_average)
-            ),
-            text = stringResource(id = R.string.language),
-            style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-            color = AppTheme.colors.onBackground
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_regular)))
+        SettingButton(
+            text = stringResource(id = R.string.change_language),
+            iconResId = R.drawable.ic_map,
+            onClick = onLanguageScreenNavigate
         )
-        LanguageDropDown(
-            language = selectedLanguage,
-            expanded = expandedDropDown,
-            onClick = { value -> expandedDropDown = value },
-            languageSelected = { value -> selectedLanguage = value }
+        SettingButton(
+            text = stringResource(id = R.string.send_feedback),
+            iconResId = R.drawable.ic_face_with_heart_eyes,
+            onClick = onFeedbackClicked
         )
-        if (selectedLanguage != settingsViewModel.initialLanguage && !expandedDropDown) {
-            LanguageConfirmButton(
-                modifier = Modifier.padding(
-                    top = dimensionResource(id = R.dimen.offset_regular)
-                ),
-                selectedLanguage = selectedLanguage
-            )
-        }
+        SettingButton(
+            text = stringResource(id = R.string.send_report),
+            iconResId = R.drawable.ic_report,
+            onClick = onReportScreenNavigate
+        )
+        SettingButton(
+            text = stringResource(id = R.string.share_app),
+            iconResId = R.drawable.ic_share,
+            onClick = onShareClicked
+        )
     }
 }
 
@@ -235,34 +269,6 @@ private fun NotificationNewSkinsSetting(
             text = stringResource(id = R.string.notifications_new_skins),
             style = AppTheme.typography.bodyLarge,
             color = AppTheme.colors.onBackground
-        )
-    }
-}
-
-@Composable
-private fun LanguageConfirmButton(
-    modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel = hiltViewModel(),
-    selectedLanguage: Language
-) {
-    Button(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(48.dp),
-        shape = RoundedCornerShape(10.dp),
-        elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = AppTheme.colors.primary
-        ),
-        onClick = {
-            settingsViewModel.updateLanguagePreference(selectedLanguage.languageLocale)
-            CurrentActivityHolder.getCurrentActivity()?.recreate()
-        }
-    ) {
-        Text(
-            text = stringResource(R.string.confirm),
-            style = AppTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
-            color = AppTheme.colors.secondary
         )
     }
 }

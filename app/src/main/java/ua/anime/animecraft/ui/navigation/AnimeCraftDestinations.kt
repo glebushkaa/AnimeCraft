@@ -35,6 +35,14 @@ object Settings : AnimeCraftDestination {
     override val route = SETTINGS
 }
 
+object LanguageSettings : AnimeCraftDestination {
+    override val route = LANGUAGE_SETTINGS
+}
+
+object ReportSettings : AnimeCraftDestination {
+    override val route = REPORT_SETTINGS
+}
+
 object Info : AnimeCraftDestination {
     override val route = INFO
     const val idArg = "idArg"

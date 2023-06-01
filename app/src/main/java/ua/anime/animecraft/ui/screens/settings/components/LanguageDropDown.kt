@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -32,6 +31,8 @@ import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.languagesList
 import ua.anime.animecraft.ui.model.Language
 import ua.anime.animecraft.ui.theme.AppTheme
+import ua.anime.animecraft.ui.theme.settingButtonElevation
+import ua.anime.animecraft.ui.theme.settingButtonShape
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/30/2023
@@ -39,6 +40,7 @@ import ua.anime.animecraft.ui.theme.AppTheme
 
 @Composable
 fun LanguageDropDown(
+    modifier: Modifier = Modifier,
     language: Language,
     expanded: Boolean,
     onClick: (Boolean) -> Unit,
@@ -47,8 +49,9 @@ fun LanguageDropDown(
     val iconDegree by animateFloatAsState(if (expanded) 180f else 0f)
 
     Surface(
-        shadowElevation = 8.dp,
-        shape = RoundedCornerShape(10.dp),
+        modifier = modifier,
+        shadowElevation = settingButtonElevation,
+        shape = settingButtonShape,
         contentColor = AppTheme.colors.surface,
         color = AppTheme.colors.surface
     ) {
