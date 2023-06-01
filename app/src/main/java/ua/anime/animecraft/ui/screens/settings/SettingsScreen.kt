@@ -38,10 +38,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.activityholder.CurrentActivityHolder
-import ua.anime.animecraft.ui.SETTINGS
 import ua.anime.animecraft.ui.common.AppTopBar
-import ua.anime.animecraft.ui.common.BackButton
+import ua.anime.animecraft.ui.common.buttons.BackButton
 import ua.anime.animecraft.ui.model.Language
+import ua.anime.animecraft.ui.navigation.SETTINGS
 import ua.anime.animecraft.ui.screens.settings.components.LanguageDropDown
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
@@ -262,7 +262,7 @@ private fun LanguageConfirmButton(
         Text(
             text = stringResource(R.string.confirm),
             style = AppTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold),
-            color = AppTheme.colors.onSurface
+            color = AppTheme.colors.secondary
         )
     }
 }

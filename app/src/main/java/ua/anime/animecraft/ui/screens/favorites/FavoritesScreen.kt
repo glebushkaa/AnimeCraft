@@ -27,13 +27,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
-import ua.anime.animecraft.ui.FAVORITES
 import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.AppTopBar
-import ua.anime.animecraft.ui.common.BackButton
 import ua.anime.animecraft.ui.common.SearchBar
 import ua.anime.animecraft.ui.common.SkinsGrid
+import ua.anime.animecraft.ui.common.buttons.BackButton
 import ua.anime.animecraft.ui.dialogs.downloadskin.DownloadSkinDialog
+import ua.anime.animecraft.ui.navigation.FAVORITES
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 

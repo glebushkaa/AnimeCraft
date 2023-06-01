@@ -1,6 +1,6 @@
 @file:Suppress("FunctionName")
 
-package ua.anime.animecraft.ui.common
+package ua.anime.animecraft.ui.common.buttons
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.wrapContentSize

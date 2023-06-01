@@ -1,6 +1,6 @@
 @file:Suppress("LongParameterList")
 
-package ua.anime.animecraft.ui.common
+package ua.anime.animecraft.ui.extensions
 
 import android.graphics.BlurMaskFilter
 import androidx.compose.ui.Modifier

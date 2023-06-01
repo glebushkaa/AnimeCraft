@@ -12,6 +12,9 @@ import ua.anime.animecraft.core.common.replaceAllElements
 import ua.anime.animecraft.data.files.SkinFilesHandler
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_DOWNLOAD_DIALOG_DISABLED
+import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_RATE_COMPLETED
+import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_RATE_DIALOG_DISABLED
+import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.TIMES_APP_OPENED
 import ua.anime.animecraft.domain.repository.FavoritesRepository
 import ua.anime.animecraft.domain.repository.SkinsRepository
 import ua.anime.animecraft.ui.extensions.filterListByName
@@ -38,11 +41,41 @@ class MainViewModel @Inject constructor(
 
     private val skins = mutableListOf<Skin>()
 
-    var isSkinsLoaded: Boolean = false
+    var areSkinsLoaded: Boolean = false
         private set
 
-    val isDownloadDialogDisabled: Boolean
-        get() = skinsPreferencesHandler.getBoolean(IS_DOWNLOAD_DIALOG_DISABLED) ?: false
+    val isDownloadDialogDisabled = skinsPreferencesHandler.getBoolean(
+        IS_DOWNLOAD_DIALOG_DISABLED
+    ) ?: false
+
+    private val isRateDialogDisabled: Boolean
+        get() = skinsPreferencesHandler.getBoolean(IS_RATE_DIALOG_DISABLED) ?: false
+    private val isRateCompleted: Boolean
+        get() = skinsPreferencesHandler.getBoolean(IS_RATE_COMPLETED) ?: false
+    private val timesAppOpened: Int
+        get() = skinsPreferencesHandler.getInt(TIMES_APP_OPENED) ?: 0
+
+    private var isDialogWasShown = false
+
+    fun setDialogWasShown() {
+        isDialogWasShown = true
+    }
+
+    fun setRateDialogCompleted() {
+        skinsPreferencesHandler.putBoolean(IS_RATE_COMPLETED, true)
+    }
+
+    fun shouldRateDialogBeShown(): Boolean {
+        return !isRateDialogDisabled &&
+            timesAppOpened % EVERY_THIRD_OPEN == 0 &&
+            timesAppOpened >= EVERY_THIRD_OPEN &&
+            !isRateCompleted &&
+            !isDialogWasShown
+    }
+
+    fun disableRateDialog() {
+        skinsPreferencesHandler.putBoolean(IS_RATE_DIALOG_DISABLED, true)
+    }
 
     fun saveGameSkinImage(id: Int) {
         val gameImageFileName = skins.find { it.id == id }?.gameImageFileName ?: return
@@ -60,7 +93,7 @@ class MainViewModel @Inject constructor(
     fun getAllSkins() {
         viewModelScope.launch(Dispatchers.IO) {
             skinsRepository.getSkinsFlow().collect {
-                isSkinsLoaded = true
+                areSkinsLoaded = true
                 skins.replaceAllElements(it)
                 val filteredList = skins.filterListByName(currentSearchInput)
                 _skinsFlow.emit(filteredList)
@@ -81,5 +114,9 @@ class MainViewModel @Inject constructor(
             val favorite = skins.find { it.id == id }?.favorite?.not() ?: false
             favoritesRepository.updateFavoriteSkin(id, favorite)
         }
+    }
+
+    private companion object {
+        const val EVERY_THIRD_OPEN = 3
     }
 }

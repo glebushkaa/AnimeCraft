@@ -26,6 +26,20 @@
     <string name="flag_image">Imagen de la bandera</string>
     <string name="confirm">Confirme</string>
     <string name="download_help_dialog">Descargar diálogo de ayuda</string>
+    <string name="provide_your_feedback">Su valoración nos importa. Tómese un momento para hacernos llegar sus comentarios. Muchas gracias.</string>
+    <string name="do_you_enjoy_our_app">¿Le gusta nuestra aplicación?</string>
+    <string name="rate_us">Valóranos</string>
+    <string name="not_now">Ahora no</string>
+    <string name="smile_image">Imagen de la sonrisa</string>
+    <string name="thank_you_image">Gracias imagen</string>
+    <string name="sorry_to_hear">Siento oír eso…</string>
+    <string name="tell_us_your_feedback">Dinos lo que piensas…</string>
+    <string name="please_provide_your_thoughts">Por favor, indíquenos sus opiniones y razones en el cuadro de texto. Valoramos sus comentarios y nos gustaría conocerlos.</string>
+    <string name="cancel">Cancelar</string>
+    <string name="submit">Enviar</string>
+    <string name="thank_you">Gracias!</string>
+    <string name="we_will_enhance_app">Seguiremos trabajando juntos para mejorar nuestra aplicación!</string>
+    <string name="you_are_welcome">De nada</string>
 
     <!--Languages-->
     <string name="russian">Ruso</string>

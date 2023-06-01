@@ -26,6 +26,21 @@
     <string name="flag_image">Flag image</string>
     <string name="custom_skin" translatable="false">custom.png</string>
     <string name="confirm">Confirm</string>
+    <string name="download_help_dialog">Download help dialog</string>
+    <string name="provide_your_feedback">Your rating matters to us. Please take a moment to provide your feedback. Thank you!</string>
+    <string name="do_you_enjoy_our_app">Do you enjoy our app?</string>
+    <string name="rate_us">Rate us</string>
+    <string name="not_now">Not now</string>
+    <string name="smile_image">Smile image</string>
+    <string name="sorry_to_hear">Sorry to hear that…</string>
+    <string name="tell_us_your_feedback">Tell us your feedback…</string>
+    <string name="please_provide_your_thoughts">Please provide your thoughts and reasons in the text box. We value your feedback and would like to hear from you.</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+    <string name="thank_you">Thank you!</string>
+    <string name="thank_you_image">Thank you image</string>
+    <string name="we_will_enhance_app">We will continue to work together to enhance our app!</string>
+    <string name="you_are_welcome">You\'re welcome</string>
 
     <!--Ad-->
     <string name="ad_app_id" translatable="false">ca-app-pub-3940256099942544/3419835294</string>
@@ -41,6 +56,5 @@
     <string name="french">French</string>
     <string name="polish">Polish</string>
     <string name="japanese">Japanese</string>
-    <string name="download_help_dialog">Download help dialog</string>
     <!--Languages-->
 </resources>
