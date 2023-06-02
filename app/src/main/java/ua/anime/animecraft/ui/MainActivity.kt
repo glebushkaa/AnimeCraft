@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.core.android.extensions.updateLanguage
 import ua.anime.animecraft.ui.navigation.AnimeCraftHost
@@ -28,8 +29,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val language = settingsViewModel.getSelectedLanguage()
-        updateLanguage(language.languageLocale, language.countryLocale)
+        val language = settingsViewModel.getSelectedLanguage(Locale.getDefault().language)
+        updateLanguage(
+            language = language.languageLocale,
+            country = language.countryLocale
+        )
         setContent {
             val isSystemInDarkMode = isSystemInDarkTheme()
             updateDarkModeState(settingsViewModel.isDarkModeEnabled() ?: isSystemInDarkMode)

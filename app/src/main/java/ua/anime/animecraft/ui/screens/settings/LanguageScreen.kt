@@ -26,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import java.util.Locale
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.activityholder.CurrentActivityHolder
 import ua.anime.animecraft.ui.common.AppTopBar
@@ -45,7 +46,10 @@ fun LanguageScreen(
     onBackClicked: () -> Unit = {},
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
-    var selectedLanguage by remember { mutableStateOf(settingsViewModel.getSelectedLanguage()) }
+    var selectedLanguage by remember {
+        val localeLanguage = Locale.getDefault().language
+        mutableStateOf(settingsViewModel.getSelectedLanguage(localeLanguage))
+    }
     var expandedDropDown by rememberSaveable { mutableStateOf(false) }
 
     Scaffold(
