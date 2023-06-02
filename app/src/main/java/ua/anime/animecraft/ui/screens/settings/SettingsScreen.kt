@@ -188,7 +188,7 @@ private fun SettingScreenContent(
             modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.offset_large)),
             text = stringResource(id = R.string.disable_ad),
             iconResId = R.drawable.ic_disable_ad,
-            onClick = {  }
+            onClick = {}
         )
     }
 }
