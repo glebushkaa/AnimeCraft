@@ -57,6 +57,10 @@ class MainViewModel @Inject constructor(
 
     private var isDialogWasShown = false
 
+    init {
+        getAllSkins()
+    }
+
     fun setDialogWasShown() {
         isDialogWasShown = true
     }

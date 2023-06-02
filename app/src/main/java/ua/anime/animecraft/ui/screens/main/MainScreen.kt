@@ -7,6 +7,11 @@ import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandIn
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -19,6 +24,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -28,8 +34,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
+import ua.anime.animecraft.core.common.ONE_SECOND
 import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.RoundedProgressIndicator
@@ -56,7 +64,7 @@ fun MainScreen(
     val skins by mainViewModel.skinsFlow.collectLifecycleAwareFlowAsState(initialValue = listOf())
     var searchQuery by rememberSaveable { mutableStateOf("") }
 
-    var downloadSelected by rememberSaveable { mutableStateOf(false) }
+    var downloadSelected by remember { mutableStateOf(false) }
 
     val downloadDialogShown by remember {
         derivedStateOf {
@@ -79,6 +87,7 @@ fun MainScreen(
                 currentScreen = MAIN,
                 settingsClicked = settingsClicked,
                 likeClicked = likeClicked
+
             )
         },
         content = {
@@ -106,7 +115,7 @@ fun MainScreen(
         }
     )
 
-    AnimatedVisibility(visible = downloadDialogShown) {
+    if(downloadDialogShown) {
         DownloadSkinDialog(
             dismissRequest = { downloadSelected = false },
             dontShowAgainClick = {
@@ -133,7 +142,6 @@ fun MainScreen(
     }
 
     LaunchedEffect(key1 = false) {
-        mainViewModel.getAllSkins()
         delay(1000)
         ratingDialogShown = mainViewModel.shouldRateDialogBeShown()
     }
