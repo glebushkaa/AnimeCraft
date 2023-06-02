@@ -1,3 +1,4 @@
+@file:Suppress("FunctionName", "FunctionOnlyReturningConstant")
 @file:OptIn(ExperimentalAnimationApi::class)
 
 package ua.anime.animecraft.ui.navigation.routes
@@ -27,7 +28,7 @@ private val animationSpec = tween<IntOffset>(
 )
 
 fun NavGraphBuilder.infoScreenComposable(
-    content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit,
+    content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit
 ) {
     composable(
         route = Info.routeWithArgs,

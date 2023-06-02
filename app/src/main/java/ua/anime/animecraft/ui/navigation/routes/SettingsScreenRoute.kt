@@ -1,3 +1,4 @@
+@file:Suppress("FunctionOnlyReturningConstant")
 @file:OptIn(ExperimentalAnimationApi::class)
 
 package ua.anime.animecraft.ui.navigation.routes
@@ -45,9 +46,8 @@ private fun AnimatedContentScope<NavBackStackEntry>.settingsEnterAnimation(): En
     }
 }
 
-
 private fun AnimatedContentScope<NavBackStackEntry>.settingsExitAnimation(): ExitTransition? {
-    return when(targetState.destination.route) {
+    return when (targetState.destination.route) {
         Main.route -> slideOutHorizontally(animationSpec) { it }
         else -> null
     }

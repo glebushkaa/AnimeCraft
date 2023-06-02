@@ -66,10 +66,7 @@ fun InfoScreen(
     ) {
         DownloadSkinDialog(
             dismissRequest = { downloadClicked = false },
-            dontShowAgainClick = {
-                infoViewModel.disableDownloadDialogOpen()
-                downloadClicked = false
-            }
+            dontShowAgainClick = infoViewModel::disableDownloadDialogOpen
         )
     }
 

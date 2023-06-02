@@ -41,15 +41,14 @@ private fun AnimatedContentScope<NavBackStackEntry>.mainEnterAnimation(): EnterT
     return fadeIn(enterAnimationSpec)
 }
 
-
-private fun AnimatedContentScope<NavBackStackEntry>.mainExitAnimation(): ExitTransition?{
+private fun AnimatedContentScope<NavBackStackEntry>.mainExitAnimation(): ExitTransition {
     return fadeOut(exitAnimationSpec)
 }
 
-private fun AnimatedContentScope<NavBackStackEntry>.mainPopEnterAnimation(): EnterTransition? {
+private fun AnimatedContentScope<NavBackStackEntry>.mainPopEnterAnimation(): EnterTransition {
     return fadeIn(enterAnimationSpec)
 }
 
-private fun AnimatedContentScope<NavBackStackEntry>.mainPopExitAnimation(): ExitTransition? {
+private fun AnimatedContentScope<NavBackStackEntry>.mainPopExitAnimation(): ExitTransition {
     return fadeOut(exitAnimationSpec)
 }

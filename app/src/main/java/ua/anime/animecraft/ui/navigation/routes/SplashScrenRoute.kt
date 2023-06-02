@@ -40,7 +40,6 @@ private fun AnimatedContentScope<NavBackStackEntry>.splashEnterAnimation(): Ente
     return fadeIn(animationSpec)
 }
 
-
 private fun AnimatedContentScope<NavBackStackEntry>.splashExitAnimation(): ExitTransition {
     return fadeOut(animationSpec)
 }

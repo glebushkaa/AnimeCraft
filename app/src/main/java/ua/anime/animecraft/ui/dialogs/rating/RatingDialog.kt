@@ -5,8 +5,15 @@ package ua.anime.animecraft.ui.dialogs.rating
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.with
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.rememberCoroutineScope
@@ -21,6 +28,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.sendFeedback
+import ua.anime.animecraft.ui.dialogs.component.AnimatedScaleDialogContent
+import ua.anime.animecraft.ui.dialogs.component.PRE_DISMISS_DELAY
 import ua.anime.animecraft.ui.dialogs.rating.feedback.FeedbackDialogContent
 import ua.anime.animecraft.ui.dialogs.rating.rate.RateDialogContent
 import ua.anime.animecraft.ui.dialogs.rating.thanks.ThanksDialogContent
@@ -29,8 +38,53 @@ import ua.anime.animecraft.ui.dialogs.rating.thanks.ThanksDialogContent
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/31/2023
  */
 
+private const val RATING_DIALOG_ANIMATION_DURATION = 600
+private val ratingDialogAnimationSpec = tween<Float>(RATING_DIALOG_ANIMATION_DURATION)
+
+private val ratingDialogModeContentTransform =
+    scaleIn(ratingDialogAnimationSpec) + fadeIn(ratingDialogAnimationSpec) with
+        scaleOut(ratingDialogAnimationSpec) + fadeOut(ratingDialogAnimationSpec)
+
 @Composable
 fun RatingDialog(
+    onDismissRequest: () -> Unit = {},
+    onRatingDialogDisable: () -> Unit = {},
+    onRatingDialogCompleted: () -> Unit = {}
+) {
+    var isDismissed by rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(key1 = isDismissed) {
+        if (isDismissed) {
+            delay(PRE_DISMISS_DELAY)
+            onDismissRequest()
+        }
+    }
+
+    val dialogProperties = DialogProperties(
+        dismissOnBackPress = false,
+        dismissOnClickOutside = false,
+        usePlatformDefaultWidth = false
+    )
+
+    Dialog(
+        onDismissRequest = {
+            isDismissed = true
+            onDismissRequest()
+        },
+        properties = dialogProperties
+    ) {
+        AnimatedScaleDialogContent(content = {
+            AnimatedRatingDialogContent(
+                onDismissRequest = { isDismissed = true },
+                onRatingDialogDisable = onRatingDialogDisable,
+                onRatingDialogCompleted = onRatingDialogCompleted
+            )
+        }, isDismissed = isDismissed)
+    }
+}
+
+@Composable
+private fun AnimatedRatingDialogContent(
     onDismissRequest: () -> Unit = {},
     onRatingDialogDisable: () -> Unit = {},
     onRatingDialogCompleted: () -> Unit = {}
@@ -39,61 +93,53 @@ fun RatingDialog(
     val context = LocalContext.current
     var currentRatingDialog by rememberSaveable { mutableStateOf(RatingDialogMode.RATING) }
 
-    val dialogProperties = DialogProperties(
-        dismissOnBackPress = false,
-        dismissOnClickOutside = false,
-        usePlatformDefaultWidth = false
-    )
-
-    AnimatedContent(targetState = currentRatingDialog) { dialog ->
-        Dialog(
-            onDismissRequest = onDismissRequest,
-            properties = dialogProperties
-        ) {
-            when (dialog) {
-                RatingDialogMode.RATING -> RateDialogContent(
-                    modifier = Modifier.padding(
-                        horizontal = dimensionResource(id = R.dimen.offset_large)
-                    ),
-                    dismissRequest = onDismissRequest,
-                    dontShowAgainClick = onRatingDialogDisable,
-                    rateClicked = {
-                        currentRatingDialog = if (it <= 50) {
-                            RatingDialogMode.FEEDBACK
-                        } else {
-                            RatingDialogMode.THANKS
-                        }
+    AnimatedContent(
+        targetState = currentRatingDialog,
+        transitionSpec = { ratingDialogModeContentTransform }
+    ) { dialog ->
+        when (dialog) {
+            RatingDialogMode.RATING -> RateDialogContent(
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.offset_large)
+                ),
+                dismissRequest = onDismissRequest,
+                dontShowAgainClick = {
+                    onDismissRequest()
+                    onRatingDialogDisable()
+                },
+                rateClicked = {
+                    currentRatingDialog = if (it <= 50) {
+                        RatingDialogMode.FEEDBACK
+                    } else {
+                        RatingDialogMode.THANKS
                     }
-                )
+                }
+            )
 
-                RatingDialogMode.FEEDBACK -> {
-                    FeedbackDialogContent(
-                        modifier = Modifier.padding(
-                            horizontal = dimensionResource(id = R.dimen.offset_regular)
-                        ),
-                        onFeedbackSent = {
-                            scope.launch {
-                                context.sendFeedback(it)
-                                delay(1000)
-                                onRatingDialogCompleted()
-                                currentRatingDialog = RatingDialogMode.THANKS
-                            }
-                        },
-                        onCanceled = {
-                            onDismissRequest()
-                            currentRatingDialog = RatingDialogMode.RATING
+            RatingDialogMode.FEEDBACK -> {
+                FeedbackDialogContent(
+                    modifier = Modifier.padding(
+                        horizontal = dimensionResource(id = R.dimen.offset_regular)
+                    ),
+                    onFeedbackSent = {
+                        scope.launch {
+                            context.sendFeedback(it)
+                            delay(1000)
+                            onRatingDialogCompleted()
+                            currentRatingDialog = RatingDialogMode.THANKS
                         }
-                    )
-                }
+                    },
+                    onCanceled = onDismissRequest
+                )
+            }
 
-                RatingDialogMode.THANKS -> {
-                    ThanksDialogContent(
-                        modifier = Modifier.padding(
-                            horizontal = dimensionResource(id = R.dimen.offset_regular)
-                        ),
-                        onDismissRequest = onDismissRequest
-                    )
-                }
+            RatingDialogMode.THANKS -> {
+                ThanksDialogContent(
+                    modifier = Modifier.padding(
+                        horizontal = dimensionResource(id = R.dimen.offset_regular)
+                    ),
+                    onDismissRequest = onDismissRequest
+                )
             }
         }
     }

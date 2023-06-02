@@ -5,13 +5,8 @@ package ua.anime.animecraft.ui.screens.main
 
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandIn
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -24,7 +19,6 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -34,10 +28,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
-import ua.anime.animecraft.core.common.ONE_SECOND
 import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.RoundedProgressIndicator
@@ -68,8 +60,7 @@ fun MainScreen(
 
     val downloadDialogShown by remember {
         derivedStateOf {
-            downloadSelected && SDK_INT >= VERSION_CODES.Q &&
-                mainViewModel.isDownloadDialogDisabled.not()
+            downloadSelected && SDK_INT >= VERSION_CODES.Q && mainViewModel.isDownloadDialogDisabled.not()
         }
     }
     var ratingDialogShown by remember { mutableStateOf(false) }
@@ -115,17 +106,14 @@ fun MainScreen(
         }
     )
 
-    if(downloadDialogShown) {
+    if (downloadDialogShown) {
         DownloadSkinDialog(
             dismissRequest = { downloadSelected = false },
-            dontShowAgainClick = {
-                mainViewModel.disableDownloadDialogOpen()
-                downloadSelected = false
-            }
+            dontShowAgainClick = mainViewModel::disableDownloadDialogOpen
         )
     }
 
-    AnimatedVisibility(visible = ratingDialogShown) {
+    if (ratingDialogShown) {
         mainViewModel.setDialogWasShown()
         RatingDialog(
             onDismissRequest = {
@@ -136,13 +124,12 @@ fun MainScreen(
             },
             onRatingDialogDisable = {
                 mainViewModel.disableRateDialog()
-                ratingDialogShown = false
             }
         )
     }
 
     LaunchedEffect(key1 = false) {
-        delay(1000)
+        delay(2000)
         ratingDialogShown = mainViewModel.shouldRateDialogBeShown()
     }
 }
@@ -166,22 +153,24 @@ private fun MainScreenContent(
             value = searchQuery,
             onValueChanged = onSearchQueryUpdated
         )
-        if (!areSkinsLoaded && skins.isEmpty()) {
-            RoundedProgressIndicator(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .size(100.dp),
-                color = AppTheme.colors.primary,
-                strokeWidth = 12.dp
+        Box(modifier = Modifier.weight(1f)) {
+            if (!areSkinsLoaded && skins.isEmpty()) {
+                RoundedProgressIndicator(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(100.dp),
+                    color = AppTheme.colors.primary,
+                    strokeWidth = 12.dp
+                )
+            }
+            SkinsGrid(
+                modifier = Modifier.align(Alignment.TopCenter),
+                skins = skins,
+                itemClick = itemClicked,
+                likeClick = onLikeClicked,
+                downloadClick = onDownloadClicked
             )
         }
-        SkinsGrid(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            skins = skins,
-            itemClick = itemClicked,
-            likeClick = onLikeClicked,
-            downloadClick = onDownloadClicked
-        )
     }
 }
 

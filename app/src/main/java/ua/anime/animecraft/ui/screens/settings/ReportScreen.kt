@@ -3,7 +3,6 @@
 
 package ua.anime.animecraft.ui.screens.settings
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -93,7 +92,7 @@ fun ReportScreen(
         }
     )
 
-    AnimatedVisibility(thanksDialogShown) {
+    if (thanksDialogShown) {
         ThanksDialog {
             scope.launch {
                 thanksDialogShown = false

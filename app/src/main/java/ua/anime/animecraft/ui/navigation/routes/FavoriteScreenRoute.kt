@@ -18,7 +18,6 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import com.google.accompanist.navigation.animation.composable
 import ua.anime.animecraft.core.common.HALF_SECOND
-import ua.anime.animecraft.core.log.debug
 import ua.anime.animecraft.ui.navigation.Favorites
 import ua.anime.animecraft.ui.navigation.Info
 
@@ -48,7 +47,6 @@ private fun AnimatedContentScope<NavBackStackEntry>.favoriteEnterAnimation(): En
         else -> slideInHorizontally(slideAnimationSpec) { it }
     }
 }
-
 
 private fun AnimatedContentScope<NavBackStackEntry>.favoriteExitAnimation(): ExitTransition {
     return when (initialState.destination.route) {

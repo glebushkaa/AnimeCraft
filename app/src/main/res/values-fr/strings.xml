@@ -40,6 +40,12 @@
     <string name="we_will_enhance_app">Nous continuerons à travailler ensemble pour améliorer notre application!</string>
     <string name="you_are_welcome">De rien</string>
     <string name="thank_you_image">Merci l\'image</string>
+    <string name="change_language">Changer de langue</string>
+    <string name="send_report">Envoyer le rapport</string>
+    <string name="share_app">Partager l\'application</string>
+    <string name="tell_us_your_report">Faites-nous part de votre rapport…</string>
+    <string name="report">Rapport</string>
+    <string name="disable_ad">Désactiver la publicité : 4,99$</string>
 
     <!--Languages-->
     <string name="russian">Russe</string>
@@ -50,12 +56,5 @@
     <string name="french">Français</string>
     <string name="polish">Polonais</string>
     <string name="japanese">Japonais</string>
-    <string name="change_language">Change language</string>
-    <string name="send_report">Send report</string>
-    <string name="share_app">Share app</string>
-    <string name="tell_us_your_report">Tell us your report...</string>
-    <string name="report">Report</string>
-    <string name="send_feedback">Send feedback</string>
-    <string name="disable_ad">Disable ad: 4,99$</string>
     <!--Languages-->
 </resources>

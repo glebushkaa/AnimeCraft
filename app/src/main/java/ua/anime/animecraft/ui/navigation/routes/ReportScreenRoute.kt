@@ -41,7 +41,6 @@ private fun AnimatedContentScope<NavBackStackEntry>.reportEnterAnimation(): Ente
     return slideInHorizontally(animationSpec) { it }
 }
 
-
 private fun AnimatedContentScope<NavBackStackEntry>.reportExitAnimation(): ExitTransition {
     return slideOutHorizontally(animationSpec) { it }
 }

@@ -40,8 +40,6 @@ fun NavGraphBuilder.languageScreenComposable(
 private fun AnimatedContentScope<NavBackStackEntry>.languageEnterAnimation(): EnterTransition {
     return slideInHorizontally(animationSpec) { it }
 }
-
-
 private fun AnimatedContentScope<NavBackStackEntry>.languageExitAnimation(): ExitTransition {
     return slideOutHorizontally(animationSpec) { it }
 }

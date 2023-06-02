@@ -3,11 +3,7 @@
 
 package ua.anime.animecraft.ui.dialogs.downloadskin
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,8 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
@@ -35,9 +30,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
 import ua.anime.animecraft.ui.common.buttons.DontShowAgainButton
+import ua.anime.animecraft.ui.dialogs.component.AnimatedScaleDialogContent
+import ua.anime.animecraft.ui.dialogs.component.PRE_DISMISS_DELAY
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 import ua.anime.animecraft.ui.theme.dialogsShape
@@ -58,43 +54,30 @@ fun DownloadSkinDialog(
     dismissRequest: () -> Unit = { },
     dontShowAgainClick: () -> Unit = { }
 ) {
-    val scope = rememberCoroutineScope()
-    var animateTrigger by remember { mutableStateOf(false) }
+    var isDismissed by rememberSaveable { mutableStateOf(false) }
 
-    LaunchedEffect(key1 = Unit) {
-        delay(200)
-        animateTrigger = true
+    LaunchedEffect(key1 = isDismissed) {
+        if (isDismissed) {
+            delay(PRE_DISMISS_DELAY)
+            dismissRequest()
+        }
     }
 
     Dialog(
-        onDismissRequest = {
-            scope.launch {
-                animateTrigger = false
-                delay(200)
-                dismissRequest()
-            }
-        },
+        onDismissRequest = { isDismissed = true },
         properties = AppTheme.dialogProperties
     ) {
-        AnimatedVisibility(
-            visible = animateTrigger,
-            enter = scaleIn(tween(300)),
-            exit = scaleOut(tween(300))
-        ) {
+        AnimatedScaleDialogContent(isDismissed = isDismissed, content = {
             DownloadSkinDialogContent(
                 modifier = modifier.padding(
                     horizontal = dimensionResource(id = R.dimen.offset_regular)
                 ),
                 dontShowAgainClick = {
-                    scope.launch {
-                        animateTrigger = false
-                        delay(400)
-                        dismissRequest()
-                    }
+                    isDismissed = true
                     dontShowAgainClick()
                 }
             )
-        }
+        })
     }
 }
 
@@ -147,8 +130,10 @@ private fun DownloadSkinDialogContent(
         }
         DontShowAgainButton(
             modifier = Modifier.padding(
-                vertical = dimensionResource(id = R.dimen.offset_medium),
-                horizontal = dimensionResource(id = R.dimen.offset_large)
+                top = dimensionResource(id = R.dimen.offset_regular),
+                start = dimensionResource(id = R.dimen.offset_large),
+                end = dimensionResource(id = R.dimen.offset_large),
+                bottom = dimensionResource(id = R.dimen.offset_large)
             ),
             onClick = dontShowAgainClick
         )

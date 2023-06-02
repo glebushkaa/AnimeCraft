@@ -3,7 +3,6 @@
 
 package ua.anime.animecraft.ui.screens.settings
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,7 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -35,16 +33,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
-import ua.anime.animecraft.core.android.extensions.sendFeedback
 import ua.anime.animecraft.core.android.extensions.shareApp
-import ua.anime.animecraft.core.common.ONE_SECOND
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.buttons.BackButton
-import ua.anime.animecraft.ui.dialogs.rating.ShareFeedbackDialog
+import ua.anime.animecraft.ui.dialogs.rating.RatingDialog
 import ua.anime.animecraft.ui.navigation.SETTINGS
+import ua.anime.animecraft.ui.screens.main.MainViewModel
 import ua.anime.animecraft.ui.screens.settings.components.SettingButton
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
@@ -57,25 +52,25 @@ import ua.anime.animecraft.ui.theme.AppTheme
 fun SettingsScreen(
     backClicked: () -> Unit = {},
     onLanguageScreenNavigate: () -> Unit = {},
-    onReportScreenNavigate: () -> Unit = {}
+    onReportScreenNavigate: () -> Unit = {},
+    mainViewModel: MainViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val scope = rememberCoroutineScope()
-
-    var shareFeedbackSelected by rememberSaveable { mutableStateOf(false) }
     val shareAppLink = stringResource(id = R.string.share_app_link)
 
-    AnimatedVisibility(visible = shareFeedbackSelected) {
-        ShareFeedbackDialog(
+    var ratingDialogShown by rememberSaveable { mutableStateOf(false) }
+
+    if (ratingDialogShown) {
+        RatingDialog(
             onDismissRequest = {
-                shareFeedbackSelected = false
+                ratingDialogShown = false
             },
-            onFeedbackSent = {
-                scope.launch {
-                    context.sendFeedback(it)
-                    delay(ONE_SECOND)
-                    shareFeedbackSelected = false
-                }
+            onRatingDialogCompleted = {
+                mainViewModel.setRateDialogCompleted()
+            },
+            onRatingDialogDisable = {
+                mainViewModel.disableRateDialog()
+                ratingDialogShown = false
             }
         )
     }
@@ -104,7 +99,7 @@ fun SettingsScreen(
                 onLanguageScreenNavigate = onLanguageScreenNavigate,
                 onReportScreenNavigate = onReportScreenNavigate,
                 onShareClicked = { context.shareApp(shareAppLink) },
-                onFeedbackClicked = { shareFeedbackSelected = true }
+                onFeedbackClicked = { ratingDialogShown = true }
             )
         }
     )
@@ -169,7 +164,7 @@ private fun SettingScreenContent(
             onClick = onLanguageScreenNavigate
         )
         SettingButton(
-            text = stringResource(id = R.string.send_feedback),
+            text = stringResource(id = R.string.rate_us),
             iconResId = R.drawable.ic_face_with_heart_eyes,
             onClick = onFeedbackClicked
         )
