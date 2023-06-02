@@ -30,9 +30,8 @@ class InfoViewModel @Inject constructor(
     private val _skinFlow = MutableStateFlow<Skin?>(null)
     val skinFlow = _skinFlow.asStateFlow()
 
-    val isDownloadDialogDisabled = skinsPreferencesHandler.getBoolean(
-        IS_DOWNLOAD_DIALOG_DISABLED
-    ) ?: false
+    val isDownloadDialogDisabled
+        get() = skinsPreferencesHandler.getBoolean(IS_DOWNLOAD_DIALOG_DISABLED) ?: false
 
     fun saveGameSkinImage() {
         val gameImageFileName = _skinFlow.value?.gameImageFileName ?: return

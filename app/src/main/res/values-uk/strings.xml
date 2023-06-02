@@ -40,6 +40,12 @@
     <string name="we_will_enhance_app">Ми продовжимо працювати разом над вдосконаленням нашого додатку!</string>
     <string name="you_are_welcome">Нема за що</string>
     <string name="thank_you_image">Спасибі зображення</string>
+    <string name="change_language">Змінити мову</string>
+    <string name="send_report">Надіслати скаргу</string>
+    <string name="share_app">Поділитися додатком</string>
+    <string name="tell_us_your_report">Розкажіть нам про свою скаргу…</string>
+    <string name="report">Скарга</string>
+    <string name="disable_ad">Вимкнути рекламу: 4,99$</string>
 
     <!--Languages-->
     <string name="russian">Російська</string>
@@ -50,12 +56,5 @@
     <string name="french">Французька</string>
     <string name="polish">Польська</string>
     <string name="japanese">Японський</string>
-    <string name="change_language">Change language</string>
-    <string name="send_report">Send report</string>
-    <string name="share_app">Share app</string>
-    <string name="tell_us_your_report">Tell us your report...</string>
-    <string name="report">Report</string>
-    <string name="send_feedback">Send feedback</string>
-    <string name="disable_ad">Disable ad: 4,99$</string>
     <!--Languages-->
 </resources>

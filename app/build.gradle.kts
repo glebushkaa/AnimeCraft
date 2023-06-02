@@ -91,6 +91,7 @@ dependencies {
     implementation(libs.compose.material)
     implementation(libs.androidx.activity.compose)
     implementation(libs.compose.navigation)
+    implementation(libs.compose.accomponist.navigation.animation)
 
     implementation(libs.coil.compose)
 

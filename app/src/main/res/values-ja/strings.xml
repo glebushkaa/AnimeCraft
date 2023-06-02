@@ -40,6 +40,12 @@
     <string name="we_will_enhance_app">今後もアプリの充実を目指し、協力していきたいと思います！</string>
     <string name="you_are_welcome">どういたしまして</string>
     <string name="thank_you_image">お礼の画像</string>
+    <string name="change_language">言語を変更する</string>
+    <string name="send_report">レポート送信</string>
+    <string name="share_app">シェアアプリ</string>
+    <string name="tell_us_your_report">あなたのレポートをお聞かせください…</string>
+    <string name="report">報告書</string>
+    <string name="disable_ad">広告を無効にする： 4,99$</string>
 
     <!--Languages-->
     <string name="russian">ロシア</string>
@@ -50,12 +56,5 @@
     <string name="french">フランス語</string>
     <string name="polish">研磨</string>
     <string name="japanese">日本</string>
-    <string name="change_language">Change language</string>
-    <string name="send_report">Send report</string>
-    <string name="share_app">Share app</string>
-    <string name="tell_us_your_report">Tell us your report...</string>
-    <string name="report">Report</string>
-    <string name="send_feedback">Send feedback</string>
-    <string name="disable_ad">Disable ad: 4,99$</string>
     <!--Languages-->
 </resources>

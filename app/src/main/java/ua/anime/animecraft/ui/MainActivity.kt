@@ -1,4 +1,5 @@
 @file:Suppress("FunctionName")
+@file:OptIn(ExperimentalAnimationApi::class)
 
 package ua.anime.animecraft.ui
 
@@ -6,10 +7,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.core.android.extensions.updateLanguage
@@ -40,7 +42,7 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun AnimeCraftApp() {
-        val navController = rememberNavController()
+        val navController = rememberAnimatedNavController()
         AnimeCraftHost(navController = navController)
     }
 }

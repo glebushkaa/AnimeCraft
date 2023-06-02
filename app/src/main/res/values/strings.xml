@@ -41,6 +41,12 @@
     <string name="thank_you_image">Thank you image</string>
     <string name="we_will_enhance_app">We will continue to work together to enhance our app!</string>
     <string name="you_are_welcome">You\'re welcome</string>
+    <string name="change_language">Change language</string>
+    <string name="send_report">Send report</string>
+    <string name="share_app">Share app</string>
+    <string name="tell_us_your_report">Tell us your report…</string>
+    <string name="report">Report</string>
+    <string name="disable_ad">Disable ad: 4,99$</string>
 
     <string name="share_app_link" translatable="false">https://play.google.com/store/apps/details?id=ua.anime.animecraft</string>
 
@@ -58,12 +64,5 @@
     <string name="french">French</string>
     <string name="polish">Polish</string>
     <string name="japanese">Japanese</string>
-    <string name="change_language">Change language</string>
-    <string name="send_report">Send report</string>
-    <string name="share_app">Share app</string>
-    <string name="tell_us_your_report">Tell us your report...</string>
-    <string name="report">Report</string>
-    <string name="send_feedback">Send feedback</string>
-    <string name="disable_ad">Disable ad: 4,99$</string>
     <!--Languages-->
 </resources>

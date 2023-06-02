@@ -44,9 +44,8 @@ class MainViewModel @Inject constructor(
     var areSkinsLoaded: Boolean = false
         private set
 
-    val isDownloadDialogDisabled = skinsPreferencesHandler.getBoolean(
-        IS_DOWNLOAD_DIALOG_DISABLED
-    ) ?: false
+    val isDownloadDialogDisabled: Boolean
+        get() = skinsPreferencesHandler.getBoolean(IS_DOWNLOAD_DIALOG_DISABLED) ?: false
 
     private val isRateDialogDisabled: Boolean
         get() = skinsPreferencesHandler.getBoolean(IS_RATE_DIALOG_DISABLED) ?: false
@@ -56,6 +55,10 @@ class MainViewModel @Inject constructor(
         get() = skinsPreferencesHandler.getInt(TIMES_APP_OPENED) ?: 0
 
     private var isDialogWasShown = false
+
+    init {
+        getAllSkins()
+    }
 
     fun setDialogWasShown() {
         isDialogWasShown = true

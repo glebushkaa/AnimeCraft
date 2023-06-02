@@ -5,8 +5,8 @@ package ua.anime.animecraft.ui.screens.main
 
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -56,11 +56,12 @@ fun MainScreen(
     val skins by mainViewModel.skinsFlow.collectLifecycleAwareFlowAsState(initialValue = listOf())
     var searchQuery by rememberSaveable { mutableStateOf("") }
 
-    var downloadSelected by rememberSaveable { mutableStateOf(false) }
+    var downloadSelected by remember { mutableStateOf(false) }
 
     val downloadDialogShown by remember {
         derivedStateOf {
-            downloadSelected && SDK_INT >= VERSION_CODES.Q &&
+            downloadSelected &&
+                SDK_INT >= VERSION_CODES.Q &&
                 mainViewModel.isDownloadDialogDisabled.not()
         }
     }
@@ -79,6 +80,7 @@ fun MainScreen(
                 currentScreen = MAIN,
                 settingsClicked = settingsClicked,
                 likeClicked = likeClicked
+
             )
         },
         content = {
@@ -106,17 +108,14 @@ fun MainScreen(
         }
     )
 
-    AnimatedVisibility(visible = downloadDialogShown) {
+    if (downloadDialogShown) {
         DownloadSkinDialog(
             dismissRequest = { downloadSelected = false },
-            dontShowAgainClick = {
-                mainViewModel.disableDownloadDialogOpen()
-                downloadSelected = false
-            }
+            dontShowAgainClick = mainViewModel::disableDownloadDialogOpen
         )
     }
 
-    AnimatedVisibility(visible = ratingDialogShown) {
+    if (ratingDialogShown) {
         mainViewModel.setDialogWasShown()
         RatingDialog(
             onDismissRequest = {
@@ -127,14 +126,12 @@ fun MainScreen(
             },
             onRatingDialogDisable = {
                 mainViewModel.disableRateDialog()
-                ratingDialogShown = false
             }
         )
     }
 
     LaunchedEffect(key1 = false) {
-        mainViewModel.getAllSkins()
-        delay(1000)
+        delay(2000)
         ratingDialogShown = mainViewModel.shouldRateDialogBeShown()
     }
 }
@@ -158,22 +155,24 @@ private fun MainScreenContent(
             value = searchQuery,
             onValueChanged = onSearchQueryUpdated
         )
-        if (!areSkinsLoaded && skins.isEmpty()) {
-            RoundedProgressIndicator(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .size(100.dp),
-                color = AppTheme.colors.primary,
-                strokeWidth = 12.dp
+        Box(modifier = Modifier.weight(1f)) {
+            if (!areSkinsLoaded && skins.isEmpty()) {
+                RoundedProgressIndicator(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .size(100.dp),
+                    color = AppTheme.colors.primary,
+                    strokeWidth = 12.dp
+                )
+            }
+            SkinsGrid(
+                modifier = Modifier.align(Alignment.TopCenter),
+                skins = skins,
+                itemClick = itemClicked,
+                likeClick = onLikeClicked,
+                downloadClick = onDownloadClicked
             )
         }
-        SkinsGrid(
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            skins = skins,
-            itemClick = itemClicked,
-            likeClick = onLikeClicked,
-            downloadClick = onDownloadClicked
-        )
     }
 }
 

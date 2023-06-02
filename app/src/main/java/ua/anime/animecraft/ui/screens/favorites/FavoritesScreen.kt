@@ -59,10 +59,7 @@ fun FavoritesScreen(
     ) {
         DownloadSkinDialog(
             dismissRequest = { downloadClicked = false },
-            dontShowAgainClick = {
-                favoritesViewModel.disableDownloadDialogOpen()
-                downloadClicked = false
-            }
+            dontShowAgainClick = favoritesViewModel::disableDownloadDialogOpen
         )
     }
 

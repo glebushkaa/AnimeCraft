@@ -1,14 +1,22 @@
 @file:Suppress("FunctionName", "LongMethod")
+@file:OptIn(ExperimentalAnimationApi::class)
 
 package ua.anime.animecraft.ui.navigation
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import ua.anime.animecraft.ui.navigation.routes.favoriteScreenComposable
+import ua.anime.animecraft.ui.navigation.routes.infoScreenComposable
+import ua.anime.animecraft.ui.navigation.routes.languageScreenComposable
+import ua.anime.animecraft.ui.navigation.routes.mainScreenComposable
+import ua.anime.animecraft.ui.navigation.routes.reportScreenComposable
+import ua.anime.animecraft.ui.navigation.routes.settingsScreenComposable
+import ua.anime.animecraft.ui.navigation.routes.splashScreenComposable
 import ua.anime.animecraft.ui.screens.favorites.FavoritesScreen
 import ua.anime.animecraft.ui.screens.info.InfoScreen
 import ua.anime.animecraft.ui.screens.main.MainScreen
@@ -26,8 +34,12 @@ fun AnimeCraftHost(
     modifier: Modifier = Modifier,
     navController: NavHostController
 ) {
-    NavHost(navController = navController, startDestination = Splash.route, modifier = modifier) {
-        composable(route = Splash.route) {
+    AnimatedNavHost(
+        navController = navController,
+        startDestination = Splash.route,
+        modifier = modifier
+    ) {
+        splashScreenComposable {
             SplashScreen(
                 onFinish = {
                     navController.navigate(route = Main.route) {
@@ -39,7 +51,7 @@ fun AnimeCraftHost(
                 }
             )
         }
-        composable(route = Main.route) {
+        mainScreenComposable {
             MainScreen(
                 settingsClicked = {
                     navController.navigateSingleTopTo(Settings.route)
@@ -52,11 +64,9 @@ fun AnimeCraftHost(
                 }
             )
         }
-        composable(route = Settings.route) {
+        settingsScreenComposable {
             SettingsScreen(
-                backClicked = {
-                    navController.popBackStack()
-                },
+                backClicked = navController::popBackStack,
                 onLanguageScreenNavigate = {
                     navController.navigateSingleTopTo(LanguageSettings.route)
                 },
@@ -65,40 +75,29 @@ fun AnimeCraftHost(
                 }
             )
         }
-        composable(route = LanguageSettings.route) {
+        languageScreenComposable {
             LanguageScreen(
-                onBackClicked = {
-                    navController.popBackStack()
-                }
+                onBackClicked = navController::popBackStack
             )
         }
-        composable(route = ReportSettings.route) {
+        reportScreenComposable {
             ReportScreen(
-                onBackClicked = {
-                    navController.popBackStack()
-                }
+                onBackClicked = navController::popBackStack
             )
         }
-        composable(route = Favorites.route) {
+        favoriteScreenComposable {
             FavoritesScreen(
-                backClicked = {
-                    navController.popBackStack()
-                },
+                backClicked = navController::popBackStack,
                 itemClicked = { id ->
                     navController.navigateSingleTopTo("${Info.route}/$id")
                 }
             )
         }
-        composable(
-            route = Info.routeWithArgs,
-            arguments = Info.arguments
-        ) { navBackStackEntry ->
+        infoScreenComposable { navBackStackEntry ->
             val id = navBackStackEntry.arguments?.getInt(Info.idArg) ?: 0
             InfoScreen(
                 id = id,
-                backClicked = {
-                    navController.popBackStack()
-                }
+                backClicked = navController::popBackStack
             )
         }
     }
