@@ -20,7 +20,7 @@ class SettingsViewModel @Inject constructor(
     private val skinsPreferencesHandler: SkinsPreferencesHandler
 ) : AnimeCraftViewModel() {
 
-    var initialLanguage: Language? = languagesList[0]
+    var initialLanguage: Language = languagesList[0]
         private set
 
     val isDownloadDialogDisabled = skinsPreferencesHandler.getBoolean(
@@ -37,10 +37,12 @@ class SettingsViewModel @Inject constructor(
         skinsPreferencesHandler.putString(SELECTED_LANGUAGE, language)
     }
 
-    fun getSelectedLanguage(): Language {
+    fun getSelectedLanguage(languageLocale: String): Language {
         val languagePref = skinsPreferencesHandler.getString(SELECTED_LANGUAGE)
-        initialLanguage = languagesList.find { it.languageLocale == languagePref }
-        return initialLanguage ?: languagesList[0]
+        initialLanguage = languagesList.find { it.languageLocale == languagePref } ?: run {
+            languagesList.find { it.languageLocale == languageLocale } ?: languagesList[0]
+        }
+        return initialLanguage
     }
 
     fun updateDownloadDialogSetting(value: Boolean) {
