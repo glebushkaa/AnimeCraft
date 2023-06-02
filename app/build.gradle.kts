@@ -96,6 +96,8 @@ dependencies {
 
     implementation(libs.appcompat)
 
+    implementation(libs.billing)
+
     implementation(libs.play.services.ads)
 
     implementation(libs.timber)

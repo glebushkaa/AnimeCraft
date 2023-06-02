@@ -9,6 +9,7 @@ androidxLifecycle = "2.6.1"
 androidxStartup = "1.1.1"
 androidxDataStore = "1.0.0"
 appcompat = "1.6.1"
+billing = "6.0.0"
 hilt = "2.45"
 hilt-navigation-compose = "1.0.0"
 hilt-work = "1.0.0"
@@ -48,6 +49,7 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hilt-work" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 
+billing = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billing" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
