@@ -60,7 +60,9 @@ fun MainScreen(
 
     val downloadDialogShown by remember {
         derivedStateOf {
-            downloadSelected && SDK_INT >= VERSION_CODES.Q && mainViewModel.isDownloadDialogDisabled.not()
+            downloadSelected &&
+                SDK_INT >= VERSION_CODES.Q &&
+                mainViewModel.isDownloadDialogDisabled.not()
         }
     }
     var ratingDialogShown by remember { mutableStateOf(false) }
