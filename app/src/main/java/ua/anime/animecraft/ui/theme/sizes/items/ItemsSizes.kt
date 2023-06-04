@@ -7,5 +7,6 @@ data class ItemsSizes(
     val previewItem: PreviewItemSize = PreviewItemSize(),
     val settingButton: SettingButtonSize = SettingButtonSize(),
     val languageDropDown: LanguageDropDownSize = LanguageDropDownSize(),
-    val likeButton: LikeButtonSize = LikeButtonSize()
+    val likeButton: LikeButtonSize = LikeButtonSize(),
+    val categoryItem: CategoryItemSizes = CategoryItemSizes()
 )

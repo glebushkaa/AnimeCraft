@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName")
+@file:Suppress("FunctionName", "LongParameterList")
 
 package ua.anime.animecraft.ui.common
 
@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import ua.anime.animecraft.ui.extensions.header
 import ua.anime.animecraft.ui.model.Skin
 
 /**
@@ -21,7 +22,8 @@ fun SkinsGrid(
     skins: List<Skin>,
     itemClick: (Int) -> Unit = {},
     likeClick: (Int) -> Unit = {},
-    downloadClick: (Int) -> Unit = {}
+    downloadClick: (Int) -> Unit = {},
+    headerItem: @Composable () -> Unit = {}
 ) {
     LazyVerticalGrid(
         modifier = modifier,
@@ -29,6 +31,7 @@ fun SkinsGrid(
         verticalArrangement = Arrangement.spacedBy(24.dp),
         horizontalArrangement = Arrangement.spacedBy(24.dp),
         content = {
+            header { headerItem() }
             items(skins) { skin ->
                 PreviewItem(
                     skin = skin,

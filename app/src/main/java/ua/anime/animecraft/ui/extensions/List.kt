@@ -9,3 +9,7 @@ import ua.anime.animecraft.ui.model.Skin
 fun List<Skin>.filterListByName(name: String) = filter {
     it.name.startsWith(name) || it.name.contains(name)
 }
+
+fun List<Skin>.filterListByCategoryId(categoryId: Int) = filter {
+    it.categoryId == categoryId
+}

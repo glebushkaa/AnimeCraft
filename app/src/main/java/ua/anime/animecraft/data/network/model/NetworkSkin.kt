@@ -6,5 +6,6 @@ package ua.anime.animecraft.data.network.model
 
 data class NetworkSkin(
     val id: Int = 0,
-    val name: String? = null
+    val name: String? = null,
+    val category: Int? = null
 )

@@ -7,3 +7,4 @@ package ua.anime.animecraft.data.network
  */
 
 const val SKINS = "skins"
+const val CATEGORIES = "categories"

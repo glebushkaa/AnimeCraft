@@ -15,9 +15,12 @@ import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_RATE_COMPLETED
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_RATE_DIALOG_DISABLED
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.TIMES_APP_OPENED
+import ua.anime.animecraft.domain.repository.CategoryRepository
 import ua.anime.animecraft.domain.repository.FavoritesRepository
 import ua.anime.animecraft.domain.repository.SkinsRepository
+import ua.anime.animecraft.ui.extensions.filterListByCategoryId
 import ua.anime.animecraft.ui.extensions.filterListByName
+import ua.anime.animecraft.ui.model.Category
 import ua.anime.animecraft.ui.model.Skin
 
 /**
@@ -30,6 +33,7 @@ import ua.anime.animecraft.ui.model.Skin
 class MainViewModel @Inject constructor(
     private val skinsRepository: SkinsRepository,
     private val favoritesRepository: FavoritesRepository,
+    private val categoryRepository: CategoryRepository,
     private val skinFilesHandler: SkinFilesHandler,
     private val skinsPreferencesHandler: SkinsPreferencesHandler
 ) : AnimeCraftViewModel() {
@@ -37,9 +41,15 @@ class MainViewModel @Inject constructor(
     private val _skinsFlow = MutableStateFlow<List<Skin>>(listOf())
     val skinsFlow = _skinsFlow.asStateFlow()
 
+    private val _categoriesFlow = MutableStateFlow<List<Category>>(listOf())
+    val categoriesFlow = _categoriesFlow.asStateFlow()
+
     private var currentSearchInput: String = ""
+    var selectedCategory: Category? = null
+        private set
 
     private val skins = mutableListOf<Skin>()
+    private val categories = mutableListOf<Category>()
 
     var areSkinsLoaded: Boolean = false
         private set
@@ -57,6 +67,7 @@ class MainViewModel @Inject constructor(
     private var isDialogWasShown = false
 
     init {
+        getAllCategories()
         getAllSkins()
     }
 
@@ -66,6 +77,13 @@ class MainViewModel @Inject constructor(
 
     fun setRateDialogCompleted() {
         skinsPreferencesHandler.putBoolean(IS_RATE_COMPLETED, true)
+    }
+
+    fun selectCategory(category: Category?) {
+        viewModelScope.launch(Dispatchers.Default) {
+            selectedCategory = category
+            _skinsFlow.emit(getFilteredList())
+        }
     }
 
     fun shouldRateDialogBeShown(): Boolean {
@@ -93,13 +111,29 @@ class MainViewModel @Inject constructor(
         skinsPreferencesHandler.putBoolean(IS_DOWNLOAD_DIALOG_DISABLED, true)
     }
 
-    fun getAllSkins() {
+    private fun getAllCategories() {
+        viewModelScope.launch(Dispatchers.IO) {
+            categoryRepository.getCategoriesFlow().collect {
+                categories.replaceAllElements(it)
+                _categoriesFlow.emit(categories)
+            }
+        }
+    }
+
+    private fun getFilteredList(): List<Skin> {
+        return if (selectedCategory == null) {
+            skins.filterListByName(currentSearchInput)
+        } else {
+            skins.filterListByCategoryId(selectedCategory!!.id).filterListByName(currentSearchInput)
+        }
+    }
+
+    private fun getAllSkins() {
         viewModelScope.launch(Dispatchers.IO) {
             skinsRepository.getSkinsFlow().collect {
                 areSkinsLoaded = true
                 skins.replaceAllElements(it)
-                val filteredList = skins.filterListByName(currentSearchInput)
-                _skinsFlow.emit(filteredList)
+                _skinsFlow.emit(getFilteredList())
             }
         }
     }
@@ -107,8 +141,7 @@ class MainViewModel @Inject constructor(
     fun searchSkins(name: String) {
         viewModelScope.launch(Dispatchers.Default) {
             currentSearchInput = name
-            val list = skins.filterListByName(name)
-            _skinsFlow.emit(list)
+            _skinsFlow.emit(getFilteredList())
         }
     }
 
@@ -120,6 +153,6 @@ class MainViewModel @Inject constructor(
     }
 
     private companion object {
-        const val EVERY_THIRD_OPEN = 3
+        private const val EVERY_THIRD_OPEN = 3
     }
 }
