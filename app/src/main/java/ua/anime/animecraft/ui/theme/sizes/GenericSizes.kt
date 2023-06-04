@@ -9,5 +9,5 @@ import androidx.compose.ui.unit.dp
 data class GenericSizes(
     val searchBarHeight: Dp = 56.dp,
     val downloadButtonBlurRadius: Dp = 8.dp,
-    val downloadButtonBorderRadius: Dp = 20.dp,
+    val downloadButtonBorderRadius: Dp = 20.dp
 )
