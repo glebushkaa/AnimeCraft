@@ -21,12 +21,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.sendFeedback
 import ua.anime.animecraft.ui.dialogs.component.AnimatedScaleDialogContent
 import ua.anime.animecraft.ui.dialogs.component.PRE_DISMISS_DELAY

@@ -10,10 +10,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.window.Dialog
 import kotlinx.coroutines.delay
-import ua.anime.animecraft.R
 import ua.anime.animecraft.ui.dialogs.component.AnimatedScaleDialogContent
 import ua.anime.animecraft.ui.dialogs.component.PRE_DISMISS_DELAY
 import ua.anime.animecraft.ui.dialogs.rating.thanks.ThanksDialogContent

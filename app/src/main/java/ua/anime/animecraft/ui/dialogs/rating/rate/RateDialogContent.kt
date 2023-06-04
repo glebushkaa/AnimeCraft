@@ -176,7 +176,11 @@ private fun SmilesSelector(
                         ),
                     painter = painterResource(id = smile.resId),
                     contentDescription = stringResource(R.string.smile_image),
-                    colorFilter = if (smile.id == selectedSmile.id) null else AppTheme.grayscaleFilter
+                    colorFilter = if (smile.id == selectedSmile.id) {
+                        null
+                    } else {
+                        AppTheme.grayscaleFilter
+                    }
                 )
             }
         }
