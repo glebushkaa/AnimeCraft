@@ -6,7 +6,6 @@ import androidx.compose.ui.unit.dp
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 6/4/2023
  */
- 
 data class ThanksDialogContentSize(
     val imageHeight: Dp = 140.dp,
     val buttonHeight: Dp = 40.dp
