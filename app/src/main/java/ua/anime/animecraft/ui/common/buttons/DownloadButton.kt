@@ -3,19 +3,13 @@
 package ua.anime.animecraft.ui.common.buttons
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import ua.anime.animecraft.R
-import ua.anime.animecraft.ui.extensions.advanceShadow
-import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
 /**
@@ -27,7 +21,7 @@ fun DownloadButton(modifier: Modifier, onClick: () -> Unit) {
     ElevatedButton(
         onClick = onClick,
         modifier = modifier,
-        contentPadding = PaddingValues(0.dp),
+        contentPadding = PaddingValues(AppTheme.offsets.default),
         colors = ButtonDefaults.outlinedButtonColors(
             containerColor = AppTheme.colors.primary
         )
@@ -37,21 +31,5 @@ fun DownloadButton(modifier: Modifier, onClick: () -> Unit) {
             style = AppTheme.typography.bodyLargeBold,
             color = AppTheme.colors.secondary
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DownloadButtonPreview() {
-    AnimeCraftTheme {
-        DownloadButton(
-            modifier = Modifier
-                .advanceShadow(
-                    borderRadius = 20.dp,
-                    blurRadius = 8.dp
-                )
-                .fillMaxWidth()
-                .height(40.dp)
-        ) {}
     }
 }

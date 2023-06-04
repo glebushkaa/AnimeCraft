@@ -43,7 +43,7 @@ fun ThanksDialog(
         AnimatedScaleDialogContent(content = {
             ThanksDialogContent(
                 modifier = Modifier.padding(
-                    horizontal = dimensionResource(id = R.dimen.offset_large)
+                    horizontal = AppTheme.offsets.large
                 ),
                 onDismissRequest = { isDismissed = true }
             )

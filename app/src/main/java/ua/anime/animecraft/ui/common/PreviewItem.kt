@@ -25,10 +25,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import ua.anime.animecraft.R
@@ -54,12 +52,12 @@ fun PreviewItem(
     Column(
         modifier = modifier
             .wrapContentHeight()
-            .width(dimensionResource(id = R.dimen.preview_card_width))
+            .width(AppTheme.sizes.items.previewItem.width)
             .padding(
-                horizontal = dimensionResource(id = R.dimen.offset_tiny),
-                vertical = dimensionResource(id = R.dimen.offset_small)
+                horizontal = AppTheme.offsets.tiny,
+                vertical = AppTheme.offsets.small
             ),
-        verticalArrangement = Arrangement.spacedBy(18.dp)
+        verticalArrangement = Arrangement.spacedBy(AppTheme.offsets.average)
     ) {
         PreviewCard(imageUrl = skin.previewImageUrl) {
             itemClick(skin.id)
@@ -83,12 +81,10 @@ fun PreviewItem(
         DownloadButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(
-                    dimensionResource(id = R.dimen.download_button_height)
-                )
+                .height(AppTheme.sizes.items.previewItem.downloadButtonHeight)
                 .advanceShadow(
-                    borderRadius = 20.dp,
-                    blurRadius = 8.dp,
+                    borderRadius = AppTheme.sizes.generic.downloadButtonBorderRadius,
+                    blurRadius = AppTheme.sizes.generic.downloadButtonBlurRadius,
                     color = AppTheme.colors.primary
                 ),
             onClick = { downloadClick(skin.id) }
@@ -106,10 +102,10 @@ fun PreviewCard(
 
     Card(
         modifier = modifier
-            .height(dimensionResource(id = R.dimen.preview_card_height))
+            .height(AppTheme.sizes.items.previewItem.height)
             .fillMaxWidth(),
         onClick = onClick,
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = AppTheme.elevations.medium),
         colors = CardDefaults.cardColors(containerColor = AppTheme.colors.surface)
     ) {
         Box(
@@ -120,7 +116,7 @@ fun PreviewCard(
                 model = imageUrl,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(dimensionResource(id = R.dimen.preview_card_image_width)),
+                    .height(AppTheme.sizes.items.previewItem.imageHeight),
                 contentDescription = stringResource(id = R.string.preview_card),
                 onState = {
                     isLoading = it !is AsyncImagePainter.State.Success
@@ -129,10 +125,10 @@ fun PreviewCard(
             if (isLoading) {
                 RoundedProgressIndicator(
                     modifier = Modifier
-                        .size(48.dp)
+                        .size(AppTheme.sizes.items.previewItem.progressBarSize)
                         .align(Alignment.Center),
                     color = AppTheme.colors.primary,
-                    strokeWidth = 8.dp
+                    strokeWidth = AppTheme.strokes.large
                 )
             }
         }

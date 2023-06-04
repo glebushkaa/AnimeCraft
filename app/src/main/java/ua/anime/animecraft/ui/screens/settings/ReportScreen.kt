@@ -41,7 +41,6 @@ import ua.anime.animecraft.ui.common.buttons.FilledDialogButton
 import ua.anime.animecraft.ui.dialogs.rating.ThanksDialog
 import ua.anime.animecraft.ui.navigation.LANGUAGE_SETTINGS
 import ua.anime.animecraft.ui.theme.AppTheme
-import ua.anime.animecraft.ui.theme.dialogButtonShape
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 6/1/2023
@@ -64,7 +63,7 @@ fun ReportScreen(
         topBar = {
             AppTopBar(
                 modifier = Modifier.padding(
-                    horizontal = dimensionResource(id = R.dimen.offset_regular)
+                    horizontal = AppTheme.offsets.regular
                 ),
                 currentScreen = LANGUAGE_SETTINGS
             )
@@ -72,8 +71,8 @@ fun ReportScreen(
         content = {
             ReportScreenContent(
                 modifier = Modifier.padding(
-                    start = dimensionResource(id = R.dimen.offset_regular),
-                    end = dimensionResource(id = R.dimen.offset_regular),
+                    start = AppTheme.offsets.regular,
+                    end = AppTheme.offsets.regular,
                     top = it.calculateTopPadding(),
                     bottom = it.calculateBottomPadding()
                 ),
@@ -117,21 +116,21 @@ private fun ReportScreenContent(
         BackButton(onBackClicked)
         Text(
             modifier = Modifier.padding(
-                top = dimensionResource(id = R.dimen.offset_average)
+                top = AppTheme.offsets.average
             ),
             text = stringResource(id = R.string.report),
             style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
             color = AppTheme.colors.onBackground
         )
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_huge)))
+        Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 160.dp)
+                .heightIn(min = AppTheme.sizes.screens.report.minTextFieldHeight)
                 .border(
-                    width = 2.dp,
+                    width = AppTheme.strokes.small,
                     color = AppTheme.colors.primary,
-                    shape = dialogButtonShape
+                    shape = AppTheme.shapes.medium
                 ),
             value = report,
             onValueChange = onReportChanged,
@@ -149,10 +148,10 @@ private fun ReportScreenContent(
                 )
             }
         )
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_large)))
+        Spacer(modifier = Modifier.height(AppTheme.offsets.large))
         FilledDialogButton(
             modifier = Modifier
-                .height(40.dp)
+                .height(AppTheme.sizes.screens.report.buttonHeight)
                 .fillMaxWidth(),
             text = stringResource(id = R.string.send_report),
             onClick = onSendClicked,

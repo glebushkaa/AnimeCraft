@@ -1,6 +1,6 @@
 @file:Suppress("MagicNumber")
 
-package ua.anime.animecraft.ui.theme
+package ua.anime.animecraft.ui.theme.typography
 
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font

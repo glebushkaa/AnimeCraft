@@ -32,7 +32,17 @@ class SettingsViewModel @Inject constructor(
         skinsPreferencesHandler.putBoolean(IS_DARK_MODE_ENABLED, isDarkModeEnabled)
     }
 
-    fun isDarkModeEnabled() = skinsPreferencesHandler.getBoolean(IS_DARK_MODE_ENABLED)
+    fun isDarkModeEnabled(
+        isSystemInDarkModeByDefault: Boolean
+    ): Boolean {
+        val darkModePrefExist = skinsPreferencesHandler.checkValueExistence(IS_DARK_MODE_ENABLED)
+        return if (!darkModePrefExist) {
+            isSystemInDarkModeByDefault
+        } else {
+            skinsPreferencesHandler.getBoolean(IS_DARK_MODE_ENABLED)
+        } == true
+    }
+
     fun updateLanguagePreference(language: String) {
         skinsPreferencesHandler.putString(SELECTED_LANGUAGE, language)
     }

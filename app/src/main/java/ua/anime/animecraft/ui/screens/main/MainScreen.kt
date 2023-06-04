@@ -1,11 +1,10 @@
-@file:Suppress("FunctionName", "LongMethod", "LongParameterList", "MagicNumber")
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
+@file:Suppress("FunctionName", "LongMethod", "LongParameterList")
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 package ua.anime.animecraft.ui.screens.main
 
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -23,13 +22,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.delay
-import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
+import ua.anime.animecraft.core.common.TWO_SECONDS
 import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.RoundedProgressIndicator
@@ -75,7 +72,7 @@ fun MainScreen(
         topBar = {
             AppTopBar(
                 modifier = Modifier.padding(
-                    horizontal = dimensionResource(id = R.dimen.offset_regular)
+                    horizontal = AppTheme.offsets.regular
                 ),
                 currentScreen = MAIN,
                 settingsClicked = settingsClicked,
@@ -86,8 +83,8 @@ fun MainScreen(
         content = {
             MainScreenContent(
                 modifier = Modifier.padding(
-                    start = dimensionResource(id = R.dimen.offset_regular),
-                    end = dimensionResource(id = R.dimen.offset_regular),
+                    start = AppTheme.offsets.regular,
+                    end = AppTheme.offsets.regular,
                     top = it.calculateTopPadding(),
                     bottom = it.calculateBottomPadding()
                 ),
@@ -131,7 +128,7 @@ fun MainScreen(
     }
 
     LaunchedEffect(key1 = false) {
-        delay(2000)
+        delay(TWO_SECONDS)
         ratingDialogShown = mainViewModel.shouldRateDialogBeShown()
     }
 }
@@ -151,7 +148,7 @@ private fun MainScreenContent(
         modifier = modifier.fillMaxSize()
     ) {
         SearchBar(
-            modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.offset_large)),
+            modifier = Modifier.padding(vertical = AppTheme.offsets.large),
             value = searchQuery,
             onValueChanged = onSearchQueryUpdated
         )
@@ -160,9 +157,9 @@ private fun MainScreenContent(
                 RoundedProgressIndicator(
                     modifier = Modifier
                         .align(Alignment.Center)
-                        .size(100.dp),
+                        .size(AppTheme.sizes.screens.main.progressBarSize),
                     color = AppTheme.colors.primary,
-                    strokeWidth = 12.dp
+                    strokeWidth = AppTheme.strokes.huge
                 )
             }
             SkinsGrid(

@@ -12,7 +12,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import ua.anime.animecraft.ui.theme.AppTheme
-import ua.anime.animecraft.ui.theme.dialogButtonShape
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/31/2023
@@ -29,7 +28,7 @@ fun OutlinedDialogButton(
         modifier = modifier,
         onClick = onClick,
         contentPadding = PaddingValues(0.dp),
-        shape = dialogButtonShape,
+        shape = AppTheme.shapes.medium,
         border = BorderStroke(2.dp, AppTheme.colors.primary)
     ) {
         Text(

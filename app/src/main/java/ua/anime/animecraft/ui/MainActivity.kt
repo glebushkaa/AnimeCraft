@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
         )
         setContent {
             val isSystemInDarkMode = isSystemInDarkTheme()
-            updateDarkModeState(settingsViewModel.isDarkModeEnabled() ?: isSystemInDarkMode)
+            updateDarkModeState(settingsViewModel.isDarkModeEnabled(isSystemInDarkMode))
             val isDarkTheme by darkModeState.collectLifecycleAwareFlowAsState(isSystemInDarkMode)
             AnimeCraftTheme(darkTheme = isDarkTheme) {
                 AnimeCraftApp()

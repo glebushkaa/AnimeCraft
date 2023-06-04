@@ -1,4 +1,4 @@
-package ua.anime.animecraft.ui.theme
+package ua.anime.animecraft.ui.theme.shapes
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.dp
@@ -13,10 +13,6 @@ data class Shape(
     val medium: RoundedCornerShape = RoundedCornerShape(12.dp),
     val large: RoundedCornerShape = RoundedCornerShape(16.dp),
     val huge: RoundedCornerShape = RoundedCornerShape(20.dp),
-    val gigantic: RoundedCornerShape = RoundedCornerShape(24.dp)
+    val gigantic: RoundedCornerShape = RoundedCornerShape(24.dp),
+    val customShapes: CustomShapes = CustomShapes()
 )
-
-val searchBarShape = RoundedCornerShape(20.dp)
-val dialogsShape = RoundedCornerShape(16.dp)
-val dialogButtonShape = RoundedCornerShape(10.dp)
-val settingButtonShape = RoundedCornerShape(10.dp)

@@ -24,7 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import ua.anime.animecraft.R
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
-import ua.anime.animecraft.ui.theme.searchBarShape
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.
@@ -35,11 +34,11 @@ fun SearchBar(modifier: Modifier = Modifier, value: String, onValueChanged: (Str
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(dimensionResource(id = R.dimen.search_bar_height))
+            .height(AppTheme.sizes.generic.searchBarHeight)
             .clip(AppTheme.shapes.huge)
             .border(
                 color = AppTheme.colors.primary,
-                width = dimensionResource(id = R.dimen.search_bar_border_width),
+                width = AppTheme.strokes.small,
                 shape = AppTheme.shapes.huge
             )
     ) {

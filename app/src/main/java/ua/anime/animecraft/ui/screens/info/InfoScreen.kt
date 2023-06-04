@@ -79,16 +79,16 @@ fun InfoScreen(
             previewImageUrl = skin?.previewImageUrl ?: "",
             backClicked = backClicked
         )
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(AppTheme.offsets.gigantic))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = AppTheme.offsets.regular)
                 .weight(1f)
         ) {
             Text(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = AppTheme.offsets.regular)
                     .weight(1f),
                 text = skin?.name?.capitalize() ?: "Skin",
                 style = AppTheme.typography.headlineSmall.copy(
@@ -103,18 +103,18 @@ fun InfoScreen(
         DownloadButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(40.dp)
-                .padding(horizontal = 16.dp)
+                .height(AppTheme.sizes.screens.info.downloadButtonHeight)
+                .padding(horizontal = AppTheme.offsets.regular)
                 .advanceShadow(
-                    borderRadius = 20.dp,
-                    blurRadius = 8.dp,
+                    borderRadius = AppTheme.sizes.generic.downloadButtonBorderRadius,
+                    blurRadius = AppTheme.sizes.generic.downloadButtonBlurRadius,
                     color = AppTheme.colors.primary
                 )
         ) {
             infoViewModel.saveGameSkinImage()
             downloadClicked = true
         }
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
         BannerAd()
     }
     LaunchedEffect(key1 = false) { infoViewModel.loadSkin(id) }
@@ -127,22 +127,25 @@ fun SkinInfoCard(previewImageUrl: String, backClicked: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(400.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+            .height(AppTheme.sizes.screens.info.infoCardHeight),
+        elevation = CardDefaults.cardElevation(defaultElevation = AppTheme.elevations.medium),
         colors = CardDefaults.cardColors(containerColor = AppTheme.colors.secondary),
-        shape = RoundedCornerShape(bottomEnd = 20.dp, bottomStart = 20.dp)
+        shape = AppTheme.shapes.customShapes.infoCardShape
     ) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 4.dp, top = 12.dp)
+                .padding(
+                    start = AppTheme.offsets.tiny,
+                    top = AppTheme.offsets.medium
+                )
         ) {
             BackButton(backClicked)
             AsyncImage(
                 model = previewImageUrl,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(60.dp),
+                    .padding(AppTheme.offsets.superGigantic),
                 contentDescription = stringResource(id = R.string.info_skin),
                 onState = {
                     isLoading = it !is AsyncImagePainter.State.Success
@@ -151,10 +154,10 @@ fun SkinInfoCard(previewImageUrl: String, backClicked: () -> Unit) {
             if (isLoading) {
                 RoundedProgressIndicator(
                     modifier = Modifier
-                        .size(80.dp)
+                        .size(AppTheme.sizes.screens.info.progressBarSize)
                         .align(Alignment.Center),
                     color = AppTheme.colors.primary,
-                    strokeWidth = 12.dp
+                    strokeWidth = AppTheme.strokes.huge
                 )
             }
         }

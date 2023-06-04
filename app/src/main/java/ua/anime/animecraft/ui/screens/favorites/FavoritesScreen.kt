@@ -69,7 +69,7 @@ fun FavoritesScreen(
         topBar = {
             AppTopBar(
                 modifier = Modifier.padding(
-                    horizontal = dimensionResource(id = R.dimen.offset_regular)
+                    horizontal = AppTheme.offsets.regular
                 ),
                 currentScreen = FAVORITES
             )
@@ -82,25 +82,25 @@ fun FavoritesScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(
-                        start = dimensionResource(id = R.dimen.offset_regular),
-                        end = dimensionResource(id = R.dimen.offset_regular),
+                        start = AppTheme.offsets.regular,
+                        end = AppTheme.offsets.regular,
                         top = it.calculateTopPadding(),
                         bottom = it.calculateBottomPadding()
                     )
             ) {
                 BackButton(backClicked)
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
                 Text(
                     text = stringResource(id = R.string.favorites),
                     style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                     color = AppTheme.colors.onBackground
                 )
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
                 SearchBar(value = searchQuery) { query ->
                     searchQuery = query
                     favoritesViewModel.searchSkins(searchQuery)
                 }
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
                 SkinsGrid(
                     skins = favorites,
                     itemClick = itemClicked,
@@ -113,12 +113,4 @@ fun FavoritesScreen(
             }
         }
     )
-}
-
-@Preview
-@Composable
-fun FavoritesScreenPreview() {
-    AnimeCraftTheme {
-        FavoritesScreen({}, {})
-    }
 }

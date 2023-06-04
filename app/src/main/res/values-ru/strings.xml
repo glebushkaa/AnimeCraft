@@ -46,6 +46,7 @@
     <string name="tell_us_your_report">Расскажите нам о своей жалобе…</string>
     <string name="report">Жалоба</string>
     <string name="disable_ad">Отключить рекламу: 4,99$</string>
+    <string name="rate_us_button_image">Изображение кнопки "Оцените нас"</string>
 
     <!--Languages-->
     <string name="russian">Русский</string>

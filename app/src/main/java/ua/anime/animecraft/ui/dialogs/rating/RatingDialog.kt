@@ -33,11 +33,13 @@ import ua.anime.animecraft.ui.dialogs.component.PRE_DISMISS_DELAY
 import ua.anime.animecraft.ui.dialogs.rating.feedback.FeedbackDialogContent
 import ua.anime.animecraft.ui.dialogs.rating.rate.RateDialogContent
 import ua.anime.animecraft.ui.dialogs.rating.thanks.ThanksDialogContent
+import ua.anime.animecraft.ui.theme.AppTheme
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/31/2023
  */
 
+private const val MIN_GOOD_GRADE = 50
 private const val RATING_DIALOG_ANIMATION_DURATION = 600
 private val ratingDialogAnimationSpec = tween<Float>(RATING_DIALOG_ANIMATION_DURATION)
 
@@ -99,16 +101,14 @@ private fun AnimatedRatingDialogContent(
     ) { dialog ->
         when (dialog) {
             RatingDialogMode.RATING -> RateDialogContent(
-                modifier = Modifier.padding(
-                    horizontal = dimensionResource(id = R.dimen.offset_large)
-                ),
+                modifier = Modifier.padding(horizontal = AppTheme.offsets.large),
                 dismissRequest = onDismissRequest,
                 dontShowAgainClick = {
                     onDismissRequest()
                     onRatingDialogDisable()
                 },
                 rateClicked = {
-                    currentRatingDialog = if (it <= 50) {
+                    currentRatingDialog = if (it <= MIN_GOOD_GRADE) {
                         RatingDialogMode.FEEDBACK
                     } else {
                         RatingDialogMode.THANKS
@@ -119,7 +119,7 @@ private fun AnimatedRatingDialogContent(
             RatingDialogMode.FEEDBACK -> {
                 FeedbackDialogContent(
                     modifier = Modifier.padding(
-                        horizontal = dimensionResource(id = R.dimen.offset_regular)
+                        horizontal = AppTheme.offsets.regular
                     ),
                     onFeedbackSent = {
                         scope.launch {
@@ -136,7 +136,7 @@ private fun AnimatedRatingDialogContent(
             RatingDialogMode.THANKS -> {
                 ThanksDialogContent(
                     modifier = Modifier.padding(
-                        horizontal = dimensionResource(id = R.dimen.offset_regular)
+                        horizontal = AppTheme.offsets.regular
                     ),
                     onDismissRequest = onDismissRequest
                 )

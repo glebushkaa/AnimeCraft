@@ -14,13 +14,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import ua.anime.animecraft.R
 import ua.anime.animecraft.ui.theme.AppTheme
-import ua.anime.animecraft.ui.theme.settingButtonElevation
-import ua.anime.animecraft.ui.theme.settingButtonShape
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 6/1/2023
@@ -35,13 +32,11 @@ fun SettingButton(
 ) {
     Surface(
         modifier = modifier
-            .padding(
-                top = dimensionResource(id = R.dimen.offset_medium)
-            )
+            .padding(top = AppTheme.offsets.medium)
             .fillMaxWidth()
-            .height(60.dp),
-        shadowElevation = settingButtonElevation,
-        shape = settingButtonShape,
+            .height(AppTheme.sizes.items.settingButton.height),
+        shadowElevation = AppTheme.elevations.medium,
+        shape = AppTheme.shapes.medium,
         contentColor = AppTheme.colors.surface,
         color = AppTheme.colors.surface
     ) {
@@ -53,10 +48,10 @@ fun SettingButton(
         ) {
             Image(
                 modifier = Modifier
-                    .height(24.dp)
-                    .padding(horizontal = dimensionResource(id = R.dimen.offset_regular)),
+                    .height(AppTheme.sizes.items.settingButton.imageWidth)
+                    .padding(horizontal = AppTheme.offsets.regular),
                 painter = painterResource(id = iconResId),
-                contentDescription = "Rate us button image"
+                contentDescription = stringResource(R.string.rate_us_button_image)
             )
             Text(
                 text = text,

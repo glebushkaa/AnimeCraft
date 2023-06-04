@@ -1,9 +1,8 @@
-@file:OptIn(ExperimentalFoundationApi::class, ExperimentalAnimationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class)
 @file:Suppress("LongMethod", "FunctionName")
 
 package ua.anime.animecraft.ui.dialogs.downloadskin
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,32 +20,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import kotlinx.coroutines.delay
 import ua.anime.animecraft.R
 import ua.anime.animecraft.ui.common.buttons.DontShowAgainButton
 import ua.anime.animecraft.ui.dialogs.component.AnimatedScaleDialogContent
 import ua.anime.animecraft.ui.dialogs.component.PRE_DISMISS_DELAY
-import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
-import ua.anime.animecraft.ui.theme.dialogsShape
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/28/2023
  */
-
-private val imagesList = listOf(
-    R.drawable.download_skin_help_first,
-    R.drawable.download_skin_help_second,
-    R.drawable.download_skin_help_third
-)
 
 @Composable
 fun DownloadSkinDialog(
@@ -56,13 +44,6 @@ fun DownloadSkinDialog(
 ) {
     var isDismissed by rememberSaveable { mutableStateOf(false) }
 
-    LaunchedEffect(key1 = isDismissed) {
-        if (isDismissed) {
-            delay(PRE_DISMISS_DELAY)
-            dismissRequest()
-        }
-    }
-
     Dialog(
         onDismissRequest = { isDismissed = true },
         properties = AppTheme.dialogProperties
@@ -70,7 +51,7 @@ fun DownloadSkinDialog(
         AnimatedScaleDialogContent(isDismissed = isDismissed, content = {
             DownloadSkinDialogContent(
                 modifier = modifier.padding(
-                    horizontal = dimensionResource(id = R.dimen.offset_regular)
+                    horizontal = AppTheme.offsets.regular
                 ),
                 dontShowAgainClick = {
                     isDismissed = true
@@ -78,6 +59,13 @@ fun DownloadSkinDialog(
                 }
             )
         })
+    }
+
+    LaunchedEffect(key1 = isDismissed) {
+        if (isDismissed) {
+            delay(PRE_DISMISS_DELAY)
+            dismissRequest()
+        }
     }
 }
 
@@ -90,13 +78,13 @@ private fun DownloadSkinDialogContent(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .background(color = AppTheme.colors.surface, shape = dialogsShape)
+            .background(color = AppTheme.colors.surface, shape = AppTheme.shapes.large)
     ) {
         Text(
             modifier = Modifier.padding(
-                top = dimensionResource(id = R.dimen.offset_huge),
-                start = dimensionResource(id = R.dimen.offset_large),
-                end = dimensionResource(id = R.dimen.offset_large)
+                top = AppTheme.offsets.huge,
+                start = AppTheme.offsets.large,
+                end = AppTheme.offsets.large
             ),
             color = AppTheme.colors.onBackground,
             text = stringResource(R.string.how_download_skin),
@@ -104,9 +92,9 @@ private fun DownloadSkinDialogContent(
         )
         Text(
             modifier = Modifier.padding(
-                top = dimensionResource(id = R.dimen.offset_medium),
-                start = dimensionResource(id = R.dimen.offset_large),
-                end = dimensionResource(id = R.dimen.offset_large)
+                top = AppTheme.offsets.medium,
+                start = AppTheme.offsets.large,
+                end = AppTheme.offsets.large
             ),
             color = AppTheme.colors.onBackground,
             style = AppTheme.typography.bodyMedium.copy(fontWeight = FontWeight.SemiBold),
@@ -114,36 +102,34 @@ private fun DownloadSkinDialogContent(
         )
         HorizontalPager(
             modifier = Modifier.padding(
-                start = dimensionResource(id = R.dimen.offset_huge),
-                end = dimensionResource(id = R.dimen.offset_huge),
-                top = dimensionResource(id = R.dimen.offset_large)
+                start = AppTheme.offsets.huge,
+                end = AppTheme.offsets.huge,
+                top = AppTheme.offsets.large
             ),
             pageCount = imagesList.size
         ) { page ->
             Image(
                 painter = painterResource(id = imagesList[page]),
                 modifier = Modifier
-                    .height(260.dp)
+                    .height(AppTheme.sizes.dialogs.download.imageHeight)
                     .fillMaxWidth(),
                 contentDescription = stringResource(R.string.skin_description_picture)
             )
         }
         DontShowAgainButton(
             modifier = Modifier.padding(
-                top = dimensionResource(id = R.dimen.offset_regular),
-                start = dimensionResource(id = R.dimen.offset_large),
-                end = dimensionResource(id = R.dimen.offset_large),
-                bottom = dimensionResource(id = R.dimen.offset_large)
+                top = AppTheme.offsets.regular,
+                start = AppTheme.offsets.large,
+                end = AppTheme.offsets.large,
+                bottom = AppTheme.offsets.large
             ),
             onClick = dontShowAgainClick
         )
     }
 }
 
-@Preview
-@Composable
-fun DownloadSkinDialogPreview() {
-    AnimeCraftTheme(darkTheme = true) {
-        DownloadSkinDialog()
-    }
-}
+private val imagesList = listOf(
+    R.drawable.download_skin_help_first,
+    R.drawable.download_skin_help_second,
+    R.drawable.download_skin_help_third
+)
