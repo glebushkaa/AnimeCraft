@@ -46,6 +46,7 @@ private val LightColorScheme = lightColorScheme(
 
 val LocalColorPalette = staticCompositionLocalOf { LightColorScheme }
 val LocalTypography = staticCompositionLocalOf { AppTypography() }
+val LocalShapes = staticCompositionLocalOf { Shape() }
 
 @Composable
 fun AnimeCraftTheme(
@@ -83,6 +84,11 @@ object AppTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalColorPalette.current
+
+    val shapes: Shape
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalShapes.current
 
     val dialogProperties = DialogProperties(
         dismissOnBackPress = true,

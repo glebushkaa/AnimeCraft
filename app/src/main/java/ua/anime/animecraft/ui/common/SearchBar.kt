@@ -36,11 +36,11 @@ fun SearchBar(modifier: Modifier = Modifier, value: String, onValueChanged: (Str
         modifier = modifier
             .fillMaxWidth()
             .height(dimensionResource(id = R.dimen.search_bar_height))
-            .clip(searchBarShape)
+            .clip(AppTheme.shapes.huge)
             .border(
                 color = AppTheme.colors.primary,
                 width = dimensionResource(id = R.dimen.search_bar_border_width),
-                shape = searchBarShape
+                shape = AppTheme.shapes.huge
             )
     ) {
         OutlinedTextField(
