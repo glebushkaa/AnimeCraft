@@ -1,6 +1,6 @@
 @file:Suppress("MagicNumber")
 
-package ua.anime.animecraft.ui.theme
+package ua.anime.animecraft.ui.theme.colors
 
 import androidx.compose.ui.graphics.Color
 

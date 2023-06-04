@@ -46,6 +46,7 @@
     <string name="tell_us_your_report">Faites-nous part de votre rapport…</string>
     <string name="report">Rapport</string>
     <string name="disable_ad">Désactiver la publicité : 4,99$</string>
+    <string name="rate_us_button_image">Image du bouton d\'évaluation</string>
 
     <!--Languages-->
     <string name="russian">Russe</string>

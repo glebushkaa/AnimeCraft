@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName", "MagicNumber")
+@file:Suppress("FunctionName", "LongMethod")
 
 package ua.anime.animecraft.ui.screens.settings.components
 
@@ -23,16 +23,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.languagesList
 import ua.anime.animecraft.ui.model.Language
 import ua.anime.animecraft.ui.theme.AppTheme
-import ua.anime.animecraft.ui.theme.settingButtonElevation
-import ua.anime.animecraft.ui.theme.settingButtonShape
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/30/2023
@@ -46,12 +42,14 @@ fun LanguageDropDown(
     onClick: (Boolean) -> Unit,
     languageSelected: (Language) -> Unit = {}
 ) {
-    val iconDegree by animateFloatAsState(if (expanded) 180f else 0f)
+    val iconDegree by animateFloatAsState(
+        if (expanded) EXPANDED_ARROW_DEGREE else DEFAULT_ARROW_DEGREE
+    )
 
     Surface(
         modifier = modifier,
-        shadowElevation = settingButtonElevation,
-        shape = settingButtonShape,
+        shadowElevation = AppTheme.elevations.medium,
+        shape = AppTheme.shapes.medium,
         contentColor = AppTheme.colors.surface,
         color = AppTheme.colors.surface
     ) {
@@ -61,7 +59,7 @@ fun LanguageDropDown(
             exit = shrinkVertically()
         ) {
             LazyColumn(
-                modifier = Modifier.padding(top = 60.dp),
+                modifier = Modifier.padding(top = AppTheme.offsets.superGigantic),
                 content = {
                     items(languagesList) { language ->
                         LanguageDropDownItem(language = language) {
@@ -75,7 +73,7 @@ fun LanguageDropDown(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp)
+                .height(AppTheme.sizes.items.languageDropDown.height)
                 .background(AppTheme.colors.surface)
                 .clickable { onClick(!expanded) },
             verticalAlignment = Alignment.CenterVertically
@@ -84,8 +82,8 @@ fun LanguageDropDown(
                 painter = painterResource(language.iconResId),
                 contentDescription = stringResource(R.string.flag_image),
                 modifier = Modifier
-                    .height(24.dp)
-                    .padding(horizontal = dimensionResource(id = R.dimen.offset_regular))
+                    .height(AppTheme.sizes.items.languageDropDown.imageWidth)
+                    .padding(horizontal = AppTheme.offsets.regular)
             )
             Text(
                 modifier = Modifier.weight(1f),
@@ -95,7 +93,7 @@ fun LanguageDropDown(
             )
             Icon(
                 modifier = Modifier
-                    .padding(horizontal = dimensionResource(id = R.dimen.offset_regular))
+                    .padding(horizontal = AppTheme.offsets.regular)
                     .rotate(iconDegree),
                 painter = painterResource(id = R.drawable.ic_drop_down_arrow),
                 contentDescription = stringResource(R.string.drop_down_arrow),
@@ -113,7 +111,7 @@ private fun LanguageDropDownItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(60.dp)
+            .height(AppTheme.sizes.items.languageDropDown.height)
             .background(AppTheme.colors.surface)
             .clickable { onClick(language) },
         verticalAlignment = Alignment.CenterVertically
@@ -122,8 +120,8 @@ private fun LanguageDropDownItem(
             painter = painterResource(id = language.iconResId),
             contentDescription = stringResource(R.string.flag_image),
             modifier = Modifier
-                .height(24.dp)
-                .padding(horizontal = dimensionResource(id = R.dimen.offset_regular))
+                .height(AppTheme.sizes.items.languageDropDown.imageWidth)
+                .padding(horizontal = AppTheme.offsets.regular)
         )
         Text(
             modifier = Modifier.weight(1f),
@@ -133,3 +131,6 @@ private fun LanguageDropDownItem(
         )
     }
 }
+
+private const val EXPANDED_ARROW_DEGREE = 180f
+private const val DEFAULT_ARROW_DEGREE = 0f

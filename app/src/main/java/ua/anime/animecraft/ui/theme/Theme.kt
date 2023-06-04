@@ -19,6 +19,20 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.window.DialogProperties
 import androidx.core.view.WindowCompat
+import ua.anime.animecraft.ui.theme.colors.Black12
+import ua.anime.animecraft.ui.theme.colors.Black1E
+import ua.anime.animecraft.ui.theme.colors.Black31
+import ua.anime.animecraft.ui.theme.colors.Gray3
+import ua.anime.animecraft.ui.theme.colors.Gray50
+import ua.anime.animecraft.ui.theme.colors.Purple100
+import ua.anime.animecraft.ui.theme.colors.Purple50
+import ua.anime.animecraft.ui.theme.colors.Purple7
+import ua.anime.animecraft.ui.theme.elevations.Elevation
+import ua.anime.animecraft.ui.theme.offsets.Offset
+import ua.anime.animecraft.ui.theme.shapes.Shape
+import ua.anime.animecraft.ui.theme.sizes.Sizes
+import ua.anime.animecraft.ui.theme.strokes.Stroke
+import ua.anime.animecraft.ui.theme.typography.AppTypography
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple100,
@@ -46,6 +60,11 @@ private val LightColorScheme = lightColorScheme(
 
 val LocalColorPalette = staticCompositionLocalOf { LightColorScheme }
 val LocalTypography = staticCompositionLocalOf { AppTypography() }
+val LocalShapes = staticCompositionLocalOf { Shape() }
+val LocalOffsets = staticCompositionLocalOf { Offset() }
+val LocalSizes = staticCompositionLocalOf { Sizes() }
+val LocalStrokes = staticCompositionLocalOf { Stroke() }
+val LocalElevation = staticCompositionLocalOf { Elevation() }
 
 @Composable
 fun AnimeCraftTheme(
@@ -83,6 +102,31 @@ object AppTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalColorPalette.current
+
+    val shapes: Shape
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalShapes.current
+
+    val offsets: Offset
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalOffsets.current
+
+    val sizes: Sizes
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalSizes.current
+
+    val strokes: Stroke
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalStrokes.current
+
+    val elevations: Elevation
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalElevation.current
 
     val dialogProperties = DialogProperties(
         dismissOnBackPress = true,

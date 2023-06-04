@@ -21,10 +21,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import java.util.Locale
 import ua.anime.animecraft.R
@@ -35,7 +33,6 @@ import ua.anime.animecraft.ui.model.Language
 import ua.anime.animecraft.ui.navigation.LANGUAGE_SETTINGS
 import ua.anime.animecraft.ui.screens.settings.components.LanguageDropDown
 import ua.anime.animecraft.ui.theme.AppTheme
-import ua.anime.animecraft.ui.theme.settingButtonShape
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 6/1/2023
@@ -59,7 +56,7 @@ fun LanguageScreen(
         topBar = {
             AppTopBar(
                 modifier = Modifier.padding(
-                    horizontal = dimensionResource(id = R.dimen.offset_regular)
+                    horizontal = AppTheme.offsets.regular
                 ),
                 currentScreen = LANGUAGE_SETTINGS
             )
@@ -67,8 +64,8 @@ fun LanguageScreen(
         content = {
             LanguageScreenContent(
                 modifier = Modifier.padding(
-                    start = dimensionResource(id = R.dimen.offset_regular),
-                    end = dimensionResource(id = R.dimen.offset_regular),
+                    start = AppTheme.offsets.regular,
+                    end = AppTheme.offsets.regular,
                     top = it.calculateTopPadding(),
                     bottom = it.calculateBottomPadding()
                 ),
@@ -104,7 +101,7 @@ private fun LanguageScreenContent(
         BackButton(onBackClicked)
         Text(
             modifier = Modifier.padding(
-                top = dimensionResource(id = R.dimen.offset_average)
+                top = AppTheme.offsets.average
             ),
             text = stringResource(id = R.string.language),
             style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
@@ -112,14 +109,12 @@ private fun LanguageScreenContent(
         )
         Box(
             modifier = Modifier.padding(
-                top = dimensionResource(id = R.dimen.offset_huge)
+                top = AppTheme.offsets.huge
             )
         ) {
             if (selectedLanguage != initialLanguage && !expandedDropDown) {
                 LanguageConfirmButton(
-                    modifier = Modifier.padding(
-                        top = dimensionResource(id = R.dimen.offset_super_gigantic)
-                    ),
+                    modifier = Modifier.padding(top = AppTheme.offsets.ultraGigantic),
                     onClick = onConfirmClicked
                 )
             }
@@ -141,9 +136,9 @@ private fun LanguageConfirmButton(
     Button(
         modifier = modifier
             .fillMaxWidth()
-            .height(48.dp),
-        shape = settingButtonShape,
-        elevation = ButtonDefaults.buttonElevation(defaultElevation = 4.dp),
+            .height(AppTheme.sizes.screens.language.confirmButtonHeight),
+        shape = AppTheme.shapes.medium,
+        elevation = ButtonDefaults.buttonElevation(defaultElevation = AppTheme.elevations.small),
         colors = ButtonDefaults.buttonColors(
             containerColor = AppTheme.colors.primary
         ),

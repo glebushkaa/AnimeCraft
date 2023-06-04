@@ -19,11 +19,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
@@ -34,7 +31,6 @@ import ua.anime.animecraft.ui.common.SkinsGrid
 import ua.anime.animecraft.ui.common.buttons.BackButton
 import ua.anime.animecraft.ui.dialogs.downloadskin.DownloadSkinDialog
 import ua.anime.animecraft.ui.navigation.FAVORITES
-import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
 /**
@@ -69,7 +65,7 @@ fun FavoritesScreen(
         topBar = {
             AppTopBar(
                 modifier = Modifier.padding(
-                    horizontal = dimensionResource(id = R.dimen.offset_regular)
+                    horizontal = AppTheme.offsets.regular
                 ),
                 currentScreen = FAVORITES
             )
@@ -82,25 +78,25 @@ fun FavoritesScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(
-                        start = dimensionResource(id = R.dimen.offset_regular),
-                        end = dimensionResource(id = R.dimen.offset_regular),
+                        start = AppTheme.offsets.regular,
+                        end = AppTheme.offsets.regular,
                         top = it.calculateTopPadding(),
                         bottom = it.calculateBottomPadding()
                     )
             ) {
                 BackButton(backClicked)
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
                 Text(
                     text = stringResource(id = R.string.favorites),
                     style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
                     color = AppTheme.colors.onBackground
                 )
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
                 SearchBar(value = searchQuery) { query ->
                     searchQuery = query
                     favoritesViewModel.searchSkins(searchQuery)
                 }
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
                 SkinsGrid(
                     skins = favorites,
                     itemClick = itemClicked,
@@ -113,12 +109,4 @@ fun FavoritesScreen(
             }
         }
     )
-}
-
-@Preview
-@Composable
-fun FavoritesScreenPreview() {
-    AnimeCraftTheme {
-        FavoritesScreen({}, {})
-    }
 }

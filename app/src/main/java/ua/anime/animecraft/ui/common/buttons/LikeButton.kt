@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import ua.anime.animecraft.R
 import ua.anime.animecraft.ui.theme.AppTheme
 
@@ -19,8 +18,15 @@ import ua.anime.animecraft.ui.theme.AppTheme
 
 @Composable
 fun LikeButton(favorite: Boolean, likeClick: () -> Unit = {}) {
-    IconButton(modifier = Modifier.size(24.dp), onClick = likeClick) {
-        val iconResId = if (favorite) R.drawable.ic_filled_like else R.drawable.ic_like
+    IconButton(
+        modifier = Modifier.size(AppTheme.sizes.items.likeButton.size),
+        onClick = likeClick
+    ) {
+        val iconResId = if (favorite) {
+            R.drawable.ic_filled_like
+        } else {
+            R.drawable.ic_like
+        }
         Icon(
             painter = painterResource(id = iconResId),
             contentDescription = stringResource(id = R.string.like_icon),

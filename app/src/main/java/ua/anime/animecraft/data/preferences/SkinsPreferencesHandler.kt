@@ -34,6 +34,8 @@ class SkinsPreferencesHandler @Inject constructor(
 
     fun getBoolean(key: String) = skinsPreferences?.getBoolean(key, false)
 
+    fun checkValueExistence(key: String) = skinsPreferences?.contains(key) == true
+
     fun putString(key: String, value: String) {
         skinsPreferences?.edit()?.putString(key, value)?.apply()
     }

@@ -16,7 +16,6 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -24,7 +23,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import ua.anime.animecraft.R
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
-import ua.anime.animecraft.ui.theme.searchBarShape
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.
@@ -35,12 +33,12 @@ fun SearchBar(modifier: Modifier = Modifier, value: String, onValueChanged: (Str
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(dimensionResource(id = R.dimen.search_bar_height))
-            .clip(searchBarShape)
+            .height(AppTheme.sizes.generic.searchBarHeight)
+            .clip(AppTheme.shapes.huge)
             .border(
                 color = AppTheme.colors.primary,
-                width = dimensionResource(id = R.dimen.search_bar_border_width),
-                shape = searchBarShape
+                width = AppTheme.strokes.small,
+                shape = AppTheme.shapes.huge
             )
     ) {
         OutlinedTextField(

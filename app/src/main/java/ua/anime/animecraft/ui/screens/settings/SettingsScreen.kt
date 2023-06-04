@@ -27,11 +27,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.shareApp
@@ -82,7 +80,7 @@ fun SettingsScreen(
         topBar = {
             AppTopBar(
                 modifier = Modifier.padding(
-                    horizontal = dimensionResource(id = R.dimen.offset_regular)
+                    horizontal = AppTheme.offsets.regular
                 ),
                 currentScreen = SETTINGS
             )
@@ -90,8 +88,8 @@ fun SettingsScreen(
         content = {
             SettingScreenContent(
                 modifier = Modifier.padding(
-                    start = dimensionResource(id = R.dimen.offset_regular),
-                    end = dimensionResource(id = R.dimen.offset_regular),
+                    start = AppTheme.offsets.regular,
+                    end = AppTheme.offsets.regular,
                     top = it.calculateTopPadding(),
                     bottom = it.calculateBottomPadding()
                 ),
@@ -120,14 +118,14 @@ private fun SettingScreenContent(
     var newSkinsNotification by rememberSaveable { mutableStateOf(false) }
     var downloadHelpDialogSetting by rememberSaveable { mutableStateOf(false) }
     var darkMode by rememberSaveable {
-        mutableStateOf(settingsViewModel.isDarkModeEnabled() ?: isSystemInDarkMode)
+        mutableStateOf(settingsViewModel.isDarkModeEnabled(isSystemInDarkMode))
     }
 
     Column(modifier = modifier.fillMaxSize()) {
         BackButton(backClicked)
         Text(
             modifier = Modifier.padding(
-                vertical = dimensionResource(id = R.dimen.offset_huge)
+                vertical = AppTheme.offsets.huge
             ),
             text = stringResource(id = R.string.settings),
             style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
@@ -135,7 +133,7 @@ private fun SettingScreenContent(
         )
         NotificationNewSkinsSetting(
             modifier = Modifier.padding(
-                bottom = dimensionResource(id = R.dimen.offset_medium)
+                bottom = AppTheme.offsets.medium
             ),
             newSkinsNotification = newSkinsNotification,
             onChanged = { value -> newSkinsNotification = value }
@@ -148,7 +146,7 @@ private fun SettingScreenContent(
             }
         )
         if (settingsViewModel.isDownloadDialogDisabled) {
-            Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_medium)))
+            Spacer(modifier = Modifier.height(AppTheme.offsets.medium))
             DownloadHelpDialogSetting(
                 enabled = downloadHelpDialogSetting,
                 onCheckedChange = { value ->
@@ -157,7 +155,7 @@ private fun SettingScreenContent(
                 }
             )
         }
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_regular)))
+        Spacer(modifier = Modifier.height(AppTheme.offsets.regular))
         SettingButton(
             text = stringResource(id = R.string.change_language),
             iconResId = R.drawable.ic_map,
@@ -180,7 +178,7 @@ private fun SettingScreenContent(
         )
         Spacer(modifier = Modifier.weight(1f))
         SettingButton(
-            modifier = Modifier.padding(bottom = dimensionResource(id = R.dimen.offset_large)),
+            modifier = Modifier.padding(bottom = AppTheme.offsets.large),
             text = stringResource(id = R.string.disable_ad),
             iconResId = R.drawable.ic_disable_ad,
             onClick = {}
@@ -199,7 +197,7 @@ private fun DownloadHelpDialogSetting(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier.size(AppTheme.sizes.screens.settings.checkBoxSize),
             checked = enabled,
             onCheckedChange = onCheckedChange,
             colors = CheckboxDefaults.colors(
@@ -208,7 +206,7 @@ private fun DownloadHelpDialogSetting(
                 checkmarkColor = Color.White
             )
         )
-        Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.offset_regular)))
+        Spacer(modifier = Modifier.width(AppTheme.offsets.regular))
         Text(
             text = stringResource(id = R.string.download_help_dialog),
             style = AppTheme.typography.bodyLarge,
@@ -228,7 +226,7 @@ private fun DarkModeSetting(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier.size(AppTheme.sizes.screens.settings.checkBoxSize),
             checked = darkMode,
             onCheckedChange = onCheckedChange,
             colors = CheckboxDefaults.colors(
@@ -237,7 +235,7 @@ private fun DarkModeSetting(
                 checkmarkColor = Color.White
             )
         )
-        Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.offset_regular)))
+        Spacer(modifier = Modifier.width(AppTheme.offsets.regular))
         Text(
             text = stringResource(id = R.string.dark_mode),
             style = AppTheme.typography.bodyLarge,
@@ -257,7 +255,7 @@ private fun NotificationNewSkinsSetting(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier.size(AppTheme.sizes.screens.settings.checkBoxSize),
             checked = newSkinsNotification,
             onCheckedChange = onChanged,
             colors = CheckboxDefaults.colors(
@@ -266,7 +264,7 @@ private fun NotificationNewSkinsSetting(
                 checkmarkColor = Color.White
             )
         )
-        Spacer(modifier = Modifier.width(dimensionResource(id = R.dimen.offset_regular)))
+        Spacer(modifier = Modifier.width(AppTheme.offsets.regular))
         Text(
             text = stringResource(id = R.string.notifications_new_skins),
             style = AppTheme.typography.bodyLarge,

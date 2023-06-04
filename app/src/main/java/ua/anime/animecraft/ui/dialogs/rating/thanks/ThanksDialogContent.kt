@@ -14,18 +14,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import ua.anime.animecraft.R
 import ua.anime.animecraft.ui.common.buttons.FilledDialogButton
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
-import ua.anime.animecraft.ui.theme.dialogsShape
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/31/2023
@@ -41,13 +38,13 @@ fun ThanksDialogContent(
             .fillMaxWidth()
             .background(
                 color = AppTheme.colors.surface,
-                shape = dialogsShape
+                shape = AppTheme.shapes.large
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             modifier = Modifier
-                .padding(vertical = dimensionResource(id = R.dimen.offset_large)),
+                .padding(vertical = AppTheme.offsets.large),
             textAlign = TextAlign.Center,
             text = stringResource(R.string.thank_you),
             style = AppTheme.typography.headlineSmall.copy(
@@ -56,14 +53,14 @@ fun ThanksDialogContent(
             color = AppTheme.colors.onBackground
         )
         Image(
-            modifier = Modifier.size(140.dp),
+            modifier = Modifier.size(AppTheme.sizes.dialogs.thanks.imageHeight),
             painter = painterResource(id = R.drawable.ic_face_with_heart_eyes),
             contentDescription = stringResource(R.string.thank_you_image)
         )
         Text(
             modifier = Modifier.padding(
-                horizontal = dimensionResource(id = R.dimen.offset_large),
-                vertical = dimensionResource(id = R.dimen.offset_large)
+                horizontal = AppTheme.offsets.large,
+                vertical = AppTheme.offsets.large
             ),
             text = stringResource(R.string.we_will_enhance_app),
             style = AppTheme.typography.bodyMedium.copy(
@@ -75,12 +72,12 @@ fun ThanksDialogContent(
         FilledDialogButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(40.dp)
-                .padding(horizontal = dimensionResource(id = R.dimen.offset_regular)),
+                .height(AppTheme.sizes.dialogs.thanks.buttonHeight)
+                .padding(horizontal = AppTheme.offsets.regular),
             text = stringResource(R.string.you_are_welcome),
             onClick = onDismissRequest
         )
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_regular)))
+        Spacer(modifier = Modifier.height(AppTheme.offsets.regular))
     }
 }
 
@@ -90,7 +87,7 @@ fun ThanksDialogPreview() {
     AnimeCraftTheme {
         ThanksDialogContent(
             modifier = Modifier.padding(
-                horizontal = dimensionResource(id = R.dimen.offset_regular)
+                horizontal = AppTheme.offsets.regular
             ),
             onDismissRequest = { }
         )

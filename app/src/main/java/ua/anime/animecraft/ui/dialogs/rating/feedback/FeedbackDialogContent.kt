@@ -25,19 +25,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import ua.anime.animecraft.R
 import ua.anime.animecraft.ui.common.buttons.FilledDialogButton
 import ua.anime.animecraft.ui.common.buttons.OutlinedDialogButton
-import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
-import ua.anime.animecraft.ui.theme.dialogButtonShape
-import ua.anime.animecraft.ui.theme.dialogsShape
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/31/2023.
@@ -56,12 +50,12 @@ fun FeedbackDialogContent(
             .fillMaxWidth()
             .background(
                 color = AppTheme.colors.surface,
-                shape = dialogsShape
+                shape = AppTheme.shapes.large
             )
     ) {
         Text(
             modifier = Modifier
-                .padding(vertical = dimensionResource(id = R.dimen.offset_large))
+                .padding(vertical = AppTheme.offsets.large)
                 .align(CenterHorizontally),
             textAlign = TextAlign.Center,
             text = stringResource(R.string.sorry_to_hear),
@@ -71,16 +65,16 @@ fun FeedbackDialogContent(
             color = AppTheme.colors.onBackground
         )
         OutlinedTextField(
+            value = feedback,
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 160.dp)
-                .padding(horizontal = dimensionResource(id = R.dimen.offset_regular))
+                .heightIn(min = AppTheme.sizes.dialogs.feedback.minTextFieldHeight)
+                .padding(horizontal = AppTheme.offsets.regular)
                 .border(
-                    width = 2.dp,
+                    width = AppTheme.strokes.small,
                     color = AppTheme.colors.primary,
-                    shape = dialogButtonShape
+                    shape = AppTheme.shapes.medium
                 ),
-            value = feedback,
             onValueChange = { feedback = it },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 cursorColor = AppTheme.colors.primary,
@@ -97,7 +91,7 @@ fun FeedbackDialogContent(
             }
         )
         Text(
-            modifier = Modifier.padding(dimensionResource(id = R.dimen.offset_regular)),
+            modifier = Modifier.padding(AppTheme.offsets.regular),
             text = stringResource(R.string.please_provide_your_thoughts),
             style = AppTheme.typography.bodyMedium.copy(
                 fontWeight = FontWeight.SemiBold
@@ -110,7 +104,7 @@ fun FeedbackDialogContent(
             onCanceled = onCanceled,
             onSubmitted = { onFeedbackSent(feedback) }
         )
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.offset_regular)))
+        Spacer(modifier = Modifier.height(AppTheme.offsets.regular))
     }
 }
 
@@ -124,34 +118,26 @@ private fun BottomFeedbackDialogButtons(
         modifier = modifier
             .fillMaxWidth()
             .padding(
-                horizontal = dimensionResource(id = R.dimen.offset_regular)
+                horizontal = AppTheme.offsets.regular
             ),
         horizontalArrangement = Arrangement.spacedBy(
-            dimensionResource(id = R.dimen.offset_medium),
+            AppTheme.offsets.medium,
             CenterHorizontally
         )
     ) {
         OutlinedDialogButton(
             modifier = Modifier
-                .height(40.dp)
+                .height(AppTheme.sizes.dialogs.feedback.buttonHeight)
                 .weight(1f),
             text = stringResource(R.string.cancel),
             onClick = onCanceled
         )
         FilledDialogButton(
             modifier = Modifier
-                .height(40.dp)
+                .height(AppTheme.sizes.dialogs.feedback.buttonHeight)
                 .weight(1f),
             text = stringResource(R.string.submit),
             onClick = onSubmitted
         )
-    }
-}
-
-@Preview
-@Composable
-fun FeedbackDialogPreview() {
-    AnimeCraftTheme(darkTheme = true) {
-        FeedbackDialogContent(onFeedbackSent = {}) {}
     }
 }
