@@ -15,14 +15,18 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import com.google.accompanist.navigation.animation.composable
 import ua.anime.animecraft.core.common.HALF_SECOND
+import ua.anime.animecraft.core.common.ONE_SECOND
+import ua.anime.animecraft.core.common.THREE_HUNDRED_MILLIS
 import ua.anime.animecraft.ui.navigation.Main
+import ua.anime.animecraft.ui.navigation.Splash
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 6/2/2023
  */
 
 private val exitAnimationSpec = tween<Float>(durationMillis = HALF_SECOND.toInt())
-private val enterAnimationSpec = tween<Float>(durationMillis = 300)
+private val enterSplashAnimationSpec = tween<Float>(durationMillis = ONE_SECOND.toInt())
+private val enterAnimationSpec = tween<Float>(durationMillis = THREE_HUNDRED_MILLIS.toInt())
 
 fun NavGraphBuilder.mainScreenComposable(
     content: @Composable AnimatedVisibilityScope.(NavBackStackEntry) -> Unit
@@ -38,7 +42,7 @@ fun NavGraphBuilder.mainScreenComposable(
 }
 
 private fun AnimatedContentScope<NavBackStackEntry>.mainEnterAnimation(): EnterTransition {
-    return fadeIn(enterAnimationSpec)
+    return createEnterAnimation()
 }
 
 private fun AnimatedContentScope<NavBackStackEntry>.mainExitAnimation(): ExitTransition {
@@ -46,9 +50,18 @@ private fun AnimatedContentScope<NavBackStackEntry>.mainExitAnimation(): ExitTra
 }
 
 private fun AnimatedContentScope<NavBackStackEntry>.mainPopEnterAnimation(): EnterTransition {
-    return fadeIn(enterAnimationSpec)
+    return createEnterAnimation()
 }
 
 private fun AnimatedContentScope<NavBackStackEntry>.mainPopExitAnimation(): ExitTransition {
     return fadeOut(exitAnimationSpec)
+}
+
+private fun AnimatedContentScope<NavBackStackEntry>.createEnterAnimation(): EnterTransition {
+    val animationSpec = if (initialState.destination.route == Splash.route) {
+        enterSplashAnimationSpec
+    } else {
+        enterAnimationSpec
+    }
+    return fadeIn(animationSpec)
 }
