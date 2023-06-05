@@ -14,7 +14,6 @@ import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS
 import ua.anime.animecraft.domain.repository.CategoryRepository
 import ua.anime.animecraft.domain.repository.FavoritesRepository
 import ua.anime.animecraft.domain.repository.SkinsRepository
-import ua.anime.animecraft.ui.model.Category
 import ua.anime.animecraft.ui.model.Skin
 
 /**
