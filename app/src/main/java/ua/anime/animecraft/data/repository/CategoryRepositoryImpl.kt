@@ -23,6 +23,8 @@ class CategoryRepositoryImpl @Inject constructor(
 
     private val categoriesMap = mutableMapOf<Int, Category>()
 
+    override suspend fun getCategory(id: Int) = categoryDao.getCategory(id).to()
+
     override suspend fun updateLocalCategoriesFromNetwork() {
         val categories = realtimeSkinsApi.getAllCategories().map(NetworkCategory::to)
         categoryDao.insert(categories)

@@ -11,8 +11,10 @@ import ua.anime.animecraft.core.android.AnimeCraftViewModel
 import ua.anime.animecraft.data.files.SkinFilesHandler
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_DOWNLOAD_DIALOG_DISABLED
+import ua.anime.animecraft.domain.repository.CategoryRepository
 import ua.anime.animecraft.domain.repository.FavoritesRepository
 import ua.anime.animecraft.domain.repository.SkinsRepository
+import ua.anime.animecraft.ui.model.Category
 import ua.anime.animecraft.ui.model.Skin
 
 /**
@@ -23,6 +25,7 @@ import ua.anime.animecraft.ui.model.Skin
 class InfoViewModel @Inject constructor(
     private val skinsRepository: SkinsRepository,
     private val favoritesRepository: FavoritesRepository,
+    private val categoryRepository: CategoryRepository,
     private val skinsPreferencesHandler: SkinsPreferencesHandler,
     private val skinFilesHandler: SkinFilesHandler
 ) : AnimeCraftViewModel() {
@@ -30,8 +33,18 @@ class InfoViewModel @Inject constructor(
     private val _skinFlow = MutableStateFlow<Skin?>(null)
     val skinFlow = _skinFlow.asStateFlow()
 
+    private val _categoryFlow = MutableStateFlow<String?>(null)
+    val categoryFlow = _categoryFlow.asStateFlow()
+
     val isDownloadDialogDisabled
         get() = skinsPreferencesHandler.getBoolean(IS_DOWNLOAD_DIALOG_DISABLED) ?: false
+
+    fun getCategoryName(id: Int) {
+        viewModelScope.launch(Dispatchers.Default) {
+            val name = categoryRepository.getCategory(id).name
+            _categoryFlow.emit(name)
+        }
+    }
 
     fun saveGameSkinImage() {
         val gameImageFileName = _skinFlow.value?.gameImageFileName ?: return

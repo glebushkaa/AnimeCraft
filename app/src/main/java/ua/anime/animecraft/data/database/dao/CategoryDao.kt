@@ -22,4 +22,7 @@ interface CategoryDao {
 
     @Query("SELECT * FROM category")
     fun getCategories(): Flow<List<CategoryEntity>>
+
+    @Query("SELECT * FROM category WHERE id = :id")
+    fun getCategory(id: Int): CategoryEntity
 }

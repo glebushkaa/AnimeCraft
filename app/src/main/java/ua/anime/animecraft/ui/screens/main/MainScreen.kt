@@ -37,7 +37,7 @@ import ua.anime.animecraft.ui.dialogs.rating.RatingDialog
 import ua.anime.animecraft.ui.model.Category
 import ua.anime.animecraft.ui.model.Skin
 import ua.anime.animecraft.ui.navigation.MAIN
-import ua.anime.animecraft.ui.screens.main.components.CategoriesFlowRow
+import ua.anime.animecraft.ui.common.CategoriesFlowRow
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 

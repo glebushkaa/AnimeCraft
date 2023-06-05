@@ -1,7 +1,7 @@
 @file:Suppress("FunctionName")
 @file:OptIn(ExperimentalLayoutApi::class, ExperimentalAnimationApi::class)
 
-package ua.anime.animecraft.ui.screens.main.components
+package ua.anime.animecraft.ui.common
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -59,11 +59,11 @@ fun CategoriesFlowRow(
 }
 
 @Composable
-private fun CategoryItem(
+fun CategoryItem(
     modifier: Modifier = Modifier,
     name: String,
     selected: Boolean = false,
-    onClick: () -> Unit
+    onClick: () -> Unit = {}
 ) {
     OutlinedButton(
         modifier = modifier

@@ -12,4 +12,6 @@ interface CategoryRepository {
     suspend fun updateLocalCategoriesFromNetwork()
 
     suspend fun getCategoriesFlow(): Flow<List<Category>>
+
+    suspend fun getCategory(id: Int): Category
 }
