@@ -14,5 +14,6 @@ data class SkinEntity(
     val name: String,
     val favorite: Boolean = false,
     val gameImageFileName: String,
-    val previewImageFileName: String
+    val previewImageFileName: String,
+    val categoryId: Int? = null
 )

@@ -3,6 +3,7 @@
 package ua.anime.animecraft.ui.screens.info
 
 import android.os.Build
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -35,6 +36,7 @@ import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.core.common.capitalize
 import ua.anime.animecraft.ui.ad.BannerAd
+import ua.anime.animecraft.ui.common.CategoryItem
 import ua.anime.animecraft.ui.common.RoundedProgressIndicator
 import ua.anime.animecraft.ui.common.buttons.BackButton
 import ua.anime.animecraft.ui.common.buttons.DownloadButton
@@ -54,8 +56,8 @@ fun InfoScreen(
     backClicked: () -> Unit = {},
     infoViewModel: InfoViewModel = hiltViewModel()
 ) {
-    val skin by infoViewModel.skinFlow.collectLifecycleAwareFlowAsState(initialValue = null)
-
+    val skin by infoViewModel.skinFlow.collectLifecycleAwareFlowAsState(null)
+    val categoryName by infoViewModel.categoryFlow.collectLifecycleAwareFlowAsState(null)
     var downloadClicked by rememberSaveable { mutableStateOf(false) }
 
     if (downloadClicked &&
@@ -82,11 +84,9 @@ fun InfoScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = AppTheme.offsets.regular)
-                .weight(1f)
         ) {
             Text(
                 modifier = Modifier
-                    .padding(horizontal = AppTheme.offsets.regular)
                     .weight(1f),
                 text = skin?.name?.capitalize() ?: "Skin",
                 style = AppTheme.typography.headlineSmall.copy(
@@ -98,6 +98,15 @@ fun InfoScreen(
                 infoViewModel.updateFavoriteSkin()
             }
         }
+        Spacer(modifier = Modifier.height(AppTheme.offsets.large))
+        AnimatedVisibility(visible = categoryName != null) {
+            CategoryItem(
+                modifier = Modifier
+                    .padding(horizontal = AppTheme.offsets.regular),
+                name = categoryName ?: ""
+            )
+        }
+        Spacer(modifier = Modifier.weight(1f))
         DownloadButton(
             modifier = Modifier
                 .fillMaxWidth()
@@ -115,7 +124,12 @@ fun InfoScreen(
         Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
         BannerAd()
     }
-    LaunchedEffect(key1 = false) { infoViewModel.loadSkin(id) }
+    LaunchedEffect(key1 = false) {
+        infoViewModel.run {
+            loadSkin(id)
+            getCategoryName(id)
+        }
+    }
 }
 
 @Composable

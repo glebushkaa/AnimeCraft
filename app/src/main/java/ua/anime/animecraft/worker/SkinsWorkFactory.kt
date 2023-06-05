@@ -6,6 +6,7 @@ import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import javax.inject.Inject
 import ua.anime.animecraft.data.downloadmanager.SkinsDownloadManager
+import ua.anime.animecraft.domain.repository.CategoryRepository
 import ua.anime.animecraft.domain.repository.SkinsRepository
 
 /**
@@ -14,6 +15,7 @@ import ua.anime.animecraft.domain.repository.SkinsRepository
 
 class SkinsWorkFactory @Inject constructor(
     private val skinsRepository: SkinsRepository,
+    private val categoryRepository: CategoryRepository,
     private val skinsDownloadManager: SkinsDownloadManager
 ) : WorkerFactory() {
 
@@ -25,6 +27,7 @@ class SkinsWorkFactory @Inject constructor(
         context = appContext,
         workerParams = workerParameters,
         skinsRepository = skinsRepository,
-        skinsDownloadManager = skinsDownloadManager
+        skinsDownloadManager = skinsDownloadManager,
+        categoryRepository = categoryRepository
     )
 }

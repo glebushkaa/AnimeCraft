@@ -29,11 +29,13 @@ import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsSt
 import ua.anime.animecraft.core.common.TWO_SECONDS
 import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.AppTopBar
+import ua.anime.animecraft.ui.common.CategoriesFlowRow
 import ua.anime.animecraft.ui.common.RoundedProgressIndicator
 import ua.anime.animecraft.ui.common.SearchBar
 import ua.anime.animecraft.ui.common.SkinsGrid
 import ua.anime.animecraft.ui.dialogs.downloadskin.DownloadSkinDialog
 import ua.anime.animecraft.ui.dialogs.rating.RatingDialog
+import ua.anime.animecraft.ui.model.Category
 import ua.anime.animecraft.ui.model.Skin
 import ua.anime.animecraft.ui.navigation.MAIN
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme
@@ -51,7 +53,11 @@ fun MainScreen(
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     val skins by mainViewModel.skinsFlow.collectLifecycleAwareFlowAsState(initialValue = listOf())
+    val categories by mainViewModel.categoriesFlow.collectLifecycleAwareFlowAsState(
+        initialValue = listOf()
+    )
     var searchQuery by rememberSaveable { mutableStateOf("") }
+    var selectedCategory by remember { mutableStateOf(mainViewModel.selectedCategory) }
 
     var downloadSelected by remember { mutableStateOf(false) }
 
@@ -90,7 +96,8 @@ fun MainScreen(
                 ),
                 searchQuery = searchQuery,
                 skins = skins,
-                itemClicked = itemClicked,
+                categories = categories,
+                onItemClicked = itemClicked,
                 onSearchQueryUpdated = { query ->
                     searchQuery = query
                     mainViewModel.searchSkins(searchQuery)
@@ -98,6 +105,15 @@ fun MainScreen(
                 onDownloadClicked = { id ->
                     mainViewModel.saveGameSkinImage(id)
                     downloadSelected = true
+                },
+                selectedCategory = selectedCategory,
+                onCategorySelected = { category ->
+                    selectedCategory = if (category.id == selectedCategory?.id) {
+                        null
+                    } else {
+                        category
+                    }
+                    mainViewModel.selectCategory(selectedCategory)
                 },
                 onLikeClicked = { id -> mainViewModel.updateFavoriteSkin(id) },
                 areSkinsLoaded = mainViewModel.areSkinsLoaded
@@ -138,10 +154,13 @@ private fun MainScreenContent(
     modifier: Modifier = Modifier,
     searchQuery: String,
     skins: List<Skin>,
-    itemClicked: (Int) -> Unit,
-    onSearchQueryUpdated: (String) -> Unit,
-    onDownloadClicked: (Int) -> Unit,
-    onLikeClicked: (Int) -> Unit,
+    categories: List<Category>,
+    selectedCategory: Category? = null,
+    onItemClicked: (Int) -> Unit = {},
+    onSearchQueryUpdated: (String) -> Unit = {},
+    onDownloadClicked: (Int) -> Unit = {},
+    onLikeClicked: (Int) -> Unit = {},
+    onCategorySelected: (Category) -> Unit = {},
     areSkinsLoaded: Boolean = false
 ) {
     Column(
@@ -152,6 +171,7 @@ private fun MainScreenContent(
             value = searchQuery,
             onValueChanged = onSearchQueryUpdated
         )
+
         Box(modifier = Modifier.weight(1f)) {
             if (!areSkinsLoaded && skins.isEmpty()) {
                 RoundedProgressIndicator(
@@ -165,9 +185,16 @@ private fun MainScreenContent(
             SkinsGrid(
                 modifier = Modifier.align(Alignment.TopCenter),
                 skins = skins,
-                itemClick = itemClicked,
+                itemClick = onItemClicked,
                 likeClick = onLikeClicked,
-                downloadClick = onDownloadClicked
+                downloadClick = onDownloadClicked,
+                headerItem = {
+                    CategoriesFlowRow(
+                        categories = categories,
+                        onCategorySelected = onCategorySelected,
+                        selectedCategory = selectedCategory
+                    )
+                }
             )
         }
     }

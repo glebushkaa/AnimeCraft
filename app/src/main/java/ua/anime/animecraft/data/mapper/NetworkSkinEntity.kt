@@ -12,5 +12,6 @@ fun NetworkSkin.to(gameUrl: String, previewUrl: String, favorite: Boolean) = Ski
     name = name ?: "Skin",
     gameImageFileName = gameUrl,
     previewImageFileName = previewUrl,
-    favorite = favorite
+    favorite = favorite,
+    categoryId = category
 )

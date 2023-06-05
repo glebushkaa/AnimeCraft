@@ -12,7 +12,8 @@ fun SkinEntity.to() = Skin(
     name = name,
     gameImageFileName = gameImageFileName,
     previewImageUrl = previewImageFileName,
-    favorite = favorite
+    favorite = favorite,
+    categoryId = categoryId
 )
 
 fun List<SkinEntity>.to(): List<Skin> = map { it.to() }

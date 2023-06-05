@@ -33,4 +33,8 @@ class DatabaseModule {
     @Provides
     @Singleton
     fun provideFavoritesDao(database: SkinsDatabase) = database.favoriteDao()
+
+    @Provides
+    @Singleton
+    fun provideCategoryDao(database: SkinsDatabase) = database.categoryDao()
 }
