@@ -46,7 +46,7 @@
     <string name="share_app">Share app</string>
     <string name="tell_us_your_report">Tell us your report…</string>
     <string name="report">Report</string>
-    <string name="disable_ad">Disable ad: 4,99$</string>
+    <string name="disable_ad">Disable ad</string>
     <string name="rate_us_button_image">Rate us button image</string>
 
     <string name="share_app_link" translatable="false">https://play.google.com/store/apps/details?id=ua.anime.animecraft</string>

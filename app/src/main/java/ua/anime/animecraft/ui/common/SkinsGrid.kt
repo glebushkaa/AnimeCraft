@@ -1,7 +1,9 @@
 @file:Suppress("FunctionName", "LongParameterList")
+@file:OptIn(ExperimentalFoundationApi::class)
 
 package ua.anime.animecraft.ui.common
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -32,8 +34,12 @@ fun SkinsGrid(
         horizontalArrangement = Arrangement.spacedBy(24.dp),
         content = {
             header { headerItem() }
-            items(skins) { skin ->
+            items(
+                items = skins,
+                key = { skin -> skin.id }
+            ) { skin ->
                 PreviewItem(
+                    modifier = Modifier.animateItemPlacement(),
                     skin = skin,
                     itemClick = itemClick,
                     likeClick = likeClick,
