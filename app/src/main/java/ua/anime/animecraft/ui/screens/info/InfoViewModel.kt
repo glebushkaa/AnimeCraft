@@ -38,11 +38,9 @@ class InfoViewModel @Inject constructor(
     val isDownloadDialogDisabled
         get() = skinsPreferencesHandler.getBoolean(IS_DOWNLOAD_DIALOG_DISABLED) ?: false
 
-    fun getCategoryName(id: Int) {
-        viewModelScope.launch(Dispatchers.Default) {
-            val name = categoryRepository.getCategory(id).name
-            _categoryFlow.emit(name)
-        }
+    private fun getCategoryName(id: Int) = viewModelScope.launch(Dispatchers.Default) {
+        val name = categoryRepository.getCategory(id).name
+        _categoryFlow.emit(name)
     }
 
     fun saveGameSkinImage() {
@@ -58,18 +56,15 @@ class InfoViewModel @Inject constructor(
         skinsPreferencesHandler.putBoolean(IS_DOWNLOAD_DIALOG_DISABLED, true)
     }
 
-    fun loadSkin(id: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            skinsRepository.getSkinFlow(id).collect {
-                _skinFlow.emit(it)
-            }
+    fun loadSkin(id: Int) = viewModelScope.launch(Dispatchers.IO) {
+        skinsRepository.getSkinFlow(id).collect {
+            it.categoryId?.let { categoryId -> getCategoryName(categoryId) }
+            _skinFlow.emit(it)
         }
     }
 
-    fun updateFavoriteSkin() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val skin = _skinFlow.value ?: return@launch
-            favoritesRepository.updateFavoriteSkin(skin.id, skin.favorite.not())
-        }
+    fun updateFavoriteSkin() = viewModelScope.launch(Dispatchers.IO) {
+        val skin = _skinFlow.value ?: return@launch
+        favoritesRepository.updateFavoriteSkin(skin.id, skin.favorite.not())
     }
 }

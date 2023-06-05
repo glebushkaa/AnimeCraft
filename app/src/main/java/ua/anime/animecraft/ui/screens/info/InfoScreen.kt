@@ -125,10 +125,7 @@ fun InfoScreen(
         BannerAd()
     }
     LaunchedEffect(key1 = false) {
-        infoViewModel.run {
-            loadSkin(id)
-            getCategoryName(id)
-        }
+        infoViewModel.loadSkin(id)
     }
 }
 
