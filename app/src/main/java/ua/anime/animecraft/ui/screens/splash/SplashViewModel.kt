@@ -17,12 +17,14 @@ class SplashViewModel @Inject constructor(
 
     private var isAdShowed = false
 
-    fun showAppOpenAd(adUnitId: String, onFinish: () -> Unit = {}) {
-        viewModelScope.launch {
+    fun showAppOpenAd(adUnitId: String, onFinish: () -> Unit = {}) = viewModelScope.launch {
+        runCatching {
             if (isAdShowed) return@launch
             isAdShowed = true
             appOpenAdApi.loadAppOpenAd(adUnitId)
             appOpenAdApi.showAppOpenAd(adUnitId)
+            onFinish()
+        }.onFailure {
             onFinish()
         }
     }
