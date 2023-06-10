@@ -4,24 +4,33 @@
 package ua.anime.animecraft.ui.screens.favorites
 
 import android.os.Build
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.ui.ad.BannerAd
@@ -29,6 +38,7 @@ import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.SearchBar
 import ua.anime.animecraft.ui.common.SkinsGrid
 import ua.anime.animecraft.ui.common.buttons.BackButton
+import ua.anime.animecraft.ui.common.buttons.ScrollTopButton
 import ua.anime.animecraft.ui.dialogs.downloadskin.DownloadSkinDialog
 import ua.anime.animecraft.ui.navigation.FAVORITES
 import ua.anime.animecraft.ui.theme.AppTheme
@@ -46,6 +56,11 @@ fun FavoritesScreen(
     val favorites by favoritesViewModel.favoritesFlow.collectLifecycleAwareFlowAsState(listOf())
     var searchQuery by rememberSaveable { mutableStateOf("") }
     var downloadClicked by rememberSaveable { mutableStateOf(false) }
+    val skinsGridState = rememberLazyGridState()
+    val isScrollToTopVisible by remember {
+        derivedStateOf { skinsGridState.firstVisibleItemIndex > 2 }
+    }
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = false) { favoritesViewModel.getFavorites() }
 
@@ -97,15 +112,29 @@ fun FavoritesScreen(
                     favoritesViewModel.searchSkins(searchQuery)
                 }
                 Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
-                SkinsGrid(
-                    skins = favorites,
-                    itemClick = itemClicked,
-                    likeClick = favoritesViewModel::updateFavoriteSkin,
-                    downloadClick = { id ->
-                        favoritesViewModel.saveGameSkinImage(id)
-                        downloadClicked = true
+                Box(modifier = Modifier.weight(1f)) {
+                    SkinsGrid(
+                        skins = favorites,
+                        itemClick = itemClicked,
+                        likeClick = favoritesViewModel::updateFavoriteSkin,
+                        downloadClick = { id ->
+                            favoritesViewModel.saveGameSkinImage(id)
+                            downloadClicked = true
+                        }
+                    )
+                    androidx.compose.animation.AnimatedVisibility(
+                        modifier = Modifier.align(Alignment.BottomEnd),
+                        visible = isScrollToTopVisible,
+                        enter = slideInHorizontally { fullSize -> fullSize },
+                        exit = slideOutHorizontally { fullSize -> fullSize + fullSize }
+                    ) {
+                        ScrollTopButton {
+                            scope.launch {
+                                skinsGridState.animateScrollToItem(index = 0)
+                            }
+                        }
                     }
-                )
+                }
             }
         }
     )
