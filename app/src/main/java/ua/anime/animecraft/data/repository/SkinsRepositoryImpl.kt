@@ -7,6 +7,7 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import ua.anime.animecraft.core.log.debug
 import ua.anime.animecraft.data.database.dao.SkinsDao
 import ua.anime.animecraft.data.database.entity.SkinEntity
 import ua.anime.animecraft.data.mapper.to
@@ -27,7 +28,11 @@ class SkinsRepositoryImpl @Inject constructor(
 
     private val skins = mutableMapOf<Int, Skin>()
 
-    override suspend fun getSkinsGameImageUrl(id: Int) = storageSkinsApi.getGameImageUrl(id)
+    override suspend fun getSkinsGameImageUrl(id: Int) : String{
+        val s = storageSkinsApi.getGameImageUrl(id)
+        debug("Test debug ldsa") { s.toString() }
+        return s
+    }
 
     override suspend fun getSkinsGameFileName(id: Int) = skins[id]?.gameImageFileName
 
