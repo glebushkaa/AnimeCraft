@@ -54,12 +54,12 @@ class SkinsWorkManager @AssistedInject constructor(
         }.awaitAll().toMap()
     }
 
-    private suspend fun saveImageFiles(id: Int, gameFileName: String) {
+    private suspend fun saveImageFiles(id: Int, gameFileName: String) = runCatching {
         val gameImageUrl = skinsRepository.getSkinsGameImageUrl(id) ?: ""
         val request = skinsDownloadManager.getDownloadGameImagesByUrlRequest(
             gameImageUrl,
             gameFileName
-        ) ?: return
+        ) ?: return@runCatching
         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val downloadId = downloadManager.enqueue(request)
         skinsDownloadManager.gameDownloadIdsMap[id] = downloadId
