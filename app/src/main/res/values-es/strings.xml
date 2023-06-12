@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AnimeCraft</string>
     <string name="splash_picture">Salpicaduras</string>
     <string name="search_icon">Icono de búsqueda</string>
-    <string name="find_skin">Encuentra piel…</string>
+    <string name="find_skin">Encuentra skin…</string>
     <string name="like_icon">Como icono</string>
     <string name="settings_icon">Icono de configuración</string>
     <string name="preview_card">Vista previa de la tarjeta</string>
@@ -19,34 +18,34 @@
     <string name="worker_notification_text">Descargando…</string>
     <string name="worker_notification_title">Descargar máscaras</string>
     <string name="how_download_skin">¿Cómo puedo descargar esta skin en Minecraft?</string>
-    <string name="download_skin_reason_description">Puesto que usted tiene una versión de android superior a 10, no podemos cargar una piel directamente en el juego.\NPor lo tanto, le mostraremos cómo hacerlo:</string>
-    <string name="skin_description_picture">Descripción de la piel</string>
+    <string name="download_skin_reason_description">Puesto que usted tiene una versión de android superior a 10, no podemos cargar una piel directamente en el juego.\n\nPor lo tanto, le mostraremos cómo hacerlo:</string>
+    <string name="skin_description_picture">Descripción de el skin</string>
     <string name="dont_show_this_again">No vuelvas a mostrar esto</string>
     <string name="drop_down_arrow">Flecha desplegable</string>
     <string name="flag_image">Imagen de la bandera</string>
-    <string name="confirm">Confirme</string>
+    <string name="confirm">Confirm</string>
     <string name="download_help_dialog">Descargar diálogo de ayuda</string>
     <string name="provide_your_feedback">Su valoración nos importa. Tómese un momento para hacernos llegar sus comentarios. Muchas gracias.</string>
     <string name="do_you_enjoy_our_app">¿Le gusta nuestra aplicación?</string>
     <string name="rate_us">Valóranos</string>
     <string name="not_now">Ahora no</string>
     <string name="smile_image">Imagen de la sonrisa</string>
-    <string name="thank_you_image">Gracias imagen</string>
     <string name="sorry_to_hear">Siento oír eso…</string>
     <string name="tell_us_your_feedback">Dinos lo que piensas…</string>
     <string name="please_provide_your_thoughts">Por favor, indíquenos sus opiniones y razones en el cuadro de texto. Valoramos sus comentarios y nos gustaría conocerlos.</string>
     <string name="cancel">Cancelar</string>
     <string name="submit">Enviar</string>
     <string name="thank_you">Gracias!</string>
+    <string name="thank_you_image">Gracias imagen</string>
     <string name="we_will_enhance_app">Seguiremos trabajando juntos para mejorar nuestra aplicación!</string>
     <string name="you_are_welcome">De nada</string>
-    <string name="change_language">Compartir aplicación</string>
+    <string name="change_language">Cambiar de idioma</string>
     <string name="send_report">Enviar informe</string>
     <string name="share_app">Compartir aplicación</string>
     <string name="tell_us_your_report">Cuéntenos su informe…</string>
     <string name="report">Informe</string>
     <string name="disable_ad">Desactivar anuncio</string>
-    <string name="rate_us_button_image">Imagen del botón Valóranos</string>
+    <string name="rate_us_button_image">Imagen del botón valóranos</string>
 
     <!--Languages-->
     <string name="russian">Ruso</string>

@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AnimeCraft</string>
     <string name="splash_picture">Obraz Splash</string>
     <string name="search_icon">Ikona wyszukiwania</string>
     <string name="find_skin">Znajdź skórę…</string>
@@ -17,8 +17,8 @@
     <string name="dark_mode">Tryb ciemny</string>
     <string name="worker_notification_text">Pobieranie…</string>
     <string name="worker_notification_title">Pobieranie skórek</string>
-    <string name="how_download_skin">Jak pobrać tę skórkę w Minecrafcie?</string>
-    <string name="download_skin_reason_description">Ponieważ masz wersję Androida powyżej 10, nie możemy załadować skórki bezpośrednio do gry. Pokażemy więc, jak to zrobić:</string>
+    <string name="how_download_skin">Jak mogę pobrać tę skórkę w Minecrafcie?</string>
+    <string name="download_skin_reason_description">Ponieważ masz wersję Androida powyżej 10, nie możemy załadować skórki bezpośrednio do gry.\n\nPokażemy więc, jak to zrobić:</string>
     <string name="skin_description_picture">Obraz opisu skórki</string>
     <string name="dont_show_this_again">Nie pokazuj tego więcej</string>
     <string name="drop_down_arrow">Strzałka w dół</string>
@@ -32,7 +32,7 @@
     <string name="smile_image">Obraz uśmiechu</string>
     <string name="sorry_to_hear">Przykro mi to słyszeć…</string>
     <string name="tell_us_your_feedback">Przekaż nam swoją opinię…</string>
-    <string name="please_provide_your_thoughts">Prosimy o podanie swoich przemyśleń i powodów w polu tekstowym. Cenimy Twoją opinię i chcielibyśmy ją poznać.</string>
+    <string name="please_provide_your_thoughts">Prosimy o podanie swoich przemyśleń i powodów w polu tekstowym. Cenimy Twoją opinię i chcielibyśmy poznać Twoje zdanie.</string>
     <string name="cancel">Anuluj</string>
     <string name="submit">Prześlij</string>
     <string name="thank_you">Dziękuję!</string>
@@ -46,7 +46,6 @@
     <string name="report">Raport</string>
     <string name="disable_ad">Wyłącz reklamę</string>
     <string name="rate_us_button_image">Obraz przycisku Oceń nas</string>
-
     <!--Languages-->
     <string name="russian">Rosyjski</string>
     <string name="ukrainian">Ukraiński</string>
