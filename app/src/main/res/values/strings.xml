@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AnimeCraft</string>
+    <string name="app_name" translatable="false">AnimeCraft</string>
     <string name="splash_picture">Splash picture</string>
     <string name="search_icon">Search icon</string>
     <string name="find_skin">Find skin…</string>
