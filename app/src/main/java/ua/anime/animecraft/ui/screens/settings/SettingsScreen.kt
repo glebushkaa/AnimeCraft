@@ -114,8 +114,6 @@ private fun SettingScreenContent(
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val isSystemInDarkMode = isSystemInDarkTheme()
-
-    var newSkinsNotification by rememberSaveable { mutableStateOf(false) }
     var downloadHelpDialogSetting by rememberSaveable { mutableStateOf(false) }
     var darkMode by rememberSaveable {
         mutableStateOf(settingsViewModel.isDarkModeEnabled(isSystemInDarkMode))
@@ -130,13 +128,6 @@ private fun SettingScreenContent(
             text = stringResource(id = R.string.settings),
             style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
             color = AppTheme.colors.onBackground
-        )
-        NotificationNewSkinsSetting(
-            modifier = Modifier.padding(
-                bottom = AppTheme.offsets.medium
-            ),
-            newSkinsNotification = newSkinsNotification,
-            onChanged = { value -> newSkinsNotification = value }
         )
         DarkModeSetting(
             darkMode = darkMode,
@@ -238,35 +229,6 @@ private fun DarkModeSetting(
         Spacer(modifier = Modifier.width(AppTheme.offsets.regular))
         Text(
             text = stringResource(id = R.string.dark_mode),
-            style = AppTheme.typography.bodyLarge,
-            color = AppTheme.colors.onBackground
-        )
-    }
-}
-
-@Composable
-private fun NotificationNewSkinsSetting(
-    modifier: Modifier = Modifier,
-    newSkinsNotification: Boolean,
-    onChanged: (Boolean) -> Unit
-) {
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Checkbox(
-            modifier = Modifier.size(AppTheme.sizes.screens.settings.checkBoxSize),
-            checked = newSkinsNotification,
-            onCheckedChange = onChanged,
-            colors = CheckboxDefaults.colors(
-                checkedColor = AppTheme.colors.primary,
-                uncheckedColor = AppTheme.colors.primary,
-                checkmarkColor = Color.White
-            )
-        )
-        Spacer(modifier = Modifier.width(AppTheme.offsets.regular))
-        Text(
-            text = stringResource(id = R.string.notifications_new_skins),
             style = AppTheme.typography.bodyLarge,
             color = AppTheme.colors.onBackground
         )
