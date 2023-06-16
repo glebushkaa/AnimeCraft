@@ -6,7 +6,6 @@ package ua.anime.animecraft.ui.dialogs.downloadskin
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -31,9 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.window.Dialog
 import kotlinx.coroutines.delay
 import ua.anime.animecraft.R
-import ua.anime.animecraft.core.log.debug
 import ua.anime.animecraft.ui.common.buttons.DontShowAgainButton
-import ua.anime.animecraft.ui.dialogs.PagerItemCount
 import ua.anime.animecraft.ui.dialogs.component.AnimatedScaleDialogContent
 import ua.anime.animecraft.ui.dialogs.component.PRE_DISMISS_DELAY
 import ua.anime.animecraft.ui.theme.AppTheme
@@ -125,7 +121,7 @@ private fun DownloadSkinDialogContent(
                 contentDescription = stringResource(R.string.skin_description_picture)
             )
         }
-        PagerItemCount(
+        PagerItemIndicator(
             modifier = Modifier
                 .padding(vertical = AppTheme.offsets.small)
                 .align(Alignment.CenterHorizontally),

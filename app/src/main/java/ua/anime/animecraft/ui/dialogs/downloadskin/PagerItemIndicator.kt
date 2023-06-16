@@ -1,20 +1,20 @@
+@file:Suppress("FunctionName", "MagicNumber")
 @file:OptIn(ExperimentalFoundationApi::class)
 
-package ua.anime.animecraft.ui.dialogs
+package ua.anime.animecraft.ui.dialogs.downloadskin
 
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Fill
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ua.anime.animecraft.ui.theme.AnimeCraftTheme
 import ua.anime.animecraft.ui.theme.AppTheme
 
 /**
@@ -22,20 +22,18 @@ import ua.anime.animecraft.ui.theme.AppTheme
  */
 
 @Composable
-fun PagerItemCount(
+fun PagerItemIndicator(
     modifier: Modifier = Modifier,
     circleRadius: Float = 24f,
     currentItem: Int = 0
 ) {
-    val firstPointAnimatedAlpha by animateFloatAsState(targetValue = if (currentItem == 0) 1f else 0.3f)
-    val secondPointAnimatedAlpha by animateFloatAsState(targetValue = if (currentItem in 1..2) 1f else 0.3f)
-    val thirdPointAnimatedAlpha by animateFloatAsState(targetValue = if (currentItem == 3) 1f else 0.3f)
     val dotColor = AppTheme.colors.primary
     val backgroundColor = AppTheme.colors.tertiary
 
-    Canvas(modifier = modifier
-        .width((circleRadius * POINTS_COUNT).dp)
-        .height(circleRadius.dp),
+    Canvas(
+        modifier = modifier
+            .width((circleRadius * POINTS_COUNT).dp)
+            .height(circleRadius.dp),
         onDraw = {
             drawRoundRect(
                 color = backgroundColor,
@@ -45,37 +43,46 @@ fun PagerItemCount(
                 cornerRadius = CornerRadius(size.height / 2)
             )
 
-            drawCircle(
+            indicatorDot(
                 color = dotColor,
                 radius = circleRadius,
-                style = Fill,
-                alpha = firstPointAnimatedAlpha,
+                selected = currentItem == 0,
                 center = center.copy(x = center.x - (circleRadius * 2.5f))
             )
 
-            drawCircle(
+            indicatorDot(
                 color = dotColor,
                 radius = circleRadius,
-                style = Fill,
-                alpha = secondPointAnimatedAlpha,
+                selected = currentItem in 1..2,
                 center = center
             )
-            drawCircle(
+            indicatorDot(
                 color = dotColor,
                 radius = circleRadius,
-                style = Fill,
-                alpha = thirdPointAnimatedAlpha,
+                selected = currentItem == 3,
                 center = center.copy(x = center.x + (circleRadius * 2.5f))
             )
-        })
+        }
+    )
 }
 
-@Composable
-@Preview
-fun PagerItemCountPreview() {
-    AnimeCraftTheme {
-        PagerItemCount()
-    }
+private fun DrawScope.indicatorDot(
+    color: Color = Color.LightGray,
+    radius: Float = 24f,
+    selected: Boolean = false,
+    center: Offset
+) {
+    val alpha = if (selected) SELECTED_DOT_ALPHA else UNSELECTED_DOT_ALPHA
+
+    drawCircle(
+        color = color,
+        radius = radius,
+        style = Fill,
+        alpha = alpha,
+        center = center
+    )
 }
 
 private const val POINTS_COUNT = 3
+private const val SELECTED_DOT_ALPHA = 1f
+private const val UNSELECTED_DOT_ALPHA = 0.3f
