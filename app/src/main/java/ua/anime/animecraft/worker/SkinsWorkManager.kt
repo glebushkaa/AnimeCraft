@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import ua.anime.animecraft.core.log.error
 import ua.anime.animecraft.data.downloadmanager.SkinsDownloadManager
 import ua.anime.animecraft.domain.repository.CategoryRepository
 import ua.anime.animecraft.domain.repository.SkinsRepository
@@ -35,13 +36,17 @@ class SkinsWorkManager @AssistedInject constructor(
     private val skinsDownloadManager: SkinsDownloadManager
 ) : CoroutineWorker(context, workerParams) {
 
-    override suspend fun doWork() = coroutineScope {
-        startForegroundService()
-        val localSkins = skinsRepository.getSkins()
-        val skinsImageMap = saveSkin(localSkins)
-        categoryRepository.updateLocalCategoriesFromNetwork()
-        skinsRepository.updateLocalSkinsFromNetwork(skinsImageMap)
-        Result.success()
+    override suspend fun doWork(): Result = coroutineScope {
+        runCatching {
+            startForegroundService()
+            val localSkins = skinsRepository.getSkins()
+            val skinsImageMap = saveSkin(localSkins)
+            categoryRepository.updateLocalCategoriesFromNetwork()
+            skinsRepository.updateLocalSkinsFromNetwork(skinsImageMap)
+            Result.success()
+        }.onFailure {
+            error("SkinsWorkManager", it) { it.message ?: "" }
+        }.getOrDefault(Result.failure())
     }
 
     private suspend fun saveSkin(skins: List<Skin>) = coroutineScope {
