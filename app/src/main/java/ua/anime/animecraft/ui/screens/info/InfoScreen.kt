@@ -138,7 +138,7 @@ fun SkinInfoCard(previewImageUrl: String, backClicked: () -> Unit) {
             .fillMaxWidth()
             .height(AppTheme.sizes.screens.info.infoCardHeight),
         elevation = CardDefaults.cardElevation(defaultElevation = AppTheme.elevations.medium),
-        colors = CardDefaults.cardColors(containerColor = AppTheme.colors.secondary),
+        colors = CardDefaults.cardColors(containerColor = AppTheme.colors.surface),
         shape = AppTheme.shapes.customShapes.infoCardShape
     ) {
         Box(
