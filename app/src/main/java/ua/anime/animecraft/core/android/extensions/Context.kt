@@ -10,6 +10,7 @@ import android.net.Uri
 import android.text.TextUtils
 import androidx.core.content.ContextCompat
 import java.util.Locale
+import ua.anime.animecraft.R
 import ua.anime.animecraft.core.log.error
 import ua.anime.animecraft.core.log.tag
 
@@ -46,40 +47,32 @@ fun Context.shareApp(link: String) {
     }
 }
 
-/**
- * TODO change email
- * TODO extract strings to resources
- */
 fun Context.sendFeedback(message: String) {
     val context = this
     val intent = Intent.createChooser(
         Intent().apply {
             action = Intent.ACTION_SENDTO
-            data = Uri.parse("mailto:")
-            putExtra(EXTRA_EMAIL, arrayOf("gleb.mokryy@gmail.com"))
+            data = Uri.parse(getString(R.string.mailto))
+            putExtra(EXTRA_EMAIL, arrayOf(getString(R.string.email_address)))
             putExtra(EXTRA_TEXT, message.trim())
-            putExtra(EXTRA_SUBJECT, "AnimeCraft Feedback")
+            putExtra(EXTRA_SUBJECT, getString(R.string.animecraft_feedback))
         },
-        "AnimeCraft Feedback"
+        getString(R.string.animecraft_feedback)
     )
     ContextCompat.startActivity(context, intent, null)
 }
 
-/**
- * TODO change email
- * TODO extract strings to resources
- */
 fun Context.sendReport(message: String) {
     val context = this
     val intent = Intent.createChooser(
         Intent().apply {
             action = Intent.ACTION_SENDTO
-            data = Uri.parse("mailto:")
-            putExtra(EXTRA_EMAIL, arrayOf("gleb.mokryy@gmail.com"))
+            data = Uri.parse(getString(R.string.mailto))
+            putExtra(EXTRA_EMAIL, arrayOf(getString(R.string.email_address)))
             putExtra(EXTRA_TEXT, message.trim())
-            putExtra(EXTRA_SUBJECT, "AnimeCraft Report")
+            putExtra(EXTRA_SUBJECT, getString(R.string.animecraft_report))
         },
-        "AnimeCraft Report"
+        getString(R.string.animecraft_report)
     )
     ContextCompat.startActivity(context, intent, null)
 }
