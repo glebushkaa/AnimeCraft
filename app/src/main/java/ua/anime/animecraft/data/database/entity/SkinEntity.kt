@@ -1,5 +1,6 @@
 package ua.anime.animecraft.data.database.entity
 
+import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ua.anime.animecraft.data.database.SKIN_ENTITY
@@ -8,6 +9,7 @@ import ua.anime.animecraft.data.database.SKIN_ENTITY
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.
  */
 
+@Keep
 @Entity(tableName = SKIN_ENTITY)
 data class SkinEntity(
     @PrimaryKey(autoGenerate = false) val id: Int,
