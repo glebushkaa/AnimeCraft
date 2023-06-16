@@ -9,10 +9,10 @@ import android.content.Intent.EXTRA_TEXT
 import android.net.Uri
 import android.text.TextUtils
 import androidx.core.content.ContextCompat
+import java.util.Locale
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.log.error
 import ua.anime.animecraft.core.log.tag
-import java.util.Locale
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/30/2023
