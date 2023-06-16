@@ -66,5 +66,9 @@
     <string name="french">French</string>
     <string name="polish">Polish</string>
     <string name="japanese">Japanese</string>
+    <string name="mailto">mailto:</string>
+    <string name="email_address">gleb.mokryy.work@gmail.com</string>
+    <string name="animecraft_feedback">AnimeCraft Feedback</string>
+    <string name="animecraft_report">AnimeCraft Report</string>
     <!--Languages-->
 </resources>
