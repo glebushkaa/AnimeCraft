@@ -1,7 +1,15 @@
 @file:Suppress("FunctionName")
+@file:OptIn(ExperimentalAnimationApi::class)
 
 package ua.anime.animecraft.ui.common.buttons
 
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.animation.with
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -18,19 +26,27 @@ import ua.anime.animecraft.ui.theme.AppTheme
 
 @Composable
 fun LikeButton(favorite: Boolean, likeClick: () -> Unit = {}) {
-    IconButton(
-        modifier = Modifier.size(AppTheme.sizes.items.likeButton.size),
-        onClick = likeClick
-    ) {
-        val iconResId = if (favorite) {
-            R.drawable.ic_filled_like
+    AnimatedContent(targetState = favorite, transitionSpec = {
+        if (targetState) {
+            scaleIn() + fadeIn() with scaleOut()
         } else {
-            R.drawable.ic_like
+            fadeIn() with fadeOut()
         }
-        Icon(
-            painter = painterResource(id = iconResId),
-            contentDescription = stringResource(id = R.string.like_icon),
-            tint = AppTheme.colors.primary
-        )
+    }) {
+        IconButton(
+            modifier = Modifier.size(AppTheme.sizes.items.likeButton.size),
+            onClick = likeClick
+        ) {
+            val iconResId = if (favorite) {
+                R.drawable.ic_filled_like
+            } else {
+                R.drawable.ic_like
+            }
+            Icon(
+                painter = painterResource(id = iconResId),
+                contentDescription = stringResource(id = R.string.like_icon),
+                tint = AppTheme.colors.primary
+            )
+        }
     }
 }
