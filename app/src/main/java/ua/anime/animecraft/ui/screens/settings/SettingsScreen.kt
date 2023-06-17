@@ -51,6 +51,7 @@ fun SettingsScreen(
     backClicked: () -> Unit = {},
     onLanguageScreenNavigate: () -> Unit = {},
     onReportScreenNavigate: () -> Unit = {},
+    onFavoritesScreenNavigate: () -> Unit = {},
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -82,7 +83,8 @@ fun SettingsScreen(
                 modifier = Modifier.padding(
                     horizontal = AppTheme.offsets.regular
                 ),
-                currentScreen = SETTINGS
+                currentScreen = SETTINGS,
+                likeClicked = onFavoritesScreenNavigate
             )
         },
         content = {

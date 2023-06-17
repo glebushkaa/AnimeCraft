@@ -42,12 +42,10 @@ fun AnimeCraftHost(
         splashScreenComposable {
             SplashScreen(
                 onFinish = {
-                    navController.navigate(route = Main.route) {
-                        popUpTo(Splash.route) {
-                            inclusive = true
-                            saveState = true
-                        }
-                    }
+                    navController.navigatePopUpInclusive(
+                        route = Main.route,
+                        popUpRoute = Splash.route
+                    )
                 }
             )
         }
@@ -72,6 +70,12 @@ fun AnimeCraftHost(
                 },
                 onReportScreenNavigate = {
                     navController.navigateSingleTopTo(ReportSettings.route)
+                },
+                onFavoritesScreenNavigate = {
+                    navController.navigatePopUpInclusive(
+                        route = Favorites.route,
+                        popUpRoute = Settings.route
+                    )
                 }
             )
         }
@@ -87,9 +91,15 @@ fun AnimeCraftHost(
         }
         favoriteScreenComposable {
             FavoritesScreen(
-                backClicked = navController::popBackStack,
-                itemClicked = { id ->
+                onBackClick = navController::popBackStack,
+                onItemClicked = { id ->
                     navController.navigateSingleTopTo("${Info.route}/$id")
+                },
+                onSettingsScreenNavigate = {
+                    navController.navigatePopUpInclusive(
+                        route = Settings.route,
+                        popUpRoute = Favorites.route
+                    )
                 }
             )
         }
@@ -100,6 +110,16 @@ fun AnimeCraftHost(
                 backClicked = navController::popBackStack
             )
         }
+    }
+}
+
+fun NavController.navigatePopUpInclusive(
+    route: String,
+    popUpRoute: String
+) = this.navigate(route) {
+    popUpTo(popUpRoute) {
+        inclusive = true
+        saveState = true
     }
 }
 

@@ -51,8 +51,9 @@ import ua.anime.animecraft.ui.theme.AppTheme
 
 @Composable
 fun FavoritesScreen(
-    backClicked: () -> Unit,
-    itemClicked: (Int) -> Unit,
+    onBackClick: () -> Unit = {},
+    onItemClicked: (Int) -> Unit = {},
+    onSettingsScreenNavigate: () -> Unit = {},
     favoritesViewModel: FavoritesViewModel = hiltViewModel()
 ) {
     val favorites by favoritesViewModel.favoritesFlow.collectLifecycleAwareFlowAsState(listOf())
@@ -86,7 +87,8 @@ fun FavoritesScreen(
                 modifier = Modifier.padding(
                     horizontal = AppTheme.offsets.regular
                 ),
-                currentScreen = FAVORITES
+                currentScreen = FAVORITES,
+                settingsClicked = onSettingsScreenNavigate
             )
         },
         bottomBar = {
@@ -103,7 +105,7 @@ fun FavoritesScreen(
                         bottom = it.calculateBottomPadding()
                     )
             ) {
-                BackButton(backClicked)
+                BackButton(onBackClick)
                 Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
                 Text(
                     text = stringResource(id = R.string.favorites),
@@ -119,7 +121,7 @@ fun FavoritesScreen(
                 Box(modifier = Modifier.weight(1f)) {
                     SkinsGrid(
                         skins = favorites,
-                        itemClick = itemClicked,
+                        itemClick = onItemClicked,
                         likeClick = favoritesViewModel::updateFavoriteSkin,
                         downloadClick = { id ->
                             favoritesViewModel.saveGameSkinImage(id)

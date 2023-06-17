@@ -17,6 +17,7 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import com.google.accompanist.navigation.animation.composable
 import ua.anime.animecraft.core.common.HALF_SECOND
+import ua.anime.animecraft.ui.navigation.Favorites
 import ua.anime.animecraft.ui.navigation.Main
 import ua.anime.animecraft.ui.navigation.Settings
 
@@ -41,14 +42,14 @@ fun NavGraphBuilder.settingsScreenComposable(
 
 private fun AnimatedContentScope<NavBackStackEntry>.settingsEnterAnimation(): EnterTransition? {
     return when (initialState.destination.route) {
-        Main.route -> slideInHorizontally(animationSpec) { it }
+        Main.route, Favorites.route -> slideInHorizontally(animationSpec) { it }
         else -> null
     }
 }
 
 private fun AnimatedContentScope<NavBackStackEntry>.settingsExitAnimation(): ExitTransition? {
     return when (targetState.destination.route) {
-        Main.route -> slideOutHorizontally(animationSpec) { it }
+        Main.route, Favorites.route -> slideOutHorizontally(animationSpec) { it }
         else -> null
     }
 }
