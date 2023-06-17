@@ -12,8 +12,10 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.google.android.play.core.splitinstall.SplitInstallManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+import javax.inject.Inject
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.core.android.extensions.updateLanguage
 import ua.anime.animecraft.ui.navigation.AnimeCraftHost
@@ -27,12 +29,16 @@ class MainActivity : ComponentActivity() {
 
     private val settingsViewModel: SettingsViewModel by viewModels()
 
+    @Inject
+    lateinit var splitInstallManager: SplitInstallManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val language = settingsViewModel.getSelectedLanguage(Locale.getDefault().language)
         updateLanguage(
             language = language.languageLocale,
-            country = language.countryLocale
+            country = language.countryLocale,
+            splitInstallManager = splitInstallManager
         )
         setContent {
             val isSystemInDarkMode = isSystemInDarkTheme()

@@ -42,28 +42,28 @@ fun NavGraphBuilder.favoriteScreenComposable(
 }
 
 private fun AnimatedContentScope<NavBackStackEntry>.favoriteEnterAnimation(): EnterTransition {
-    return when (targetState.destination.route) {
+    return when (initialState.destination.route) {
         Info.routeWithArgs -> fadeIn(fadeAnimationSpec)
         else -> slideInHorizontally(slideAnimationSpec) { it }
     }
 }
 
 private fun AnimatedContentScope<NavBackStackEntry>.favoriteExitAnimation(): ExitTransition {
-    return when (initialState.destination.route) {
+    return when (targetState.destination.route) {
         Info.routeWithArgs -> fadeOut(fadeAnimationSpec)
         else -> slideOutHorizontally(slideAnimationSpec) { it }
     }
 }
 
 private fun AnimatedContentScope<NavBackStackEntry>.favoritePopEnterAnimation(): EnterTransition {
-    return when (targetState.destination.route) {
+    return when (initialState.destination.route) {
         Info.routeWithArgs -> fadeIn(fadeAnimationSpec)
         else -> slideInHorizontally(slideAnimationSpec) { it }
     }
 }
 
 private fun AnimatedContentScope<NavBackStackEntry>.favoritePopExitAnimation(): ExitTransition {
-    return when (initialState.destination.route) {
+    return when (targetState.destination.route) {
         Info.routeWithArgs -> fadeOut(fadeAnimationSpec)
         else -> slideOutHorizontally(slideAnimationSpec) { it }
     }

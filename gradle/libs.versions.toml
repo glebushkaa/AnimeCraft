@@ -23,6 +23,7 @@ ktlint-gradle = "11.1.0"
 detekt-gradle = "1.21.0"
 google-services = "4.3.15"
 playServicesAds = "22.0.0"
+play-core= "1.6.3"
 parcelize = "1.8.21"
 firebaseAnalytics = "21.2.2"
 firebaseRealtimeDatabase = "20.2.0"
@@ -59,6 +60,7 @@ firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-cra
 firebase-realtime-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseRealtimeDatabase" }
 firebase-storage-ktx = { group = "com.google.firebase", name = "firebase-storage-ktx", version.ref = "firebaseStorage" }
 play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playServicesAds" }
+play-core = { group = "com.google.android.play", name = "core", version.ref = "play-core" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }

@@ -106,6 +106,7 @@ dependencies {
     implementation(libs.billing)
 
     implementation(libs.play.services.ads)
+    implementation(libs.play.core)
 
     implementation(libs.timber)
 
