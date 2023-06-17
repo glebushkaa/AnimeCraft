@@ -23,10 +23,16 @@ android {
         applicationId = "ua.anime.animecraft"
         minSdk = 24
         targetSdk = 33
-        versionCode = 3
-        versionName = "1.0"
+        versionCode = 5
+        versionName = "1.0.0"
 
         vectorDrawables.useSupportLibrary = true
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
     }
 
     buildTypes {
@@ -100,6 +106,7 @@ dependencies {
     implementation(libs.billing)
 
     implementation(libs.play.services.ads)
+    implementation(libs.play.core)
 
     implementation(libs.timber)
 

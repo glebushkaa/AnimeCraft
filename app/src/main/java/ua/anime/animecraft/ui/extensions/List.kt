@@ -7,7 +7,9 @@ import ua.anime.animecraft.ui.model.Skin
  */
 
 fun List<Skin>.filterListByName(name: String) = filter {
-    it.name.startsWith(name) || it.name.contains(name)
+    val currentName = it.name.lowercase().trim()
+    val currentSearchInput = name.lowercase().trim()
+    currentName.startsWith(currentSearchInput) || currentName.contains(currentSearchInput)
 }
 
 fun List<Skin>.filterListByCategoryId(categoryId: Int) = filter {

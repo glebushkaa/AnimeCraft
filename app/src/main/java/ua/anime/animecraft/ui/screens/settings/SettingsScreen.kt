@@ -167,13 +167,6 @@ private fun SettingScreenContent(
             iconResId = R.drawable.ic_share,
             onClick = onShareClicked
         )
-        Spacer(modifier = Modifier.weight(1f))
-        SettingButton(
-            modifier = Modifier.padding(bottom = AppTheme.offsets.large),
-            text = stringResource(id = R.string.disable_ad),
-            iconResId = R.drawable.ic_disable_ad,
-            onClick = {}
-        )
     }
 }
 

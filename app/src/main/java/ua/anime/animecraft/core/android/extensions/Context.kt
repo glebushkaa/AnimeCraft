@@ -9,6 +9,8 @@ import android.content.Intent.EXTRA_TEXT
 import android.net.Uri
 import android.text.TextUtils
 import androidx.core.content.ContextCompat
+import com.google.android.play.core.splitinstall.SplitInstallManager
+import com.google.android.play.core.splitinstall.SplitInstallRequest
 import java.util.Locale
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.log.error
@@ -21,12 +23,20 @@ import ua.anime.animecraft.core.log.tag
 private const val SHARE_TYPE = "text/plain"
 private const val SHARE_TITLE = "Share app"
 
-fun Context.updateLanguage(language: String, country: String) {
+fun Context.updateLanguage(
+    language: String,
+    country: String,
+    splitInstallManager: SplitInstallManager
+) {
     val locale: Locale = if (TextUtils.isEmpty(country)) {
         Locale(language)
     } else {
         Locale(language, country)
     }
+    val request = SplitInstallRequest.newBuilder()
+        .addLanguage(locale)
+        .build()
+    splitInstallManager.startInstall(request)
     Locale.setDefault(locale)
     val configuration = resources.configuration.apply {
         setLocale(locale)
