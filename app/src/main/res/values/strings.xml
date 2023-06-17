@@ -53,8 +53,8 @@
     <string name="share_app_link" translatable="false">https://play.google.com/store/apps/details?id=ua.anime.animecraft</string>
 
     <!--Ad-->
-    <string name="ad_app_id" translatable="false">ca-app-pub-3940256099942544/3419835294</string>
-    <string name="banner_ad_id" translatable="false">"ca-app-pub-3940256099942544/6300978111"</string>
+    <string name="ad_app_id" translatable="false">ca-app-pub-3479574369280836/5197390047</string>
+    <string name="banner_ad_id" translatable="false">ca-app-pub-3479574369280836/8286889131</string>
     <!--Ad-->
 
     <!--Languages-->
