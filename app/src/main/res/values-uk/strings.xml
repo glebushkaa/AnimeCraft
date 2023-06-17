@@ -47,6 +47,7 @@
     <string name="report">Скарга</string>
     <string name="disable_ad">Вимкнути рекламу</string>
     <string name="rate_us_button_image">Оцініть зображення кнопки</string>
+    <string name="skin_downloaded">Скін завантажено</string>
 
     <!--Languages-->
     <string name="russian">Російська</string>

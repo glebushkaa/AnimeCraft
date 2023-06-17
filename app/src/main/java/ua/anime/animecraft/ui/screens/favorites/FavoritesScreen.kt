@@ -27,12 +27,14 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
+import ua.anime.animecraft.core.android.extensions.toast
 import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.SearchBar
@@ -61,6 +63,8 @@ fun FavoritesScreen(
         derivedStateOf { skinsGridState.firstVisibleItemIndex > 2 }
     }
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val skinDownloadedText = stringResource(id = R.string.skin_downloaded)
 
     LaunchedEffect(key1 = false) { favoritesViewModel.getFavorites() }
 
@@ -120,6 +124,7 @@ fun FavoritesScreen(
                         downloadClick = { id ->
                             favoritesViewModel.saveGameSkinImage(id)
                             downloadClicked = true
+                            context.toast(skinDownloadedText)
                         }
                     )
                     androidx.compose.animation.AnimatedVisibility(

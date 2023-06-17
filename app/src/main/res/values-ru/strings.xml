@@ -47,6 +47,7 @@
     <string name="report">Жалоба</string>
     <string name="disable_ad">Отключить рекламу</string>
     <string name="rate_us_button_image">Изображение кнопки "Оцените нас"</string>
+    <string name="skin_downloaded">Скин загружен</string>
 
     <!--Languages-->
     <string name="russian">Русский</string>

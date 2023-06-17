@@ -8,6 +8,7 @@ import android.content.Intent.EXTRA_SUBJECT
 import android.content.Intent.EXTRA_TEXT
 import android.net.Uri
 import android.text.TextUtils
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallRequest
@@ -85,4 +86,11 @@ fun Context.sendReport(message: String) {
         getString(R.string.animecraft_report)
     )
     ContextCompat.startActivity(context, intent, null)
+}
+
+fun Context.toast(
+    message: String,
+    duration: Int = Toast.LENGTH_SHORT
+) {
+    Toast.makeText(this, message, duration).show()
 }

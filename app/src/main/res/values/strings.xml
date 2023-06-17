@@ -70,5 +70,6 @@
     <string name="email_address" translatable="false">gleb.mokryy.work@gmail.com</string>
     <string name="animecraft_feedback" translatable="false">AnimeCraft Feedback</string>
     <string name="animecraft_report" translatable="false">AnimeCraft Report</string>
+    <string name="skin_downloaded">Skin downloaded</string>
     <!--Languages-->
 </resources>

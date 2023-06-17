@@ -46,6 +46,7 @@
     <string name="report">Informe</string>
     <string name="disable_ad">Desactivar anuncio</string>
     <string name="rate_us_button_image">Imagen del botón valóranos</string>
+    <string name="skin_downloaded">Piel descargada</string>
 
     <!--Languages-->
     <string name="russian">Ruso</string>

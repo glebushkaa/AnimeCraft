@@ -26,6 +26,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,6 +35,7 @@ import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
+import ua.anime.animecraft.core.android.extensions.toast
 import ua.anime.animecraft.core.common.capitalize
 import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.CategoryItem
@@ -59,6 +61,9 @@ fun InfoScreen(
     val skin by infoViewModel.skinFlow.collectLifecycleAwareFlowAsState(null)
     val categoryName by infoViewModel.categoryFlow.collectLifecycleAwareFlowAsState(null)
     var downloadClicked by rememberSaveable { mutableStateOf(false) }
+
+    val context = LocalContext.current
+    val skinDownloadedText = stringResource(id = R.string.skin_downloaded)
 
     if (downloadClicked &&
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
@@ -120,6 +125,7 @@ fun InfoScreen(
         ) {
             infoViewModel.saveGameSkinImage()
             downloadClicked = true
+            context.toast(skinDownloadedText)
         }
         Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
         BannerAd()

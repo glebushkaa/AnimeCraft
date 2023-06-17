@@ -26,11 +26,15 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
+import ua.anime.animecraft.core.android.extensions.toast
 import ua.anime.animecraft.core.common.TWO_SECONDS
 import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.AppTopBar
@@ -58,6 +62,7 @@ fun MainScreen(
     itemClicked: (Int) -> Unit,
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
     val skins by mainViewModel.skinsFlow.collectLifecycleAwareFlowAsState(initialValue = listOf())
     val categories by mainViewModel.categoriesFlow.collectLifecycleAwareFlowAsState(
         initialValue = listOf()
@@ -75,6 +80,7 @@ fun MainScreen(
         }
     }
     var ratingDialogShown by remember { mutableStateOf(false) }
+    val skinDownloadedText = stringResource(R.string.skin_downloaded)
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -111,6 +117,7 @@ fun MainScreen(
                 onDownloadClicked = { id ->
                     mainViewModel.saveGameSkinImage(id)
                     downloadSelected = true
+                    context.toast(skinDownloadedText)
                 },
                 selectedCategory = selectedCategory,
                 onCategorySelected = { category ->
