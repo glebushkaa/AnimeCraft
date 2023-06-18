@@ -47,6 +47,8 @@
     <string name="disable_ad">Wyłącz reklamę</string>
     <string name="rate_us_button_image">Obraz przycisku Oceń nas</string>
     <string name="skin_downloaded">Pobrana skórka</string>
+    <string name="something_went_wrong">Coś poszło nie tak, być może próbujemy pobrać skórki. Spróbuj ponownie później</string>
+
     <!--Languages-->
     <string name="russian">Rosyjski</string>
     <string name="ukrainian">Ukraiński</string>

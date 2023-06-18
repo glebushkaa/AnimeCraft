@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ua.anime.animecraft.core.android.AnimeCraftViewModel
+import ua.anime.animecraft.core.android.Event
 import ua.anime.animecraft.core.common.replaceAllElements
 import ua.anime.animecraft.data.files.SkinFilesHandler
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
@@ -44,6 +45,9 @@ class MainViewModel @Inject constructor(
     private val _categoriesFlow = MutableStateFlow<List<Category>>(listOf())
     val categoriesFlow = _categoriesFlow.asStateFlow()
 
+    private val _downloadFlow = MutableStateFlow<Event<Boolean?>>(Event(null))
+    val downloadFlow = _downloadFlow.asStateFlow()
+
     private var currentSearchInput: String = ""
     var selectedCategory: Category? = null
         private set
@@ -79,11 +83,9 @@ class MainViewModel @Inject constructor(
         skinsPreferencesHandler.putBoolean(IS_RATE_COMPLETED, true)
     }
 
-    fun selectCategory(category: Category?) {
-        viewModelScope.launch(Dispatchers.Default) {
-            selectedCategory = category
-            _skinsFlow.emit(getFilteredList())
-        }
+    fun selectCategory(category: Category?) = viewModelScope.launch(Dispatchers.Default) {
+        selectedCategory = category
+        _skinsFlow.emit(getFilteredList())
     }
 
     fun shouldRateDialogBeShown(): Boolean {
@@ -98,58 +100,49 @@ class MainViewModel @Inject constructor(
         skinsPreferencesHandler.putBoolean(IS_RATE_DIALOG_DISABLED, true)
     }
 
-    fun saveGameSkinImage(id: Int) {
-        val gameImageFileName = skins.find { it.id == id }?.gameImageFileName ?: return
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+    fun saveGameSkinImage(id: Int) = viewModelScope.launch(Dispatchers.Default) {
+        val gameImageFileName = skins.find { it.id == id }?.gameImageFileName ?: return@launch
+        val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             skinFilesHandler.saveSkinToGallery(gameImageFileName)
         } else {
             skinFilesHandler.saveSkinToMinecraft(gameImageFileName)
         }
+        _downloadFlow.emit(Event(result.isSuccess))
     }
 
     fun disableDownloadDialogOpen() {
         skinsPreferencesHandler.putBoolean(IS_DOWNLOAD_DIALOG_DISABLED, true)
     }
 
-    private fun getAllCategories() {
-        viewModelScope.launch(Dispatchers.IO) {
-            categoryRepository.getCategoriesFlow().collect {
-                categories.replaceAllElements(it)
-                _categoriesFlow.emit(categories)
-            }
+    private fun getAllCategories() = viewModelScope.launch(Dispatchers.IO) {
+        categoryRepository.getCategoriesFlow().collect {
+            categories.replaceAllElements(it)
+            _categoriesFlow.emit(categories)
         }
     }
 
-    private fun getFilteredList(): List<Skin> {
-        return if (selectedCategory == null) {
-            skins.filterListByName(currentSearchInput)
-        } else {
-            skins.filterListByCategoryId(selectedCategory!!.id).filterListByName(currentSearchInput)
-        }
+    private fun getFilteredList() = if (selectedCategory == null) {
+        skins.filterListByName(currentSearchInput)
+    } else {
+        skins.filterListByCategoryId(selectedCategory!!.id).filterListByName(currentSearchInput)
     }
 
-    private fun getAllSkins() {
-        viewModelScope.launch(Dispatchers.IO) {
-            skinsRepository.getSkinsFlow().collect {
-                areSkinsLoaded = true
-                skins.replaceAllElements(it)
-                _skinsFlow.emit(getFilteredList())
-            }
-        }
-    }
-
-    fun searchSkins(name: String) {
-        viewModelScope.launch(Dispatchers.Default) {
-            currentSearchInput = name
+    private fun getAllSkins() = viewModelScope.launch(Dispatchers.IO) {
+        skinsRepository.getSkinsFlow().collect {
+            areSkinsLoaded = true
+            skins.replaceAllElements(it)
             _skinsFlow.emit(getFilteredList())
         }
     }
 
-    fun updateFavoriteSkin(id: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val favorite = skins.find { it.id == id }?.favorite?.not() ?: false
-            favoritesRepository.updateFavoriteSkin(id, favorite)
-        }
+    fun searchSkins(name: String) = viewModelScope.launch(Dispatchers.Default) {
+        currentSearchInput = name
+        _skinsFlow.emit(getFilteredList())
+    }
+
+    fun updateFavoriteSkin(id: Int) = viewModelScope.launch(Dispatchers.IO) {
+        val favorite = skins.find { it.id == id }?.favorite?.not() ?: false
+        favoritesRepository.updateFavoriteSkin(id, favorite)
     }
 
     private companion object {

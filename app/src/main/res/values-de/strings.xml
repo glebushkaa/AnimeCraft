@@ -47,6 +47,7 @@
     <string name="disable_ad">Anzeige deaktivieren</string>
     <string name="skin_downloaded">Skin heruntergeladen</string>
     <string name="rate_us_button_image">Bewerten Sie uns Schaltfläche Bild</string>
+    <string name="something_went_wrong">Etwas ist schief gegangen, vielleicht haben wir versucht, Skins herunterzuladen. Bitte, versuchen Sie es später noch einmal</string>
 
     <!--Languages-->
     <string name="russian">Russisch</string>

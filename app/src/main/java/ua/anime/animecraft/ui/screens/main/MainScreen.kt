@@ -33,6 +33,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
+import ua.anime.animecraft.core.android.Event
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.core.android.extensions.toast
 import ua.anime.animecraft.core.common.TWO_SECONDS
@@ -67,6 +68,7 @@ fun MainScreen(
     val categories by mainViewModel.categoriesFlow.collectLifecycleAwareFlowAsState(
         initialValue = listOf()
     )
+    val downloadFlow by mainViewModel.downloadFlow.collectLifecycleAwareFlowAsState(Event(null))
     var searchQuery by rememberSaveable { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf(mainViewModel.selectedCategory) }
 
@@ -81,6 +83,14 @@ fun MainScreen(
     }
     var ratingDialogShown by remember { mutableStateOf(false) }
     val skinDownloadedText = stringResource(R.string.skin_downloaded)
+    val somethingWrongText = stringResource(R.string.something_went_wrong)
+
+    LaunchedEffect(key1 = downloadFlow) {
+        val value = downloadFlow.getContentIfNotHandled() ?: return@LaunchedEffect
+        downloadSelected = value
+        val text = if (value) skinDownloadedText else somethingWrongText
+        context.toast(text)
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -114,18 +124,12 @@ fun MainScreen(
                     searchQuery = query
                     mainViewModel.searchSkins(searchQuery)
                 },
-                onDownloadClicked = { id ->
-                    mainViewModel.saveGameSkinImage(id)
-                    downloadSelected = true
-                    context.toast(skinDownloadedText)
-                },
+                onDownloadClicked = mainViewModel::saveGameSkinImage,
                 selectedCategory = selectedCategory,
                 onCategorySelected = { category ->
                     selectedCategory = if (category.id == selectedCategory?.id) {
                         null
-                    } else {
-                        category
-                    }
+                    } else category
                     mainViewModel.selectCategory(selectedCategory)
                 },
                 onLikeClicked = { id -> mainViewModel.updateFavoriteSkin(id) },

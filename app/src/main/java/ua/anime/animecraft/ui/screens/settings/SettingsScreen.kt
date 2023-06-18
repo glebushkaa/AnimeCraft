@@ -52,11 +52,18 @@ fun SettingsScreen(
     onLanguageScreenNavigate: () -> Unit = {},
     onReportScreenNavigate: () -> Unit = {},
     onFavoritesScreenNavigate: () -> Unit = {},
-    mainViewModel: MainViewModel = hiltViewModel()
+    mainViewModel: MainViewModel = hiltViewModel(),
+    settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
     val shareAppLink = stringResource(id = R.string.share_app_link)
 
+    val isSystemInDarkMode = isSystemInDarkTheme()
+    var darkMode by rememberSaveable {
+        mutableStateOf(settingsViewModel.isDarkModeEnabled(isSystemInDarkMode))
+    }
+
+    var downloadHelpDialogSetting by rememberSaveable { mutableStateOf(false) }
     var ratingDialogShown by rememberSaveable { mutableStateOf(false) }
 
     if (ratingDialogShown) {
@@ -99,6 +106,17 @@ fun SettingsScreen(
                 onLanguageScreenNavigate = onLanguageScreenNavigate,
                 onReportScreenNavigate = onReportScreenNavigate,
                 onShareClicked = { context.shareApp(shareAppLink) },
+                onDarkModeChanged = { value ->
+                    settingsViewModel.changeDarkMode(value)
+                    darkMode = value
+                },
+                darkMode = darkMode,
+                downloadHelpDialogCheck = downloadHelpDialogSetting,
+                onDownloadSettingChanged = { value ->
+                    settingsViewModel.updateDownloadDialogSetting(!value)
+                    downloadHelpDialogSetting = value
+                },
+                downloadDialogSettingDisabled = settingsViewModel.isDownloadDialogDisabled,
                 onFeedbackClicked = { ratingDialogShown = true }
             )
         }
@@ -113,14 +131,12 @@ private fun SettingScreenContent(
     onShareClicked: () -> Unit = {},
     onReportScreenNavigate: () -> Unit = {},
     onFeedbackClicked: () -> Unit = {},
-    settingsViewModel: SettingsViewModel = hiltViewModel()
+    onDarkModeChanged: (Boolean) -> Unit = {},
+    onDownloadSettingChanged: (Boolean) -> Unit = {},
+    darkMode: Boolean = false,
+    downloadHelpDialogCheck: Boolean = false,
+    downloadDialogSettingDisabled: Boolean = false
 ) {
-    val isSystemInDarkMode = isSystemInDarkTheme()
-    var downloadHelpDialogSetting by rememberSaveable { mutableStateOf(false) }
-    var darkMode by rememberSaveable {
-        mutableStateOf(settingsViewModel.isDarkModeEnabled(isSystemInDarkMode))
-    }
-
     Column(modifier = modifier.fillMaxSize()) {
         BackButton(backClicked)
         Text(
@@ -133,19 +149,13 @@ private fun SettingScreenContent(
         )
         DarkModeSetting(
             darkMode = darkMode,
-            onCheckedChange = { value ->
-                darkMode = value
-                settingsViewModel.changeDarkMode(value)
-            }
+            onCheckedChange = onDarkModeChanged
         )
-        if (settingsViewModel.isDownloadDialogDisabled) {
+        if (downloadDialogSettingDisabled) {
             Spacer(modifier = Modifier.height(AppTheme.offsets.medium))
             DownloadHelpDialogSetting(
-                enabled = downloadHelpDialogSetting,
-                onCheckedChange = { value ->
-                    settingsViewModel.updateDownloadDialogSetting(!value)
-                    downloadHelpDialogSetting = value
-                }
+                enabled = downloadHelpDialogCheck,
+                onCheckedChange = onDownloadSettingChanged
             )
         }
         Spacer(modifier = Modifier.height(AppTheme.offsets.regular))

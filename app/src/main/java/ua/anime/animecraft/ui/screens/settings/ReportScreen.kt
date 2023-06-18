@@ -46,7 +46,8 @@ import ua.anime.animecraft.ui.theme.AppTheme
 
 @Composable
 fun ReportScreen(
-    onBackClicked: () -> Unit = {}
+    onBackClicked: () -> Unit = {},
+    onLikeNavigate: () -> Unit = {}
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -63,7 +64,9 @@ fun ReportScreen(
                 modifier = Modifier.padding(
                     horizontal = AppTheme.offsets.regular
                 ),
-                currentScreen = LANGUAGE_SETTINGS
+                currentScreen = LANGUAGE_SETTINGS,
+                likeClicked = onLikeNavigate,
+                settingsClicked = onBackClicked
             )
         },
         content = {
@@ -131,7 +134,12 @@ private fun ReportScreenContent(
                     shape = AppTheme.shapes.medium
                 ),
             value = report,
-            onValueChange = onReportChanged,
+            onValueChange = {
+                val query = if (it.length > MAX_REPORT_LENGTH) {
+                    it.substring(0, MAX_REPORT_LENGTH)
+                } else it
+                onReportChanged(query)
+            },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 cursorColor = AppTheme.colors.primary,
                 textColor = AppTheme.colors.primary,
@@ -157,3 +165,5 @@ private fun ReportScreenContent(
         )
     }
 }
+
+private const val MAX_REPORT_LENGTH = 1000

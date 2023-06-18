@@ -47,6 +47,7 @@
     <string name="disable_ad">広告を無効にする</string>
     <string name="rate_us_button_image">評価する」ボタン画像</string>
     <string name="skin_downloaded">ダウンロードした肌</string>
+    <string name="something_went_wrong">スキンをダウンロードしようとすると、何か問題が発生しました。後でもう一度試してください。</string>
 
     <!--Languages-->
     <string name="russian">ロシアン</string>

@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ua.anime.animecraft.core.android.AnimeCraftViewModel
+import ua.anime.animecraft.core.android.Event
 import ua.anime.animecraft.core.common.replaceAllElements
 import ua.anime.animecraft.data.files.SkinFilesHandler
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
@@ -30,6 +31,9 @@ class FavoritesViewModel @Inject constructor(
     private val _favoritesFlow = MutableStateFlow(listOf<Skin>())
     val favoritesFlow = _favoritesFlow.asStateFlow()
 
+    private val _downloadFlow = MutableStateFlow<Event<Boolean?>>(Event(null))
+    val downloadFlow = _downloadFlow.asStateFlow()
+
     private val favorites = mutableListOf<Skin>()
 
     private var currentSearchInput: String = ""
@@ -38,20 +42,22 @@ class FavoritesViewModel @Inject constructor(
         IS_DOWNLOAD_DIALOG_DISABLED
     ) ?: false
 
-    fun saveGameSkinImage(id: Int) {
-        val gameImageFileName = favorites.find { it.id == id }?.gameImageFileName ?: return
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+    init {
+        getFavorites()
+    }
+
+    fun saveGameSkinImage(id: Int) = viewModelScope.launch(Dispatchers.Default) {
+        val gameImageFileName = favorites.find { it.id == id }?.gameImageFileName ?: return@launch
+        val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             skinFilesHandler.saveSkinToGallery(gameImageFileName)
         } else {
             skinFilesHandler.saveSkinToMinecraft(gameImageFileName)
         }
+        _downloadFlow.emit(Event(result.isSuccess))
     }
 
     fun disableDownloadDialogOpen() {
-        skinsPreferencesHandler.putBoolean(
-            SkinsPreferencesHandler.IS_DOWNLOAD_DIALOG_DISABLED,
-            true
-        )
+        skinsPreferencesHandler.putBoolean(IS_DOWNLOAD_DIALOG_DISABLED, true)
     }
 
     fun getFavorites() {

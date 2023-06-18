@@ -41,6 +41,7 @@ import ua.anime.animecraft.ui.theme.AppTheme
 @Composable
 fun LanguageScreen(
     onBackClicked: () -> Unit = {},
+    onLikeNavigate: () -> Unit = {},
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     var selectedLanguage by remember {
@@ -58,7 +59,9 @@ fun LanguageScreen(
                 modifier = Modifier.padding(
                     horizontal = AppTheme.offsets.regular
                 ),
-                currentScreen = LANGUAGE_SETTINGS
+                currentScreen = LANGUAGE_SETTINGS,
+                settingsClicked = onBackClicked,
+                likeClicked =  onLikeNavigate
             )
         },
         content = {

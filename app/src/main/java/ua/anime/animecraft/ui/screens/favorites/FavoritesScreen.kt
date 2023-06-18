@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName", "LongMethod")
+@file:Suppress("FunctionName", "LongMethod", "LongParameterList")
 @file:OptIn(ExperimentalMaterial3Api::class)
 
 package ua.anime.animecraft.ui.screens.favorites
@@ -33,6 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
+import ua.anime.animecraft.core.android.Event
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.core.android.extensions.toast
 import ua.anime.animecraft.ui.ad.BannerAd
@@ -42,6 +43,7 @@ import ua.anime.animecraft.ui.common.SkinsGrid
 import ua.anime.animecraft.ui.common.buttons.BackButton
 import ua.anime.animecraft.ui.common.buttons.ScrollTopButton
 import ua.anime.animecraft.ui.dialogs.downloadskin.DownloadSkinDialog
+import ua.anime.animecraft.ui.model.Skin
 import ua.anime.animecraft.ui.navigation.FAVORITES
 import ua.anime.animecraft.ui.theme.AppTheme
 
@@ -56,23 +58,35 @@ fun FavoritesScreen(
     onSettingsScreenNavigate: () -> Unit = {},
     favoritesViewModel: FavoritesViewModel = hiltViewModel()
 ) {
-    val favorites by favoritesViewModel.favoritesFlow.collectLifecycleAwareFlowAsState(listOf())
-    var searchQuery by rememberSaveable { mutableStateOf("") }
-    var downloadClicked by rememberSaveable { mutableStateOf(false) }
-    val skinsGridState = rememberLazyGridState()
-    val isScrollToTopVisible by remember {
-        derivedStateOf { skinsGridState.firstVisibleItemIndex > 2 }
-    }
-    val scope = rememberCoroutineScope()
     val context = LocalContext.current
+
+    val favorites by favoritesViewModel.favoritesFlow.collectLifecycleAwareFlowAsState(listOf())
+    val downloadFlow by favoritesViewModel.downloadFlow.collectLifecycleAwareFlowAsState(
+        Event(null)
+    )
+
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+    var downloadClicked by remember { mutableStateOf(false) }
+
+    val downloadSelected by remember {
+        derivedStateOf {
+            downloadClicked &&
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
+                favoritesViewModel.isDownloadDialogDisabled.not()
+        }
+    }
+
+    val somethingWrongText = stringResource(R.string.something_went_wrong)
     val skinDownloadedText = stringResource(id = R.string.skin_downloaded)
 
-    LaunchedEffect(key1 = false) { favoritesViewModel.getFavorites() }
+    LaunchedEffect(key1 = downloadFlow) {
+        val value = downloadFlow.getContentIfNotHandled() ?: return@LaunchedEffect
+        downloadClicked = value
+        val text = if (value) skinDownloadedText else somethingWrongText
+        context.toast(text)
+    }
 
-    if (downloadClicked &&
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
-        favoritesViewModel.isDownloadDialogDisabled.not()
-    ) {
+    if (downloadSelected) {
         DownloadSkinDialog(
             dismissRequest = { downloadClicked = false },
             dontShowAgainClick = favoritesViewModel::disableDownloadDialogOpen
@@ -95,7 +109,7 @@ fun FavoritesScreen(
             BannerAd()
         },
         content = {
-            Column(
+            FavoritesScreenContent(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(
@@ -103,46 +117,68 @@ fun FavoritesScreen(
                         end = AppTheme.offsets.regular,
                         top = it.calculateTopPadding(),
                         bottom = it.calculateBottomPadding()
-                    )
-            ) {
-                BackButton(onBackClick)
-                Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
-                Text(
-                    text = stringResource(id = R.string.favorites),
-                    style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
-                    color = AppTheme.colors.onBackground
-                )
-                Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
-                SearchBar(value = searchQuery) { query ->
+                    ),
+                onBackClick = onBackClick,
+                onItemClicked = onItemClicked,
+                favorites = favorites,
+                onLikeClicked = favoritesViewModel::updateFavoriteSkin,
+                onDownloadClicked = favoritesViewModel::saveGameSkinImage,
+                searchQuery = searchQuery,
+                onSearchQueryChanged = { query ->
                     searchQuery = query
                     favoritesViewModel.searchSkins(searchQuery)
                 }
-                Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
-                Box(modifier = Modifier.weight(1f)) {
-                    SkinsGrid(
-                        skins = favorites,
-                        itemClick = onItemClicked,
-                        likeClick = favoritesViewModel::updateFavoriteSkin,
-                        downloadClick = { id ->
-                            favoritesViewModel.saveGameSkinImage(id)
-                            downloadClicked = true
-                            context.toast(skinDownloadedText)
-                        }
-                    )
-                    androidx.compose.animation.AnimatedVisibility(
-                        modifier = Modifier.align(Alignment.BottomEnd),
-                        visible = isScrollToTopVisible,
-                        enter = slideInHorizontally { fullSize -> fullSize },
-                        exit = slideOutHorizontally { fullSize -> fullSize + fullSize }
-                    ) {
-                        ScrollTopButton {
-                            scope.launch {
-                                skinsGridState.animateScrollToItem(index = 0)
-                            }
-                        }
-                    }
+            )
+        }
+    )
+}
+
+@Composable
+private fun FavoritesScreenContent(
+    modifier: Modifier = Modifier,
+    favorites: List<Skin> = listOf(),
+    onBackClick: () -> Unit = {},
+    onItemClicked: (Int) -> Unit = {},
+    onLikeClicked: (Int) -> Unit = {},
+    onDownloadClicked: (Int) -> Unit = {},
+    searchQuery: String = "",
+    onSearchQueryChanged: (String) -> Unit = {}
+) {
+    val skinsGridState = rememberLazyGridState()
+    val scope = rememberCoroutineScope()
+    val isScrollToTopVisible by remember {
+        derivedStateOf { skinsGridState.firstVisibleItemIndex > 2 }
+    }
+
+    Column(modifier = modifier) {
+        BackButton(onBackClick)
+        Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
+        Text(
+            text = stringResource(id = R.string.favorites),
+            style = AppTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold),
+            color = AppTheme.colors.onBackground
+        )
+        Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
+        SearchBar(value = searchQuery, onValueChanged = onSearchQueryChanged)
+        Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
+        Box(modifier = Modifier.weight(1f)) {
+            SkinsGrid(
+                skins = favorites,
+                itemClick = onItemClicked,
+                likeClick = onLikeClicked,
+                downloadClick = onDownloadClicked,
+                gridState = skinsGridState
+            )
+            androidx.compose.animation.AnimatedVisibility(
+                modifier = Modifier.align(Alignment.BottomEnd),
+                visible = isScrollToTopVisible,
+                enter = slideInHorizontally { fullSize -> fullSize },
+                exit = slideOutHorizontally { fullSize -> fullSize + fullSize }
+            ) {
+                ScrollTopButton {
+                    scope.launch { skinsGridState.animateScrollToItem(index = 0) }
                 }
             }
         }
-    )
+    }
 }

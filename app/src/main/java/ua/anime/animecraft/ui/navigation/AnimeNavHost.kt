@@ -81,12 +81,26 @@ fun AnimeCraftHost(
         }
         languageScreenComposable {
             LanguageScreen(
-                onBackClicked = navController::popBackStack
+                onBackClicked = navController::popBackStack,
+                onLikeNavigate = {
+                    navController.popBackStack()
+                    navController.navigatePopUpInclusive(
+                        route = Favorites.route,
+                        popUpRoute = Settings.route
+                    )
+                }
             )
         }
         reportScreenComposable {
             ReportScreen(
-                onBackClicked = navController::popBackStack
+                onBackClicked = navController::popBackStack,
+                onLikeNavigate = {
+                    navController.popBackStack()
+                    navController.navigatePopUpInclusive(
+                        route = Favorites.route,
+                        popUpRoute = Settings.route
+                    )
+                }
             )
         }
         favoriteScreenComposable {

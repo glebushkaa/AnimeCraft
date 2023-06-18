@@ -16,6 +16,7 @@ import com.google.android.play.core.splitinstall.SplitInstallManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 import javax.inject.Inject
+import ua.anime.animecraft.analytics.impl.AnalyticsApiImpl
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.core.android.extensions.updateLanguage
 import ua.anime.animecraft.ui.navigation.AnimeCraftHost
@@ -31,6 +32,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var splitInstallManager: SplitInstallManager
+
+    @Inject
+    lateinit var analyticsApiImpl: AnalyticsApiImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +57,9 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun AnimeCraftApp() {
         val navController = rememberAnimatedNavController()
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            analyticsApiImpl.setCurrentScreen(destination.route ?: "")
+        }
         AnimeCraftHost(navController = navController)
     }
 }

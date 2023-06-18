@@ -29,7 +29,11 @@ import ua.anime.animecraft.ui.theme.AppTheme
  */
 
 @Composable
-fun SearchBar(modifier: Modifier = Modifier, value: String, onValueChanged: (String) -> Unit) {
+fun SearchBar(
+    modifier: Modifier = Modifier,
+    value: String,
+    onValueChanged: (String) -> Unit
+) {
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -45,7 +49,14 @@ fun SearchBar(modifier: Modifier = Modifier, value: String, onValueChanged: (Str
             modifier = Modifier.fillMaxSize(),
             value = value,
             singleLine = true,
-            onValueChange = onValueChanged,
+            onValueChange = {
+                val query = if (it.length > MAX_SEARCH_QUERY_LENGTH) {
+                    it.substring(0, MAX_SEARCH_QUERY_LENGTH)
+                } else {
+                    it
+                }
+                onValueChanged(query)
+            },
             leadingIcon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_search),
@@ -76,3 +87,5 @@ fun SearchBarPreview() {
         SearchBar(value = "") {}
     }
 }
+
+private const val MAX_SEARCH_QUERY_LENGTH = 100

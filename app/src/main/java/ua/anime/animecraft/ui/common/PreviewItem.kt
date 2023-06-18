@@ -67,7 +67,7 @@ fun PreviewItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                modifier = Modifier.weight(1f),
+                modifier = Modifier.weight(1f).padding(end = AppTheme.offsets.small),
                 text = skin.name.capitalize(),
                 style = AppTheme.typography.bodyLargeBold,
                 color = AppTheme.colors.onBackground,

@@ -75,7 +75,14 @@ fun FeedbackDialogContent(
                     color = AppTheme.colors.primary,
                     shape = AppTheme.shapes.medium
                 ),
-            onValueChange = { feedback = it },
+            onValueChange = {
+                val query = if (it.length > FEEDBACK_MAX_SYMBOLS) {
+                    it.substring(0, FEEDBACK_MAX_SYMBOLS)
+                } else {
+                    it
+                }
+                feedback = query
+            },
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 cursorColor = AppTheme.colors.primary,
                 textColor = AppTheme.colors.primary,
@@ -141,3 +148,5 @@ private fun BottomFeedbackDialogButtons(
         )
     }
 }
+
+private const val FEEDBACK_MAX_SYMBOLS = 600
