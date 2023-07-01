@@ -3,8 +3,11 @@
 
 package ua.anime.animecraft.ui.screens.main
 
+import android.Manifest
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Box
@@ -64,6 +67,19 @@ fun MainScreen(
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+
+    var currentSkinDownloadId: Int? by rememberSaveable { mutableStateOf(null) }
+    val writeExternalStoragePermissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            currentSkinDownloadId?.let { mainViewModel.saveGameSkinImage(it) }
+        } else {
+            context.toast("Sorry, but we can't download skin without permission")
+        }
+        currentSkinDownloadId = null
+    }
+
     val skins by mainViewModel.skinsFlow.collectLifecycleAwareFlowAsState(initialValue = listOf())
     val categories by mainViewModel.categoriesFlow.collectLifecycleAwareFlowAsState(
         initialValue = listOf()
@@ -77,8 +93,8 @@ fun MainScreen(
     val downloadDialogShown by remember {
         derivedStateOf {
             downloadSelected &&
-                SDK_INT >= VERSION_CODES.Q &&
-                mainViewModel.isDownloadDialogDisabled.not()
+                    SDK_INT >= VERSION_CODES.Q &&
+                    mainViewModel.isDownloadDialogDisabled.not()
         }
     }
     var ratingDialogShown by remember { mutableStateOf(false) }
@@ -124,7 +140,12 @@ fun MainScreen(
                     searchQuery = query
                     mainViewModel.searchSkins(searchQuery)
                 },
-                onDownloadClicked = mainViewModel::saveGameSkinImage,
+                onDownloadClicked = { id ->
+                    currentSkinDownloadId = id
+                    writeExternalStoragePermissionLauncher.launch(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    )
+                },
                 selectedCategory = selectedCategory,
                 onCategorySelected = { category ->
                     selectedCategory = if (category.id == selectedCategory?.id) {

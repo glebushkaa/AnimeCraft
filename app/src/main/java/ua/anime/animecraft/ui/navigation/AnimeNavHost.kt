@@ -4,6 +4,7 @@
 package ua.anime.animecraft.ui.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -24,6 +25,7 @@ import ua.anime.animecraft.ui.screens.settings.LanguageScreen
 import ua.anime.animecraft.ui.screens.settings.ReportScreen
 import ua.anime.animecraft.ui.screens.settings.SettingsScreen
 import ua.anime.animecraft.ui.screens.splash.SplashScreen
+import ua.anime.animecraft.ui.theme.AppTheme
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.
@@ -37,7 +39,7 @@ fun AnimeCraftHost(
     AnimatedNavHost(
         navController = navController,
         startDestination = Splash.route,
-        modifier = modifier
+        modifier = modifier.background(AppTheme.colors.background)
     ) {
         splashScreenComposable {
             SplashScreen(

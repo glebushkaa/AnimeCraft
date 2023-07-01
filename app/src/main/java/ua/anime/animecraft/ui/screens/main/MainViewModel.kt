@@ -2,7 +2,6 @@ package ua.anime.animecraft.ui.screens.main
 
 import android.os.Build
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,6 +22,7 @@ import ua.anime.animecraft.ui.extensions.filterListByCategoryId
 import ua.anime.animecraft.ui.extensions.filterListByName
 import ua.anime.animecraft.ui.model.Category
 import ua.anime.animecraft.ui.model.Skin
+import javax.inject.Inject
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.
@@ -90,10 +90,10 @@ class MainViewModel @Inject constructor(
 
     fun shouldRateDialogBeShown(): Boolean {
         return !isRateDialogDisabled &&
-            timesAppOpened % EVERY_THIRD_OPEN == 0 &&
-            timesAppOpened >= EVERY_THIRD_OPEN &&
-            !isRateCompleted &&
-            !isDialogWasShown
+                timesAppOpened % EVERY_THIRD_OPEN == 0 &&
+                timesAppOpened >= EVERY_THIRD_OPEN &&
+                !isRateCompleted &&
+                !isDialogWasShown
     }
 
     fun disableRateDialog() {
@@ -105,7 +105,9 @@ class MainViewModel @Inject constructor(
         val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             skinFilesHandler.saveSkinToGallery(gameImageFileName)
         } else {
-            skinFilesHandler.saveSkinToMinecraft(gameImageFileName)
+            skinFilesHandler.saveSkinToMinecraft(gameImageFileName).onFailure {
+                skinFilesHandler.saveSkinToGallery(gameImageFileName)
+            }
         }
         _downloadFlow.emit(Event(result.isSuccess))
     }

@@ -34,6 +34,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import ua.anime.animecraft.R
+import ua.anime.animecraft.core.android.Event
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
 import ua.anime.animecraft.core.android.extensions.toast
 import ua.anime.animecraft.core.common.capitalize
@@ -62,8 +63,12 @@ fun InfoScreen(
     val categoryName by infoViewModel.categoryFlow.collectLifecycleAwareFlowAsState(null)
     var downloadClicked by rememberSaveable { mutableStateOf(false) }
 
+    val downloadFlow by infoViewModel.downloadFlow.collectLifecycleAwareFlowAsState(Event(null))
+    var downloadSelected by remember { mutableStateOf(false) }
+
     val context = LocalContext.current
     val skinDownloadedText = stringResource(id = R.string.skin_downloaded)
+    val somethingWrongText = stringResource(R.string.something_went_wrong)
 
     if (downloadClicked &&
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q &&
@@ -73,6 +78,13 @@ fun InfoScreen(
             dismissRequest = { downloadClicked = false },
             dontShowAgainClick = infoViewModel::disableDownloadDialogOpen
         )
+    }
+
+    LaunchedEffect(key1 = downloadFlow) {
+        val value = downloadFlow.getContentIfNotHandled() ?: return@LaunchedEffect
+        downloadSelected = value
+        val text = if (value) skinDownloadedText else somethingWrongText
+        context.toast(text)
     }
 
     Column(
@@ -121,12 +133,9 @@ fun InfoScreen(
                     borderRadius = AppTheme.sizes.generic.downloadButtonBorderRadius,
                     blurRadius = AppTheme.sizes.generic.downloadButtonBlurRadius,
                     color = AppTheme.colors.primary
-                )
-        ) {
-            infoViewModel.saveGameSkinImage()
-            downloadClicked = true
-            context.toast(skinDownloadedText)
-        }
+                ),
+            onClick = infoViewModel::saveGameSkinImage
+        )
         Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
         BannerAd()
     }
