@@ -3,9 +3,13 @@
 
 package ua.anime.animecraft.ui
 
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -16,8 +20,11 @@ import com.google.android.play.core.splitinstall.SplitInstallManager
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 import javax.inject.Inject
+import ua.anime.animecraft.AnimeCraftApp
+import ua.anime.animecraft.R
 import ua.anime.animecraft.analytics.impl.AnalyticsApiImpl
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
+import ua.anime.animecraft.core.android.extensions.toast
 import ua.anime.animecraft.core.android.extensions.updateLanguage
 import ua.anime.animecraft.ui.navigation.AnimeCraftHost
 import ua.anime.animecraft.ui.screens.settings.SettingsViewModel
@@ -36,14 +43,20 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var analyticsApiImpl: AnalyticsApiImpl
 
+    private val writePermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            (applicationContext as? AnimeCraftApp)?.startSkinWork()
+        } else {
+            toast(getString(R.string.we_cant_load_without_permission))
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val language = settingsViewModel.getSelectedLanguage(Locale.getDefault().language)
-        updateLanguage(
-            language = language.languageLocale,
-            country = language.countryLocale,
-            splitInstallManager = splitInstallManager
-        )
+        setCurrentLanguage()
+        if (SDK_INT <= Build.VERSION_CODES.Q) writePermissionLauncher.launch(WRITE_EXTERNAL_STORAGE)
         setContent {
             val isSystemInDarkMode = isSystemInDarkTheme()
             updateDarkModeState(settingsViewModel.isDarkModeEnabled(isSystemInDarkMode))
@@ -61,5 +74,14 @@ class MainActivity : ComponentActivity() {
             analyticsApiImpl.setCurrentScreen(destination.route ?: "")
         }
         AnimeCraftHost(navController = navController)
+    }
+
+    private fun setCurrentLanguage() {
+        val language = settingsViewModel.getSelectedLanguage(Locale.getDefault().language)
+        updateLanguage(
+            language = language.languageLocale,
+            country = language.countryLocale,
+            splitInstallManager = splitInstallManager
+        )
     }
 }

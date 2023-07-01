@@ -3,7 +3,7 @@
 
 package ua.anime.animecraft.ui.screens.main
 
-import android.Manifest
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -38,6 +38,7 @@ import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
 import ua.anime.animecraft.core.android.Event
 import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
+import ua.anime.animecraft.core.android.extensions.permissionGranted
 import ua.anime.animecraft.core.android.extensions.toast
 import ua.anime.animecraft.core.common.TWO_SECONDS
 import ua.anime.animecraft.ui.ad.BannerAd
@@ -67,15 +68,16 @@ fun MainScreen(
     mainViewModel: MainViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val permissionExceptionMessage = stringResource(R.string.we_cant_load_without_permission)
 
     var currentSkinDownloadId: Int? by rememberSaveable { mutableStateOf(null) }
-    val writeExternalStoragePermissionLauncher = rememberLauncherForActivityResult(
+    val writePermissionLauncher = rememberLauncherForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
         if (isGranted) {
             currentSkinDownloadId?.let { mainViewModel.saveGameSkinImage(it) }
         } else {
-            context.toast("Sorry, but we can't download skin without permission")
+            context.toast(permissionExceptionMessage)
         }
         currentSkinDownloadId = null
     }
@@ -93,8 +95,8 @@ fun MainScreen(
     val downloadDialogShown by remember {
         derivedStateOf {
             downloadSelected &&
-                    SDK_INT >= VERSION_CODES.Q &&
-                    mainViewModel.isDownloadDialogDisabled.not()
+                SDK_INT >= VERSION_CODES.Q &&
+                mainViewModel.isDownloadDialogDisabled.not()
         }
     }
     var ratingDialogShown by remember { mutableStateOf(false) }
@@ -141,16 +143,22 @@ fun MainScreen(
                     mainViewModel.searchSkins(searchQuery)
                 },
                 onDownloadClicked = { id ->
-                    currentSkinDownloadId = id
-                    writeExternalStoragePermissionLauncher.launch(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                    )
+                    if (context.permissionGranted(WRITE_EXTERNAL_STORAGE) ||
+                        SDK_INT > VERSION_CODES.Q
+                    ) {
+                        mainViewModel.saveGameSkinImage(id)
+                    } else {
+                        currentSkinDownloadId = id
+                        writePermissionLauncher.launch(WRITE_EXTERNAL_STORAGE)
+                    }
                 },
                 selectedCategory = selectedCategory,
                 onCategorySelected = { category ->
                     selectedCategory = if (category.id == selectedCategory?.id) {
                         null
-                    } else category
+                    } else {
+                        category
+                    }
                     mainViewModel.selectCategory(selectedCategory)
                 },
                 onLikeClicked = { id -> mainViewModel.updateFavoriteSkin(id) },

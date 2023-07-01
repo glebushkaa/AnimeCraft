@@ -48,6 +48,7 @@
     <string name="rate_us_button_image">Imagen del botón valóranos</string>
     <string name="skin_downloaded">Piel descargada</string>
     <string name="something_went_wrong">Algo salió mal, tal vez intentamos descargar skins. Por favor, inténtelo de nuevo más tarde</string>
+    <string name="we_cant_load_without_permission">Lamentablemente, no podemos descargar skins sin permiso</string>
 
     <!--Languages-->
     <string name="russian">Ruso</string>

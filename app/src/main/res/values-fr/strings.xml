@@ -48,6 +48,7 @@
     <string name="skin_downloaded">Peau téléchargée</string>
     <string name="rate_us_button_image">Image du bouton Evaluez-nous</string>
     <string name="something_went_wrong">Quelque chose n\'a pas fonctionné, peut-être avons-nous essayé de télécharger des skins. Veuillez réessayer plus tard.</string>
+    <string name="we_cant_load_without_permission">Malheureusement, nous ne pouvons pas télécharger de skins sans autorisation. </string>
 
     <!--Languages-->
     <string name="russian">Russie</string>

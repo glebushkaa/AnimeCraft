@@ -1,15 +1,18 @@
 package ua.anime.animecraft
 
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.os.Build
+import android.os.Build.VERSION.SDK_INT
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import timber.log.Timber
 import ua.anime.animecraft.core.activityholder.CurrentActivityHolder
+import ua.anime.animecraft.core.android.extensions.permissionGranted
 import ua.anime.animecraft.core.log.ReportingTree
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
 import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.TIMES_APP_OPENED
@@ -34,6 +37,7 @@ class AnimeCraftApp : Application() {
         CurrentActivityHolder.register(this)
         setupTimber()
         createSkinsNotificationChannel()
+        initializeSkinWorkManager()
         startSkinWork()
         increaseTimesAppOpened()
     }
@@ -43,9 +47,14 @@ class AnimeCraftApp : Application() {
         skinsPreferencesHandler.putInt(TIMES_APP_OPENED, timesAppOpened + 1)
     }
 
-    private fun startSkinWork() {
+    private fun initializeSkinWorkManager() {
         WorkManager.initialize(this, getWorkManagerConfiguration())
-        WorkManager.getInstance(this).enqueue(SkinsWorkManager.startSkinsWorker())
+    }
+
+    fun startSkinWork() {
+        if (permissionGranted(WRITE_EXTERNAL_STORAGE) || SDK_INT > Build.VERSION_CODES.Q) {
+            WorkManager.getInstance(this).enqueue(SkinsWorkManager.startSkinsWorker())
+        }
     }
 
     private fun getWorkManagerConfiguration() = Configuration.Builder()
@@ -53,7 +62,7 @@ class AnimeCraftApp : Application() {
         .build()
 
     private fun createSkinsNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 SkinsWorkManager.WORK_SKINS_CHANNEL_ID,
                 getString(R.string.work_skins_channel_name),
@@ -65,10 +74,7 @@ class AnimeCraftApp : Application() {
     }
 
     private fun setupTimber() {
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        } else {
-            Timber.plant(ReportingTree())
-        }
+        val tree = if (BuildConfig.DEBUG) Timber.DebugTree() else ReportingTree()
+        Timber.plant(tree)
     }
 }

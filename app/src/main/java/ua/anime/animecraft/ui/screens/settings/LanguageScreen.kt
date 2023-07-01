@@ -44,8 +44,8 @@ fun LanguageScreen(
     onLikeNavigate: () -> Unit = {},
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
+    val localeLanguage = Locale.getDefault().language
     var selectedLanguage by remember {
-        val localeLanguage = Locale.getDefault().language
         mutableStateOf(settingsViewModel.getSelectedLanguage(localeLanguage))
     }
     var expandedDropDown by rememberSaveable { mutableStateOf(false) }
@@ -61,7 +61,7 @@ fun LanguageScreen(
                 ),
                 currentScreen = LANGUAGE_SETTINGS,
                 settingsClicked = onBackClicked,
-                likeClicked =  onLikeNavigate
+                likeClicked = onLikeNavigate
             )
         },
         content = {

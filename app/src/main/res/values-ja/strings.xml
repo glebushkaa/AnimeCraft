@@ -48,6 +48,7 @@
     <string name="rate_us_button_image">評価する」ボタン画像</string>
     <string name="skin_downloaded">ダウンロードした肌</string>
     <string name="something_went_wrong">スキンをダウンロードしようとすると、何か問題が発生しました。後でもう一度試してください。</string>
+    <string name="we_cant_load_without_permission">残念ながら、許可なくスキンをダウンロードすることはできません</string>
 
     <!--Languages-->
     <string name="russian">ロシアン</string>

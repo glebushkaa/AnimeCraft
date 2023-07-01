@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.Intent.EXTRA_EMAIL
 import android.content.Intent.EXTRA_SUBJECT
 import android.content.Intent.EXTRA_TEXT
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.text.TextUtils
 import android.widget.Toast
@@ -23,6 +24,11 @@ import ua.anime.animecraft.core.log.tag
 
 private const val SHARE_TYPE = "text/plain"
 private const val SHARE_TITLE = "Share app"
+
+fun Context.permissionGranted(permission: String): Boolean {
+    return ContextCompat.checkSelfPermission(this, permission) ==
+        PackageManager.PERMISSION_GRANTED
+}
 
 fun Context.updateLanguage(
     language: String,

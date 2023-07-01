@@ -5,8 +5,10 @@ import android.content.Context
 import android.os.Environment
 import androidx.hilt.work.HiltWorker
 import androidx.work.BackoffPolicy
+import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
+import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
@@ -82,14 +84,8 @@ class SkinsWorkManager @AssistedInject constructor(
         return skinsRepository.getSkinsGameFileName(id)?.let {
             val mediaDirectory = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
             val file = File(mediaDirectory, it)
-            if (file.exists() && file.canRead()) {
-                it
-            } else {
-                fileName
-            }
-        } ?: run {
-            fileName
-        }
+            if (file.exists() && file.canRead()) it else fileName
+        } ?: fileName
     }
 
     private suspend fun startForegroundService() {
@@ -101,8 +97,12 @@ class SkinsWorkManager @AssistedInject constructor(
 
     companion object {
         fun startSkinsWorker(): OneTimeWorkRequest {
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build()
             return OneTimeWorkRequest.Builder(SkinsWorkManager::class.java)
                 .addTag(WORKER_TAG)
+                .setConstraints(constraints)
                 .setBackoffCriteria(BackoffPolicy.EXPONENTIAL, FIVE_MINUTES, TimeUnit.MINUTES)
                 .build()
         }
