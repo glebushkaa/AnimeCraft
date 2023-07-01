@@ -23,7 +23,7 @@ android {
         applicationId = "ua.anime.animecraft"
         minSdk = 24
         targetSdk = 33
-        versionCode = 9
+        versionCode = 10
         versionName = "1.0.0"
 
         vectorDrawables.useSupportLibrary = true
