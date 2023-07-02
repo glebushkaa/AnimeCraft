@@ -1,21 +1,21 @@
 package ua.anime.animecraft.ui.screens.favorites
 
-import android.os.Build
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ua.anime.animecraft.core.android.AnimeCraftViewModel
-import ua.anime.animecraft.core.android.Event
+import com.animecraft.core.common_android.android.AnimeCraftViewModel
+import com.animecraft.core.common_android.android.ResourceEvent
+import com.animecraft.core.common_android.android.extensions.toResourceEvent
 import ua.anime.animecraft.core.common.replaceAllElements
-import ua.anime.animecraft.data.files.SkinFilesHandler
-import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
-import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_DOWNLOAD_DIALOG_DISABLED
-import ua.anime.animecraft.domain.repository.FavoritesRepository
+import com.animecraft.core.domain.usecase.files.SaveSkinGameUseCase
+import com.animecraft.core.domain.usecase.prefs.ChangeDisableDownloadDialogPrefUseCase
+import com.animecraft.core.domain.usecase.prefs.CheckDownloadDialogDisabledUseCase
+import com.animecraft.core.domain.usecase.skin.GetFavoritesSkinsFlowUseCase
+import com.animecraft.core.domain.usecase.skin.UpdateSkinFavoriteStateUseCase
 import ua.anime.animecraft.ui.extensions.filterListByName
 import ua.anime.animecraft.ui.model.Skin
+import javax.inject.Inject
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/12/2023.
@@ -23,65 +23,69 @@ import ua.anime.animecraft.ui.model.Skin
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
-    private val favoritesRepository: FavoritesRepository,
-    private val skinsPreferencesHandler: SkinsPreferencesHandler,
-    private val skinFilesHandler: SkinFilesHandler
-) : AnimeCraftViewModel() {
+    private val updateSkinFavoriteStateUseCase: com.animecraft.core.domain.usecase.skin.UpdateSkinFavoriteStateUseCase,
+    private val getFavoritesSkinsFlowUseCase: com.animecraft.core.domain.usecase.skin.GetFavoritesSkinsFlowUseCase,
+    private val checkDownloadDialogDisabledUseCase: com.animecraft.core.domain.usecase.prefs.CheckDownloadDialogDisabledUseCase,
+    private val changeDisableDownloadDialogPrefUseCase: com.animecraft.core.domain.usecase.prefs.ChangeDisableDownloadDialogPrefUseCase,
+    private val saveSkinGameUseCase: com.animecraft.core.domain.usecase.files.SaveSkinGameUseCase
+) : com.animecraft.core.common_android.android.AnimeCraftViewModel() {
 
     private val _favoritesFlow = MutableStateFlow(listOf<Skin>())
     val favoritesFlow = _favoritesFlow.asStateFlow()
 
-    private val _downloadFlow = MutableStateFlow<Event<Boolean?>>(Event(null))
+    private val _downloadFlow = MutableStateFlow<com.animecraft.core.common_android.android.ResourceEvent<Unit>?>(null)
     val downloadFlow = _downloadFlow.asStateFlow()
 
     private val favorites = mutableListOf<Skin>()
 
     private var currentSearchInput: String = ""
 
-    val isDownloadDialogDisabled = skinsPreferencesHandler.getBoolean(
-        IS_DOWNLOAD_DIALOG_DISABLED
-    ) ?: false
+    var isDownloadDialogDisabled = false
+        private set
 
     init {
-        getFavorites()
+        collectFavoritesFlow()
+        checkIsDownloadDialogDisabled()
     }
 
-    fun saveGameSkinImage(id: Int) = viewModelScope.launch(Dispatchers.Default) {
+    fun searchSkins(name: String) = viewModelScope.launch {
+        currentSearchInput = name
+        val list = favorites.filterListByName(name)
+        _favoritesFlow.emit(list)
+    }
+
+    fun updateFavoriteSkin(id: Int) = viewModelScope.launch {
+        val favorite = favorites.find { it.id == id }?.favorite?.not() ?: false
+        val params = com.animecraft.core.domain.usecase.skin.UpdateSkinFavoriteStateUseCase.Params(
+            skinId = id, favorite = favorite
+        )
+        updateSkinFavoriteStateUseCase(params)
+    }
+
+    fun saveGameSkinImage(id: Int) = viewModelScope.launch {
         val gameImageFileName = favorites.find { it.id == id }?.gameImageFileName ?: return@launch
-        val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            skinFilesHandler.saveSkinToGallery(gameImageFileName)
-        } else {
-            skinFilesHandler.saveSkinToMinecraft(gameImageFileName)
-        }
-        _downloadFlow.emit(Event(result.isSuccess))
+        _downloadFlow.emit(com.animecraft.core.common_android.android.ResourceEvent.Loading)
+        val params = com.animecraft.core.domain.usecase.files.SaveSkinGameUseCase.Params(gameImageFileName)
+        val result = saveSkinGameUseCase(params).toResourceEvent()
+        _downloadFlow.emit(result)
     }
 
-    fun disableDownloadDialogOpen() {
-        skinsPreferencesHandler.putBoolean(IS_DOWNLOAD_DIALOG_DISABLED, true)
+    fun disableDownloadDialogOpen() = viewModelScope.launch {
+        val params = com.animecraft.core.domain.usecase.prefs.ChangeDisableDownloadDialogPrefUseCase.Params(true)
+        changeDisableDownloadDialogPrefUseCase(params)
     }
 
-    fun getFavorites() {
-        viewModelScope.launch {
-            favoritesRepository.getFavoritesSkins().collect {
-                favorites.replaceAllElements(it)
+    private fun checkIsDownloadDialogDisabled() = viewModelScope.launch {
+        isDownloadDialogDisabled = checkDownloadDialogDisabledUseCase().getOrDefault(false)
+    }
+
+    private fun collectFavoritesFlow() = viewModelScope.launch {
+        getFavoritesSkinsFlowUseCase().onSuccess {
+            it.collect { items ->
+                favorites.replaceAllElements(items)
                 val filteredList = favorites.filterListByName(currentSearchInput)
                 _favoritesFlow.emit(filteredList)
             }
-        }
-    }
-
-    fun searchSkins(name: String) {
-        viewModelScope.launch(Dispatchers.Default) {
-            currentSearchInput = name
-            val list = favorites.filterListByName(name)
-            _favoritesFlow.emit(list)
-        }
-    }
-
-    fun updateFavoriteSkin(id: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val favorite = favorites.find { it.id == id }?.favorite?.not() ?: false
-            favoritesRepository.updateFavoriteSkin(id, favorite)
         }
     }
 }

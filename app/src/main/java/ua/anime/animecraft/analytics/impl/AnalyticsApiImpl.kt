@@ -5,7 +5,7 @@ import androidx.core.os.bundleOf
 import com.google.firebase.analytics.FirebaseAnalytics
 import javax.inject.Inject
 import ua.anime.animecraft.analytics.api.AnalyticsApi
-import ua.anime.animecraft.core.log.warn
+import com.animecraft.core.log.warn
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 6/18/2023
@@ -35,7 +35,7 @@ class AnalyticsApiImpl @Inject constructor(
 
                     else -> {
                         val valueType = value?.javaClass?.canonicalName ?: "null"
-                        warn(TAG) { "Illegal value type $valueType for key \"$key\"" }
+                        com.animecraft.core.log.warn(TAG) { "Illegal value type $valueType for key \"$key\"" }
                     }
                 }
             }

@@ -30,7 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
-import ua.anime.animecraft.core.android.extensions.sendReport
+import com.animecraft.core.common_android.android.extensions.sendReport
 import ua.anime.animecraft.core.common.HALF_SECOND
 import ua.anime.animecraft.core.common.ONE_SECOND
 import ua.anime.animecraft.ui.common.AppTopBar

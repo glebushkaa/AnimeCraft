@@ -4,12 +4,10 @@ androidGradlePlugin = "8.0.1"
 androidxAppCompat = "1.6.1"
 androidxCore = "1.10.0"
 androidxMedia = "1.6.0"
-androidxCoreSplashscreen = "1.0.1"
 androidxLifecycle = "2.6.1"
 androidxStartup = "1.1.1"
 androidxDataStore = "1.0.0"
 appcompat = "1.6.1"
-billing = "6.0.0"
 navigation-compose-animation = "0.30.1"
 hilt = "2.45"
 hilt-navigation-compose = "1.0.0"
@@ -51,7 +49,6 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 hilt-work = { group = "androidx.hilt", name = "hilt-work", version.ref = "hilt-work" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-navigation-compose" }
 
-billing = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billing" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { module = "com.google.android.material:material", version.ref = "material" }
@@ -90,6 +87,7 @@ android-application = { id = "com.android.application", version.ref = "androidGr
 android-lib = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt-gradle" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint-gradle" }
 firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsGradle" }

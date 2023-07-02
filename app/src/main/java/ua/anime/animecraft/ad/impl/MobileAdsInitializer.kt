@@ -10,10 +10,10 @@ import com.google.android.gms.ads.initialization.InitializationStatus
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import ua.anime.animecraft.BuildConfig
-import ua.anime.animecraft.core.log.debug
-import ua.anime.animecraft.core.log.error
-import ua.anime.animecraft.core.log.info
-import ua.anime.animecraft.core.log.tag
+import com.animecraft.core.log.debug
+import com.animecraft.core.log.error
+import com.animecraft.core.log.info
+import com.animecraft.core.log.tag
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/29/2023
@@ -33,13 +33,13 @@ class MobileAdsInitializer : Initializer<Unit> {
                         Settings.Secure.ANDROID_ID
                     )
                     val deviceId = md5(androidId).uppercase()
-                    debug(this@MobileAdsInitializer.tag()) { "DeviceId: $deviceId" }
+                    com.animecraft.core.log.debug(this@MobileAdsInitializer.tag()) { "DeviceId: $deviceId" }
                     configuration.setTestDeviceIds(listOf(deviceId))
                 }
                 MobileAds.setRequestConfiguration(configuration.build())
             }
         }.onFailure { throwable ->
-            error(this@MobileAdsInitializer.tag(), throwable)
+            com.animecraft.core.log.error(this@MobileAdsInitializer.tag(), throwable)
         }
     }
 
@@ -67,7 +67,7 @@ class MobileAdsInitializer : Initializer<Unit> {
     }
 
     private fun logStatus(status: InitializationStatus) {
-        info(this@MobileAdsInitializer.tag()) {
+        com.animecraft.core.log.info(this@MobileAdsInitializer.tag()) {
             status.adapterStatusMap.entries.joinToString { entity ->
                 val key = entity.key
                 val adapterStatus = entity.value

@@ -2,12 +2,12 @@ package ua.anime.animecraft.ui.screens.settings
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import ua.anime.animecraft.core.android.AnimeCraftViewModel
-import ua.anime.animecraft.core.android.extensions.languagesList
-import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
-import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_DARK_MODE_ENABLED
-import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_DOWNLOAD_DIALOG_DISABLED
-import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.SELECTED_LANGUAGE
+import com.animecraft.core.common_android.android.AnimeCraftViewModel
+import com.animecraft.core.common_android.android.extensions.languagesList
+import ua.anime.animecraft.data.preferences.SettingsPreferencesApiImpl
+import ua.anime.animecraft.data.preferences.SettingsPreferencesApiImpl.Companion.IS_DARK_MODE_ENABLED
+import ua.anime.animecraft.data.preferences.SettingsPreferencesApiImpl.Companion.IS_DOWNLOAD_DIALOG_DISABLED
+import ua.anime.animecraft.data.preferences.SettingsPreferencesApiImpl.Companion.SELECTED_LANGUAGE
 import ua.anime.animecraft.ui.model.Language
 import ua.anime.animecraft.ui.utils.DarkModeHandler.updateDarkModeState
 
@@ -17,45 +17,45 @@ import ua.anime.animecraft.ui.utils.DarkModeHandler.updateDarkModeState
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
-    private val skinsPreferencesHandler: SkinsPreferencesHandler
-) : AnimeCraftViewModel() {
+    private val settingsPreferencesApiImpl: SettingsPreferencesApiImpl
+) : com.animecraft.core.common_android.android.AnimeCraftViewModel() {
 
-    var initialLanguage: Language = languagesList[0]
+    var initialLanguage: Language = com.animecraft.core.common_android.android.extensions.languagesList[0]
         private set
 
-    val isDownloadDialogDisabled = skinsPreferencesHandler.getBoolean(
+    val isDownloadDialogDisabled = settingsPreferencesApiImpl.getBoolean(
         IS_DOWNLOAD_DIALOG_DISABLED
     ) ?: false
 
     fun changeDarkMode(isDarkModeEnabled: Boolean) {
         updateDarkModeState(isDarkModeEnabled)
-        skinsPreferencesHandler.putBoolean(IS_DARK_MODE_ENABLED, isDarkModeEnabled)
+        settingsPreferencesApiImpl.putBoolean(IS_DARK_MODE_ENABLED, isDarkModeEnabled)
     }
 
     fun isDarkModeEnabled(
         isSystemInDarkModeByDefault: Boolean
     ): Boolean {
-        val darkModePrefExist = skinsPreferencesHandler.checkValueExistence(IS_DARK_MODE_ENABLED)
+        val darkModePrefExist = settingsPreferencesApiImpl.checkValueExistence(IS_DARK_MODE_ENABLED)
         return if (!darkModePrefExist) {
             isSystemInDarkModeByDefault
         } else {
-            skinsPreferencesHandler.getBoolean(IS_DARK_MODE_ENABLED)
+            settingsPreferencesApiImpl.getBoolean(IS_DARK_MODE_ENABLED)
         } == true
     }
 
     fun updateLanguagePreference(language: String) {
-        skinsPreferencesHandler.putString(SELECTED_LANGUAGE, language)
+        settingsPreferencesApiImpl.putString(SELECTED_LANGUAGE, language)
     }
 
     fun getSelectedLanguage(languageLocale: String): Language {
-        val languagePref = skinsPreferencesHandler.getString(SELECTED_LANGUAGE)
-        initialLanguage = languagesList.find { it.languageLocale == languagePref } ?: run {
-            languagesList.find { it.languageLocale == languageLocale } ?: languagesList[0]
+        val languagePref = settingsPreferencesApiImpl.getString(SELECTED_LANGUAGE)
+        initialLanguage = com.animecraft.core.common_android.android.extensions.languagesList.find { it.languageLocale == languagePref } ?: run {
+            com.animecraft.core.common_android.android.extensions.languagesList.find { it.languageLocale == languageLocale } ?: com.animecraft.core.common_android.android.extensions.languagesList[0]
         }
         return initialLanguage
     }
 
     fun updateDownloadDialogSetting(value: Boolean) {
-        skinsPreferencesHandler.putBoolean(IS_DOWNLOAD_DIALOG_DISABLED, value)
+        settingsPreferencesApiImpl.putBoolean(IS_DOWNLOAD_DIALOG_DISABLED, value)
     }
 }

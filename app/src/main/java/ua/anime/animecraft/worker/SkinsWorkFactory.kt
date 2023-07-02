@@ -6,16 +6,16 @@ import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import javax.inject.Inject
 import ua.anime.animecraft.data.downloadmanager.SkinsDownloadManager
-import ua.anime.animecraft.domain.repository.CategoryRepository
-import ua.anime.animecraft.domain.repository.SkinsRepository
+import com.animecraft.core.domain.repository.CategoryRepository
+import com.animecraft.core.domain.repository.SkinsRepository
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/27/2023.
  */
 
 class SkinsWorkFactory @Inject constructor(
-    private val skinsRepository: SkinsRepository,
-    private val categoryRepository: CategoryRepository,
+    private val skinsRepository: com.animecraft.core.domain.repository.SkinsRepository,
+    private val categoryRepository: com.animecraft.core.domain.repository.CategoryRepository,
     private val skinsDownloadManager: SkinsDownloadManager
 ) : WorkerFactory() {
 

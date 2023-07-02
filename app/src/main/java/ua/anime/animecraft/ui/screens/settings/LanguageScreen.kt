@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import java.util.Locale
 import ua.anime.animecraft.R
-import ua.anime.animecraft.core.activityholder.CurrentActivityHolder
+import com.animecraft.core.common_android.activityholder.CurrentActivityHolder
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.buttons.BackButton
 import ua.anime.animecraft.ui.model.Language
@@ -79,7 +79,7 @@ fun LanguageScreen(
                 onLanguageSelected = { value -> selectedLanguage = value },
                 onConfirmClicked = {
                     settingsViewModel.updateLanguagePreference(selectedLanguage.languageLocale)
-                    CurrentActivityHolder.getCurrentActivity()?.recreate()
+                    com.animecraft.core.common_android.activityholder.CurrentActivityHolder.getCurrentActivity()?.recreate()
                 },
                 onBackClicked = onBackClicked
             )

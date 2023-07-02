@@ -3,7 +3,10 @@
 
 package ua.anime.animecraft.ui.screens.favorites
 
+import android.Manifest
 import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Box
@@ -33,9 +36,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
-import ua.anime.animecraft.core.android.Event
-import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
-import ua.anime.animecraft.core.android.extensions.toast
+import com.animecraft.core.common_android.android.Event
+import com.animecraft.core.common_android.android.extensions.collectLifecycleAwareFlowAsState
+import com.animecraft.core.common_android.android.extensions.permissionGranted
+import com.animecraft.core.common_android.android.extensions.toast
 import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.SearchBar
@@ -59,10 +63,23 @@ fun FavoritesScreen(
     favoritesViewModel: FavoritesViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val permissionExceptionMessage = stringResource(R.string.we_cant_load_without_permission)
+
+    var currentSkinDownloadId: Int? by rememberSaveable { mutableStateOf(null) }
+    val writePermissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            currentSkinDownloadId?.let { favoritesViewModel.saveGameSkinImage(it) }
+        } else {
+            context.toast(permissionExceptionMessage)
+        }
+        currentSkinDownloadId = null
+    }
 
     val favorites by favoritesViewModel.favoritesFlow.collectLifecycleAwareFlowAsState(listOf())
     val downloadFlow by favoritesViewModel.downloadFlow.collectLifecycleAwareFlowAsState(
-        Event(null)
+        com.animecraft.core.common_android.android.Event(null)
     )
 
     var searchQuery by rememberSaveable { mutableStateOf("") }
@@ -122,7 +139,16 @@ fun FavoritesScreen(
                 onItemClicked = onItemClicked,
                 favorites = favorites,
                 onLikeClicked = favoritesViewModel::updateFavoriteSkin,
-                onDownloadClicked = favoritesViewModel::saveGameSkinImage,
+                onDownloadClicked = { id ->
+                    if (context.permissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
+                        Build.VERSION.SDK_INT > Build.VERSION_CODES.Q
+                    ) {
+                        favoritesViewModel.saveGameSkinImage(id)
+                    } else {
+                        currentSkinDownloadId = id
+                        writePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    }
+                },
                 searchQuery = searchQuery,
                 onSearchQueryChanged = { query ->
                     searchQuery = query

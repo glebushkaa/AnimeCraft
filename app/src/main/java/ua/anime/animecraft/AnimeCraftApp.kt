@@ -11,11 +11,11 @@ import androidx.work.WorkManager
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import timber.log.Timber
-import ua.anime.animecraft.core.activityholder.CurrentActivityHolder
-import ua.anime.animecraft.core.android.extensions.permissionGranted
+import com.animecraft.core.common_android.activityholder.CurrentActivityHolder
+import com.animecraft.core.common_android.android.extensions.permissionGranted
 import ua.anime.animecraft.core.log.ReportingTree
-import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
-import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.TIMES_APP_OPENED
+import ua.anime.animecraft.data.preferences.SettingsPreferencesApiImpl
+import ua.anime.animecraft.data.preferences.SettingsPreferencesApiImpl.Companion.TIMES_APP_OPENED
 import ua.anime.animecraft.worker.SkinsWorkFactory
 import ua.anime.animecraft.worker.SkinsWorkManager
 
@@ -30,11 +30,11 @@ class AnimeCraftApp : Application() {
     lateinit var skinsWorkFactory: SkinsWorkFactory
 
     @Inject
-    lateinit var skinsPreferencesHandler: SkinsPreferencesHandler
+    lateinit var settingsPreferencesApiImpl: SettingsPreferencesApiImpl
 
     override fun onCreate() {
         super.onCreate()
-        CurrentActivityHolder.register(this)
+        com.animecraft.core.common_android.activityholder.CurrentActivityHolder.register(this)
         setupTimber()
         createSkinsNotificationChannel()
         initializeSkinWorkManager()
@@ -43,8 +43,8 @@ class AnimeCraftApp : Application() {
     }
 
     private fun increaseTimesAppOpened() {
-        val timesAppOpened = skinsPreferencesHandler.getInt(TIMES_APP_OPENED) ?: 0
-        skinsPreferencesHandler.putInt(TIMES_APP_OPENED, timesAppOpened + 1)
+        val timesAppOpened = settingsPreferencesApiImpl.getInt(TIMES_APP_OPENED) ?: 0
+        settingsPreferencesApiImpl.putInt(TIMES_APP_OPENED, timesAppOpened + 1)
     }
 
     private fun initializeSkinWorkManager() {

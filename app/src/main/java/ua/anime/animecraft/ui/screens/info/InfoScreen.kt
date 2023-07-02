@@ -2,7 +2,10 @@
 
 package ua.anime.animecraft.ui.screens.info
 
+import android.Manifest
 import android.os.Build
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -34,9 +37,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import ua.anime.animecraft.R
-import ua.anime.animecraft.core.android.Event
-import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
-import ua.anime.animecraft.core.android.extensions.toast
+import com.animecraft.core.common_android.android.Event
+import com.animecraft.core.common_android.android.extensions.collectLifecycleAwareFlowAsState
+import com.animecraft.core.common_android.android.extensions.permissionGranted
+import com.animecraft.core.common_android.android.extensions.toast
 import ua.anime.animecraft.core.common.capitalize
 import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.CategoryItem
@@ -59,14 +63,30 @@ fun InfoScreen(
     backClicked: () -> Unit = {},
     infoViewModel: InfoViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    val permissionExceptionMessage = stringResource(R.string.we_cant_load_without_permission)
+
+    val writePermissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            infoViewModel.saveGameSkinImage()
+        } else {
+            context.toast(permissionExceptionMessage)
+        }
+    }
+
     val skin by infoViewModel.skinFlow.collectLifecycleAwareFlowAsState(null)
     val categoryName by infoViewModel.categoryFlow.collectLifecycleAwareFlowAsState(null)
     var downloadClicked by rememberSaveable { mutableStateOf(false) }
 
-    val downloadFlow by infoViewModel.downloadFlow.collectLifecycleAwareFlowAsState(Event(null))
+    val downloadFlow by infoViewModel.downloadFlow.collectLifecycleAwareFlowAsState(
+        com.animecraft.core.common_android.android.Event(
+            null
+        )
+    )
     var downloadSelected by remember { mutableStateOf(false) }
 
-    val context = LocalContext.current
     val skinDownloadedText = stringResource(id = R.string.skin_downloaded)
     val somethingWrongText = stringResource(R.string.something_went_wrong)
 
@@ -134,7 +154,15 @@ fun InfoScreen(
                     blurRadius = AppTheme.sizes.generic.downloadButtonBlurRadius,
                     color = AppTheme.colors.primary
                 ),
-            onClick = infoViewModel::saveGameSkinImage
+            onClick = {
+                if (context.permissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
+                    Build.VERSION.SDK_INT > Build.VERSION_CODES.Q
+                ) {
+                    infoViewModel.saveGameSkinImage()
+                } else {
+                    writePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                }
+            }
         )
         Spacer(modifier = Modifier.height(AppTheme.offsets.huge))
         BannerAd()

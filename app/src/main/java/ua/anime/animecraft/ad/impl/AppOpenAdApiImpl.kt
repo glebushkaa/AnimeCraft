@@ -13,10 +13,9 @@ import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.suspendCancellableCoroutine
 import ua.anime.animecraft.ad.api.AdException
 import ua.anime.animecraft.ad.api.AppOpenAdApi
-import ua.anime.animecraft.core.activityholder.CurrentActivityHolder
-import ua.anime.animecraft.core.log.error
-import ua.anime.animecraft.core.log.info
-import ua.anime.animecraft.core.log.tag
+import com.animecraft.core.log.error
+import com.animecraft.core.log.info
+import com.animecraft.core.log.tag
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/29/2023
@@ -40,7 +39,7 @@ class AppOpenAdApiImpl @Inject constructor() : AppOpenAdApi {
                 }
                 return@suspendCancellableCoroutine
             }
-            val activity = CurrentActivityHolder.getCurrentActivity()
+            val activity = com.animecraft.core.common_android.activityholder.CurrentActivityHolder.getCurrentActivity()
             if (activity == null) {
                 activityIsNull(cancellableContinuation)
                 return@suspendCancellableCoroutine
@@ -50,7 +49,7 @@ class AppOpenAdApiImpl @Inject constructor() : AppOpenAdApi {
 
                     override fun onAdLoaded(appOpenAd: AppOpenAd) {
                         super.onAdLoaded(appOpenAd)
-                        info(this@AppOpenAdApiImpl.tag()) { "ad loaded" }
+                        com.animecraft.core.log.info(this@AppOpenAdApiImpl.tag()) { "ad loaded" }
                         onAdLoaded(adUnitId, appOpenAd, cancellableContinuation)
                     }
 
@@ -70,7 +69,7 @@ class AppOpenAdApiImpl @Inject constructor() : AppOpenAdApi {
                 adIsNotLoaded(cancellableContinuation)
                 return@suspendCancellableCoroutine
             }
-            val activity = CurrentActivityHolder.getCurrentActivity()
+            val activity = com.animecraft.core.common_android.activityholder.CurrentActivityHolder.getCurrentActivity()
             if (activity == null) {
                 activityIsNull(cancellableContinuation)
                 return@suspendCancellableCoroutine
@@ -79,7 +78,7 @@ class AppOpenAdApiImpl @Inject constructor() : AppOpenAdApi {
                 override fun onAdDismissedFullScreenContent() {
                     dismissInterstitialAd(adUnitId)
                     cancellableContinuation.resume(Unit)
-                    info(this@AppOpenAdApiImpl.tag()) { "ad dismissed" }
+                    com.animecraft.core.log.info(this@AppOpenAdApiImpl.tag()) { "ad dismissed" }
                 }
 
                 override fun onAdFailedToShowFullScreenContent(adError: AdError) {
@@ -90,7 +89,7 @@ class AppOpenAdApiImpl @Inject constructor() : AppOpenAdApi {
 
                 override fun onAdShowedFullScreenContent() {
                     super.onAdShowedFullScreenContent()
-                    info(this@AppOpenAdApiImpl.tag()) { "ad showed" }
+                    com.animecraft.core.log.info(this@AppOpenAdApiImpl.tag()) { "ad showed" }
                 }
             }
             appOpenAd.show(activity)
@@ -100,7 +99,7 @@ class AppOpenAdApiImpl @Inject constructor() : AppOpenAdApi {
         try {
             throw AdException("The ad is not loaded", "", NOT_LOADED)
         } catch (adException: AdException) {
-            error(this@AppOpenAdApiImpl.tag(), adException)
+            com.animecraft.core.log.error(this@AppOpenAdApiImpl.tag(), adException)
             if (cancellableContinuation.isActive) {
                 cancellableContinuation.resumeWithException(adException)
             }
@@ -130,7 +129,7 @@ class AppOpenAdApiImpl @Inject constructor() : AppOpenAdApi {
         try {
             throw AdException(loadError.message, loadError.domain, NOT_LOADED)
         } catch (adException: AdException) {
-            error(this@AppOpenAdApiImpl.tag(), adException)
+            com.animecraft.core.log.error(this@AppOpenAdApiImpl.tag(), adException)
             if (cancellableContinuation.isActive) {
                 cancellableContinuation.resume(Unit)
             }
@@ -145,7 +144,7 @@ class AppOpenAdApiImpl @Inject constructor() : AppOpenAdApi {
                 NO_ACTIVE_ACTIVITY
             )
         } catch (adException: AdException) {
-            error(this@AppOpenAdApiImpl.tag(), adException)
+            com.animecraft.core.log.error(this@AppOpenAdApiImpl.tag(), adException)
             if (cancellableContinuation.isActive) {
                 cancellableContinuation.resumeWithException(adException)
             }

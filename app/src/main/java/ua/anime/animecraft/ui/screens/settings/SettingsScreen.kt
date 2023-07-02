@@ -33,7 +33,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import ua.anime.animecraft.R
-import ua.anime.animecraft.core.android.extensions.shareApp
+import com.animecraft.core.common_android.android.extensions.shareApp
 import ua.anime.animecraft.ui.common.AppTopBar
 import ua.anime.animecraft.ui.common.buttons.BackButton
 import ua.anime.animecraft.ui.dialogs.rating.RatingDialog

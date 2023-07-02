@@ -23,9 +23,9 @@ import javax.inject.Inject
 import ua.anime.animecraft.AnimeCraftApp
 import ua.anime.animecraft.R
 import ua.anime.animecraft.analytics.impl.AnalyticsApiImpl
-import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
-import ua.anime.animecraft.core.android.extensions.toast
-import ua.anime.animecraft.core.android.extensions.updateLanguage
+import com.animecraft.core.common_android.android.extensions.collectLifecycleAwareFlowAsState
+import com.animecraft.core.common_android.android.extensions.toast
+import com.animecraft.core.common_android.android.extensions.updateLanguage
 import ua.anime.animecraft.ui.navigation.AnimeCraftHost
 import ua.anime.animecraft.ui.screens.settings.SettingsViewModel
 import ua.anime.animecraft.ui.theme.AnimeCraftTheme

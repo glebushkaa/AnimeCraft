@@ -7,14 +7,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ua.anime.animecraft.core.android.AnimeCraftViewModel
-import ua.anime.animecraft.core.android.Event
-import ua.anime.animecraft.data.files.SkinFilesHandler
-import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler
-import ua.anime.animecraft.data.preferences.SkinsPreferencesHandler.Companion.IS_DOWNLOAD_DIALOG_DISABLED
-import ua.anime.animecraft.domain.repository.CategoryRepository
-import ua.anime.animecraft.domain.repository.FavoritesRepository
-import ua.anime.animecraft.domain.repository.SkinsRepository
+import com.animecraft.core.common_android.android.AnimeCraftViewModel
+import com.animecraft.core.common_android.android.Event
+import ua.anime.animecraft.data.files.SkinFilesApiImpl
+import com.animecraft.core.domain.repository.CategoryRepository
+import com.animecraft.core.domain.repository.FavoritesRepository
+import com.animecraft.core.domain.repository.SkinsRepository
+import com.animecraft.core.domain.usecase.prefs.CheckDownloadDialogDisabledUseCase
 import ua.anime.animecraft.ui.model.Skin
 
 /**
@@ -23,11 +22,12 @@ import ua.anime.animecraft.ui.model.Skin
 
 @HiltViewModel
 class InfoViewModel @Inject constructor(
-    private val skinsRepository: SkinsRepository,
-    private val favoritesRepository: FavoritesRepository,
-    private val categoryRepository: CategoryRepository,
-    private val skinsPreferencesHandler: SkinsPreferencesHandler,
-    private val skinFilesHandler: SkinFilesHandler
+    private val checkDownloadDialogDisabledUseCase: com.animecraft.core.domain.usecase.prefs.CheckDownloadDialogDisabledUseCase,
+    private val skinsRepository: com.animecraft.core.domain.repository.SkinsRepository,
+    private val favoritesRepository: com.animecraft.core.domain.repository.FavoritesRepository,
+    private val categoryRepository: com.animecraft.core.domain.repository.CategoryRepository,
+    private val skinsPreferencesApiImpl: SkinsPreferencesApiImpl,
+    private val skinFilesApiImpl: SkinFilesApiImpl
 ) : AnimeCraftViewModel() {
 
     private val _skinFlow = MutableStateFlow<Skin?>(null)
@@ -36,11 +36,13 @@ class InfoViewModel @Inject constructor(
     private val _categoryFlow = MutableStateFlow<String?>(null)
     val categoryFlow = _categoryFlow.asStateFlow()
 
-    private val _downloadFlow = MutableStateFlow<Event<Boolean?>>(Event(null))
+    private val _downloadFlow = MutableStateFlow<com.animecraft.core.common_android.android.Event<Boolean?>>(
+        com.animecraft.core.common_android.android.Event(null)
+    )
     val downloadFlow = _downloadFlow.asStateFlow()
 
     val isDownloadDialogDisabled
-        get() = skinsPreferencesHandler.getBoolean(IS_DOWNLOAD_DIALOG_DISABLED) ?: false
+        get() = skinsPreferencesApiImpl.getBoolean(IS_DOWNLOAD_DIALOG_DISABLED) ?: false
 
     private fun getCategoryName(id: Int) = viewModelScope.launch(Dispatchers.Default) {
         val name = categoryRepository.getCategory(id).name
@@ -50,15 +52,16 @@ class InfoViewModel @Inject constructor(
     fun saveGameSkinImage() = viewModelScope.launch {
         val gameImageFileName = _skinFlow.value?.gameImageFileName ?: return@launch
         val result = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            skinFilesHandler.saveSkinToGallery(gameImageFileName)
+            skinFilesApiImpl.saveSkinToGallery(gameImageFileName)
         } else {
-            skinFilesHandler.saveSkinToMinecraft(gameImageFileName)
+            val result = skinFilesApiImpl.saveSkinToMinecraft(gameImageFileName)
+            if (!result.isSuccess) skinFilesApiImpl.saveSkinToGallery(gameImageFileName) else result
         }
-        _downloadFlow.emit(Event(result.isSuccess))
+        _downloadFlow.emit(com.animecraft.core.common_android.android.Event(result.isSuccess))
     }
 
     fun disableDownloadDialogOpen() {
-        skinsPreferencesHandler.putBoolean(IS_DOWNLOAD_DIALOG_DISABLED, true)
+        skinsPreferencesApiImpl.putBoolean(IS_DOWNLOAD_DIALOG_DISABLED, true)
     }
 
     fun loadSkin(id: Int) = viewModelScope.launch(Dispatchers.IO) {
@@ -70,6 +73,6 @@ class InfoViewModel @Inject constructor(
 
     fun updateFavoriteSkin() = viewModelScope.launch(Dispatchers.IO) {
         val skin = _skinFlow.value ?: return@launch
-        favoritesRepository.updateFavoriteSkin(skin.id, skin.favorite.not())
+        favoritesRepository.updateSkinFavoriteState(skin.id, skin.favorite.not())
     }
 }

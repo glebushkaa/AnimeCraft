@@ -25,7 +25,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ua.anime.animecraft.core.android.extensions.sendFeedback
+import com.animecraft.core.common_android.android.extensions.sendFeedback
 import ua.anime.animecraft.ui.dialogs.component.AnimatedScaleDialogContent
 import ua.anime.animecraft.ui.dialogs.component.PRE_DISMISS_DELAY
 import ua.anime.animecraft.ui.dialogs.rating.feedback.FeedbackDialogContent

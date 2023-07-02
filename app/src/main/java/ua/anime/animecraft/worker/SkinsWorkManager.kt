@@ -19,10 +19,10 @@ import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
-import ua.anime.animecraft.core.log.error
+import com.animecraft.core.log.error
 import ua.anime.animecraft.data.downloadmanager.SkinsDownloadManager
-import ua.anime.animecraft.domain.repository.CategoryRepository
-import ua.anime.animecraft.domain.repository.SkinsRepository
+import com.animecraft.core.domain.repository.CategoryRepository
+import com.animecraft.core.domain.repository.SkinsRepository
 import ua.anime.animecraft.ui.model.Skin
 
 /**
@@ -33,8 +33,8 @@ import ua.anime.animecraft.ui.model.Skin
 class SkinsWorkManager @AssistedInject constructor(
     @Assisted private val context: Context,
     @Assisted workerParams: WorkerParameters,
-    private val skinsRepository: SkinsRepository,
-    private val categoryRepository: CategoryRepository,
+    private val skinsRepository: com.animecraft.core.domain.repository.SkinsRepository,
+    private val categoryRepository: com.animecraft.core.domain.repository.CategoryRepository,
     private val skinsDownloadManager: SkinsDownloadManager
 ) : CoroutineWorker(context, workerParams) {
 
@@ -47,7 +47,7 @@ class SkinsWorkManager @AssistedInject constructor(
             skinsRepository.updateLocalSkinsFromNetwork(skinsImageMap)
             Result.success()
         }.onFailure {
-            error("SkinsWorkManager", it) { it.message ?: "" }
+            com.animecraft.core.log.error("SkinsWorkManager", it) { it.message ?: "" }
         }.getOrDefault(Result.failure())
     }
 

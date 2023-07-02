@@ -36,10 +36,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import ua.anime.animecraft.R
-import ua.anime.animecraft.core.android.Event
-import ua.anime.animecraft.core.android.extensions.collectLifecycleAwareFlowAsState
-import ua.anime.animecraft.core.android.extensions.permissionGranted
-import ua.anime.animecraft.core.android.extensions.toast
+import com.animecraft.core.common_android.android.Event
+import com.animecraft.core.common_android.android.extensions.collectLifecycleAwareFlowAsState
+import com.animecraft.core.common_android.android.extensions.permissionGranted
+import com.animecraft.core.common_android.android.extensions.toast
 import ua.anime.animecraft.core.common.TWO_SECONDS
 import ua.anime.animecraft.ui.ad.BannerAd
 import ua.anime.animecraft.ui.common.AppTopBar
@@ -86,7 +86,11 @@ fun MainScreen(
     val categories by mainViewModel.categoriesFlow.collectLifecycleAwareFlowAsState(
         initialValue = listOf()
     )
-    val downloadFlow by mainViewModel.downloadFlow.collectLifecycleAwareFlowAsState(Event(null))
+    val downloadFlow by mainViewModel.downloadFlow.collectLifecycleAwareFlowAsState(
+        com.animecraft.core.common_android.android.Event(
+            null
+        )
+    )
     var searchQuery by rememberSaveable { mutableStateOf("") }
     var selectedCategory by remember { mutableStateOf(mainViewModel.selectedCategory) }
 
