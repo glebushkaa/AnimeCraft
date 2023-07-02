@@ -11,3 +11,7 @@ fun CategoryEntity.toCategory(): Category = Category(
     id = id,
     name = name
 )
+
+fun List<CategoryEntity>.toCategoryList(): List<Category> = map {
+    it.toCategory()
+}

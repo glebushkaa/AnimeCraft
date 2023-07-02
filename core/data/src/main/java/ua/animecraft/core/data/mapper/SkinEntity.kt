@@ -15,3 +15,7 @@ fun SkinEntity.toSkin() = Skin(
     favorite = favorite,
     categoryId = categoryId
 )
+
+fun List<SkinEntity>.toSkinsList() = map {
+    it.toSkin()
+}

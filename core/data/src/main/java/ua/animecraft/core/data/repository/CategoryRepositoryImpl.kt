@@ -10,6 +10,8 @@ import ua.anime.animecraft.data.network.RealtimeSkinsApi
 import ua.anime.animecraft.data.network.model.NetworkCategory
 import ua.anime.animecraft.domain.repository.CategoryRepository
 import ua.anime.animecraft.ui.model.Category
+import ua.animecraft.core.data.mapper.toCategory
+import ua.animecraft.core.data.mapper.toCategoryList
 import ua.animecraft.database.dao.CategoryDao
 import ua.animecraft.model.Category
 
@@ -24,7 +26,7 @@ class CategoryRepositoryImpl @Inject constructor(
 
     private val categoriesMap = mutableMapOf<Int, Category>()
 
-    override suspend fun getCategory(id: Int) = categoriesMap[id]
+    override suspend fun getCategory(id: Int) = categoryDao.getCategory(id).toCategory()
 
     override suspend fun updateLocalCategoriesFromNetwork() {
         val categories = realtimeSkinsApi.getAllCategories().map(NetworkCategory::to)
@@ -32,7 +34,9 @@ class CategoryRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getCategoriesFlow(): Flow<List<Category>> {
-        return categoryDao.getCategories().map(::to).onEach { categories ->
+        return categoryDao.getCategories().map {
+            it.toCategoryList()
+        }.onEach { categories ->
             categories.forEach { category ->
                 categoriesMap[category.id] = category
             }

@@ -1,5 +1,6 @@
 package ua.animecraft.core.data.repository
 
+import com.animecraft.core.domain.repository.SkinsRepository
 import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -12,6 +13,11 @@ import ua.anime.animecraft.data.network.RealtimeSkinsApi
 import ua.anime.animecraft.data.network.StorageSkinsApi
 import ua.anime.animecraft.domain.repository.SkinsRepository
 import ua.anime.animecraft.ui.model.Skin
+import ua.animecraft.core.data.mapper.toSkin
+import ua.animecraft.core.data.mapper.toSkinsList
+import ua.animecraft.database.dao.SkinsDao
+import ua.animecraft.database.entity.SkinEntity
+import ua.animecraft.model.Skin
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.
@@ -20,7 +26,7 @@ import ua.anime.animecraft.ui.model.Skin
 class SkinsRepositoryImpl @Inject constructor(
     private val realtimeSkinsApi: RealtimeSkinsApi,
     private val storageSkinsApi: StorageSkinsApi,
-    private val skinsDao: ua.animecraft.database.dao.SkinsDao
+    private val skinsDao: SkinsDao
 ) : SkinsRepository {
 
     private val skins = mutableMapOf<Int, Skin>()
@@ -30,21 +36,25 @@ class SkinsRepositoryImpl @Inject constructor(
     override suspend fun getSkinsGameFileName(id: Int) = skins[id]?.gameImageFileName
 
     override suspend fun getSkins(): List<Skin> {
-        return skinsDao.getAllSkins().map(ua.animecraft.database.entity.SkinEntity::to)
+        return skinsDao.getAllSkins().map { it.toSkin() }
     }
 
     override suspend fun getSkin(id: Int): Skin {
-        return ua.animecraft.core.data.mapper.to()
+        return skinsDao.getSkin(id).toSkin()
     }
 
     override suspend fun getSkinsFlow(): Flow<List<Skin>> {
-        return skinsDao.getAllSkinsFlow().map(::to).onEach {
+        return skinsDao.getAllSkinsFlow().map {
+            it.toSkinsList()
+        }.onEach {
             it.forEach { skin -> skins[skin.id] = skin }
         }
     }
 
     override suspend fun getSkinFlow(id: Int): Flow<Skin> {
-        return skinsDao.getSkinFlow(id).map(ua.animecraft.database.entity.SkinEntity::to)
+        return skinsDao.getSkinFlow(id).map {
+            it.toSkin()
+        }
     }
 
     override suspend fun updateLocalSkinsFromNetwork(
