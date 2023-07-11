@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+
+    <application>
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="ua.anime.animecraft.androidx-startup"
+            android:exported="false"
+            tools:replace="android:authorities"
+            tools:node="merge">
+
+            <meta-data
+                android:name="ua.animecraft.ad.impl.MobileAdsInitializer"
+                android:value="androidx.startup" />
+        </provider>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3479574369280836~3226134140" />
+    </application>
+
+</manifest>

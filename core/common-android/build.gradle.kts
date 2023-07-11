@@ -10,6 +10,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.play.core)
     implementation(projects.core.log)
     implementation(libs.androidx.appcompat)
 }

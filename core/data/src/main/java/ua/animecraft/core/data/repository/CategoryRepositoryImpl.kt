@@ -1,26 +1,24 @@
 package ua.animecraft.core.data.repository
 
 import com.animecraft.core.domain.repository.CategoryRepository
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import ua.animecraft.core.data.mapper.to
-import ua.anime.animecraft.data.network.RealtimeSkinsApi
-import ua.anime.animecraft.data.network.model.NetworkCategory
-import ua.anime.animecraft.domain.repository.CategoryRepository
-import ua.anime.animecraft.ui.model.Category
+import ua.animecraft.core.data.mapper.toCategoryEntity
 import ua.animecraft.core.data.mapper.toCategory
 import ua.animecraft.core.data.mapper.toCategoryList
+import ua.animecraft.core.network.api.NetworkDatabaseApi
+import ua.animecraft.core.network.api.model.NetworkCategory
 import ua.animecraft.database.dao.CategoryDao
 import ua.animecraft.model.Category
+import javax.inject.Inject
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 6/4/2023
  */
 
 class CategoryRepositoryImpl @Inject constructor(
-    private val realtimeSkinsApi: RealtimeSkinsApi,
+    private val networkDatabaseApi: NetworkDatabaseApi,
     private val categoryDao: CategoryDao
 ) : CategoryRepository {
 
@@ -29,7 +27,7 @@ class CategoryRepositoryImpl @Inject constructor(
     override suspend fun getCategory(id: Int) = categoryDao.getCategory(id).toCategory()
 
     override suspend fun updateLocalCategoriesFromNetwork() {
-        val categories = realtimeSkinsApi.getAllCategories().map(NetworkCategory::to)
+        val categories = networkDatabaseApi.getAllCategories().map(NetworkCategory::toCategoryEntity)
         categoryDao.insert(categories)
     }
 

@@ -1,5 +1,6 @@
 package com.animecraft.core.domain.usecase.skin
 
+import com.animecraft.core.domain.DispatchersProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.animecraft.core.domain.repository.FavoritesRepository
@@ -15,11 +16,12 @@ import javax.inject.Inject
 
 class UpdateSkinFavoriteStateUseCase @Inject constructor(
     private val favoritesRepository: FavoritesRepository,
+    private val dispatchersProvider: DispatchersProvider,
     useCaseLogger: UseCaseLogger
 ) : ResultUseCase<Unit, Params>(useCaseLogger) {
 
     override suspend fun invoke(params: Params) = runCatching {
-        withContext(Dispatchers.IO) {
+        withContext(dispatchersProvider.io()) {
             favoritesRepository.updateSkinFavoriteState(
                 id = params.skinId,
                 favorite = params.favorite

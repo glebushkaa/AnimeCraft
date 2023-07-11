@@ -6,6 +6,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -13,14 +14,45 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
 rootProject.name = "AnimeCraft"
 
 include(":app")
+
+include(":ad")
+include(":ad:api")
+include(":ad:impl")
+
+include(":analytics:impl")
+include(":analytics:api")
+
+include(":download-manager")
 
 include(":core:domain")
 include(":core:log")
 include(":core:common-android")
 include(":core:data")
 include(":core:model")
-include(":feature")
 include(":core:database")
+include(":core:preferences")
+include(":core:activity-holder")
+include(":core:files")
+include(":core:network:impl")
+include(":core:network:api")
+include(":core:common")
+include(":core:theme")
+include(":core:navigation")
+
+include(":feature:main")
+include(":core:components")
+include(":feature:favorites")
+include(":feature:info")
+include(":feature:settings")
+include(":feature:language")
+include(":feature:report")
+include(":feature:splash")
+include(":feature:rating")
+include(":feature:download-skin")
+include(":core:data-store")
+include(":core:data-store:api")
+include(":core:data-store:impl")

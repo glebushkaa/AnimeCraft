@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="share_app_link" translatable="false">https://play.google.com/store/apps/details?id=ua.anime.animecraft</string>
+    <string name="mailto" translatable="false">mailto:</string>
+    <string name="email_address" translatable="false">gleb.mokryy.work@gmail.com</string>
+    <string name="animecraft_feedback" translatable="false">AnimeCraft Feedback</string>
+    <string name="animecraft_report" translatable="false">AnimeCraft Report</string>
+</resources>

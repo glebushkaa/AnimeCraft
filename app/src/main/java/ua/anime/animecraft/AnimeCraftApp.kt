@@ -11,13 +11,12 @@ import androidx.work.WorkManager
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 import timber.log.Timber
-import com.animecraft.core.common_android.activityholder.CurrentActivityHolder
-import com.animecraft.core.common_android.android.extensions.permissionGranted
-import ua.anime.animecraft.core.log.ReportingTree
-import ua.anime.animecraft.data.preferences.SettingsPreferencesApiImpl
-import ua.anime.animecraft.data.preferences.SettingsPreferencesApiImpl.Companion.TIMES_APP_OPENED
-import ua.anime.animecraft.worker.SkinsWorkFactory
-import ua.anime.animecraft.worker.SkinsWorkManager
+import com.animecraft.core.android.extensions.permissionGranted
+import ua.animecraft.activity.holder.CurrentActivityHolder
+import ua.animecraft.data.store.SettingsPreferencesApiImpl
+import ua.animecraft.data.store.SettingsPreferencesApiImpl.Companion.TIMES_APP_OPENED
+import ua.animecraft.download.manager.SkinsWorkFactory
+import ua.animecraft.download.manager.SkinsWorkManager
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 4/30/2023.
@@ -27,14 +26,14 @@ import ua.anime.animecraft.worker.SkinsWorkManager
 class AnimeCraftApp : Application() {
 
     @Inject
-    lateinit var skinsWorkFactory: SkinsWorkFactory
+    lateinit var skinsWorkFactory: ua.animecraft.download.manager.SkinsWorkFactory
 
     @Inject
-    lateinit var settingsPreferencesApiImpl: SettingsPreferencesApiImpl
+    lateinit var settingsPreferencesApiImpl: ua.animecraft.data.store.SettingsPreferencesApiImpl
 
     override fun onCreate() {
         super.onCreate()
-        com.animecraft.core.common_android.activityholder.CurrentActivityHolder.register(this)
+        CurrentActivityHolder.register(this)
         setupTimber()
         createSkinsNotificationChannel()
         initializeSkinWorkManager()
@@ -53,7 +52,7 @@ class AnimeCraftApp : Application() {
 
     fun startSkinWork() {
         if (permissionGranted(WRITE_EXTERNAL_STORAGE) || SDK_INT > Build.VERSION_CODES.Q) {
-            WorkManager.getInstance(this).enqueue(SkinsWorkManager.startSkinsWorker())
+            WorkManager.getInstance(this).enqueue(ua.animecraft.download.manager.SkinsWorkManager.startSkinsWorker())
         }
     }
 
@@ -64,7 +63,7 @@ class AnimeCraftApp : Application() {
     private fun createSkinsNotificationChannel() {
         if (SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                SkinsWorkManager.WORK_SKINS_CHANNEL_ID,
+                ua.animecraft.download.manager.SkinsWorkManager.WORK_SKINS_CHANNEL_ID,
                 getString(R.string.work_skins_channel_name),
                 NotificationManager.IMPORTANCE_HIGH
             )

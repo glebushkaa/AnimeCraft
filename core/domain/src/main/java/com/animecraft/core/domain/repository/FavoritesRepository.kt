@@ -1,7 +1,7 @@
 package com.animecraft.core.domain.repository
 
 import kotlinx.coroutines.flow.Flow
-import ua.anime.animecraft.ui.model.Skin
+import ua.animecraft.model.Skin
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/27/2023.

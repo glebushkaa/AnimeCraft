@@ -6,8 +6,10 @@ plugins {
 
 dependencies {
     "implementation"(project(":core:common-android"))
+    "implementation"(project(":core:common"))
     "implementation"(project(":core:domain"))
     "implementation"(project(":core:log"))
+    "implementation"(project(":core:theme"))
 
     "implementation"(libs.compose.navigation)
     "implementation"(libs.compose.accomponist.navigation.animation)

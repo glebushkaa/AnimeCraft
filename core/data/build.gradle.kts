@@ -13,6 +13,7 @@ android {
 dependencies {
     implementation(projects.core.log)
     implementation(projects.core.domain)
+    implementation(projects.core.network.api)
     implementation(projects.core.database)
 
     implementation(libs.hilt.android)

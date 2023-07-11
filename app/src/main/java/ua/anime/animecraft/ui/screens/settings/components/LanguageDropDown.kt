@@ -25,8 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import com.animecraft.core.android.extensions.languagesList
 import ua.anime.animecraft.R
-import com.animecraft.core.common_android.android.extensions.languagesList
 import ua.anime.animecraft.ui.model.Language
 import ua.anime.animecraft.ui.theme.AppTheme
 
@@ -61,7 +61,7 @@ fun LanguageDropDown(
             LazyColumn(
                 modifier = Modifier.padding(top = AppTheme.offsets.superGigantic),
                 content = {
-                    items(com.animecraft.core.common_android.android.extensions.languagesList) { language ->
+                    items(languagesList) { language ->
                         LanguageDropDownItem(language = language) {
                             languageSelected(language)
                             onClick(false)

@@ -5,4 +5,8 @@ plugins {
 
 dependencies {
     api(projects.core.model)
+    api(projects.core.dataStore.api)
+
+    implementation(libs.kotlinx.coroutines.core.jvm)
+    implementation(libs.inject)
 }

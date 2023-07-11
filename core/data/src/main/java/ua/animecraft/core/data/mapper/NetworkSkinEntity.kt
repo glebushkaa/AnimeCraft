@@ -1,17 +1,17 @@
 package ua.animecraft.core.data.mapper
 
-import ua.anime.animecraft.data.database.entity.SkinEntity
-import ua.anime.animecraft.data.network.model.NetworkSkin
+import ua.animecraft.core.network.api.model.NetworkSkin
+import ua.animecraft.database.entity.SkinEntity
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/27/2023.
  */
 
-fun NetworkSkin.to(gameUrl: String, previewUrl: String, favorite: Boolean) = SkinEntity(
+fun NetworkSkin.toSkinEntity(gameUrl: String, previewUrl: String, favorite: Boolean) = SkinEntity(
     id = id,
-    name = name ?: "Skin",
+    name = name,
     gameImageFileName = gameUrl,
     previewImageFileName = previewUrl,
     favorite = favorite,
-    categoryId = category
+    categoryId = categoryId
 )

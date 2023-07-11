@@ -1,37 +1,34 @@
 package ua.animecraft.core.data.repository
 
 import com.animecraft.core.domain.repository.SkinsRepository
-import javax.inject.Inject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import ua.animecraft.core.data.mapper.to
-import ua.anime.animecraft.data.network.RealtimeSkinsApi
-import ua.anime.animecraft.data.network.StorageSkinsApi
-import ua.anime.animecraft.domain.repository.SkinsRepository
-import ua.anime.animecraft.ui.model.Skin
 import ua.animecraft.core.data.mapper.toSkin
+import ua.animecraft.core.data.mapper.toSkinEntity
 import ua.animecraft.core.data.mapper.toSkinsList
+import ua.animecraft.core.network.api.NetworkDatabaseApi
+import ua.animecraft.core.network.api.NetworkStorageApi
 import ua.animecraft.database.dao.SkinsDao
-import ua.animecraft.database.entity.SkinEntity
 import ua.animecraft.model.Skin
+import javax.inject.Inject
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.
  */
 
 class SkinsRepositoryImpl @Inject constructor(
-    private val realtimeSkinsApi: RealtimeSkinsApi,
-    private val storageSkinsApi: StorageSkinsApi,
+    private val networkDatabaseApi: NetworkDatabaseApi,
+    private val networkStorageApi: NetworkStorageApi,
     private val skinsDao: SkinsDao
 ) : SkinsRepository {
 
     private val skins = mutableMapOf<Int, Skin>()
 
-    override suspend fun getSkinsGameImageUrl(id: Int) = storageSkinsApi.getGameImageUrl(id)
+    override suspend fun getSkinsGameImageUrl(id: Int) = networkStorageApi.getGameImageUrl(id)
 
     override suspend fun getSkinsGameFileName(id: Int) = skins[id]?.gameImageFileName
 
@@ -61,11 +58,11 @@ class SkinsRepositoryImpl @Inject constructor(
         gameFileNamesMap: Map<Int, String>
     ) = coroutineScope {
         val localSkins = skinsDao.getAllSkins()
-        val networkSkins = realtimeSkinsApi.getAllSkins()
+        val networkSkins = networkDatabaseApi.getAllSkins()
         val list = networkSkins.map {
-            val previewImageUrl = async { storageSkinsApi.getPreviewImageUrl(it.id) }
+            val previewImageUrl = async { networkStorageApi.getPreviewImageUrl(it.id) }
             async {
-                it.to(
+                it.toSkinEntity(
                     gameUrl = gameFileNamesMap[it.id] ?: "",
                     previewUrl = previewImageUrl.await(),
                     favorite = localSkins.find { localSkin -> localSkin.id == it.id }?.favorite
