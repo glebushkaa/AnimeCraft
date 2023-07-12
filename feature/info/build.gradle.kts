@@ -9,3 +9,9 @@ plugins {
 android {
     namespace = "${APPLICATION_ID}.feature.info"
 }
+
+dependencies {
+    implementation(projects.core.components)
+
+    implementation(libs.coil.compose)
+}

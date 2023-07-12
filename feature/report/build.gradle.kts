@@ -9,3 +9,7 @@ plugins {
 android {
     namespace = "${APPLICATION_ID}.feature.report"
 }
+
+dependencies {
+    implementation(projects.core.components)
+}

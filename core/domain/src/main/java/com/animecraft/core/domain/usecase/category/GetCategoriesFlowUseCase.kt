@@ -6,7 +6,7 @@ import com.animecraft.core.domain.usecase.core.ResultNoneParamsUseCase
 import com.animecraft.core.domain.usecase.core.UseCaseLogger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import ua.animecraft.model.Category
+import com.animecraft.model.Category
 import javax.inject.Inject
 
 

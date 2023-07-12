@@ -5,7 +5,7 @@ import com.animecraft.core.domain.usecase.core.ResultNoneParamsUseCase
 import com.animecraft.core.domain.usecase.core.UseCaseLogger
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import ua.animecraft.core.data.store.api.DialogsPreferencesApi
+import com.animecraft.core.data.store.api.DialogsPreferencesApi
 import javax.inject.Inject
 
 

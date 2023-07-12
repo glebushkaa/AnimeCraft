@@ -6,7 +6,7 @@ import com.animecraft.core.domain.usecase.core.UseCase
 import com.animecraft.core.domain.usecase.core.UseCaseLogger
 import com.animecraft.core.domain.usecase.preferences.UpdateDownloadDialogDisabledUseCase.Params
 import kotlinx.coroutines.withContext
-import ua.animecraft.core.data.store.api.DialogsPreferencesApi
+import com.animecraft.core.data.store.api.DialogsPreferencesApi
 import javax.inject.Inject
 
 /**

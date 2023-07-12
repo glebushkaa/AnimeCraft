@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="thanks_button_height">40dp</dimen>
+    <dimen name="thanks_image_height">140dp</dimen>
+    <dimen name="rate_button_height">40dp</dimen>
+    <dimen name="rate_smile_size">48dp</dimen>
+    <dimen name="feedback_button_height">40dp</dimen>
+    <dimen name="feedback_min_text_field_height">160dp</dimen>
+
+</resources>

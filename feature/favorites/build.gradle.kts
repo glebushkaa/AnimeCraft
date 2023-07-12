@@ -9,3 +9,7 @@ plugins {
 android {
     namespace = "${APPLICATION_ID}.feature.favorites"
 }
+
+dependencies {
+    implementation(projects.core.components)
+}

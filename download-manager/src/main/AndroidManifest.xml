@@ -7,7 +7,7 @@
     <application>
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="ua.anime.animecraft.androidx-startup"
+            android:authorities="com.anime.animecraft.androidx-startup"
             android:exported="false"
             tools:replace="android:authorities"
             tools:node="merge">

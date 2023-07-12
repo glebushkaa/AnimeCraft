@@ -8,3 +8,12 @@ plugins {
 android {
     namespace = "$APPLICATION_ID.core.components"
 }
+
+dependencies {
+    implementation(projects.core.theme)
+    implementation(projects.core.commonAndroid)
+    implementation(projects.core.model)
+
+    implementation(libs.play.services.ads)
+    implementation(libs.coil.compose)
+}

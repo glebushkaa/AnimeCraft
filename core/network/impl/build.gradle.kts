@@ -4,7 +4,6 @@ plugins {
     id("animecraft.lint")
     id("animecraft.android.library")
     alias(libs.plugins.hilt)
-    alias(libs.plugins.google.services)
     kotlin("kapt")
 }
 android {

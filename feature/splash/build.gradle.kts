@@ -9,3 +9,7 @@ plugins {
 android {
     namespace = "${APPLICATION_ID}.feature.splash"
 }
+
+dependencies {
+    implementation(projects.core.components)
+}

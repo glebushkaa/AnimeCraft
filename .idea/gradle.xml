@@ -49,7 +49,6 @@
             <option value="$PROJECT_DIR$/core/network" />
             <option value="$PROJECT_DIR$/core/network/api" />
             <option value="$PROJECT_DIR$/core/network/impl" />
-            <option value="$PROJECT_DIR$/core/preferences" />
             <option value="$PROJECT_DIR$/core/theme" />
             <option value="$PROJECT_DIR$/download-manager" />
             <option value="$PROJECT_DIR$/feature" />

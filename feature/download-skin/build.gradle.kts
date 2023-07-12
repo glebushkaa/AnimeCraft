@@ -9,3 +9,7 @@ plugins {
 android {
     namespace = "${APPLICATION_ID}.feature.download.skin"
 }
+
+dependencies {
+    implementation(projects.core.components)
+}

@@ -8,13 +8,13 @@
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="ua.anime.animecraft.androidx-startup"
+            android:authorities="com.anime.animecraft.androidx-startup"
             android:exported="false"
             tools:replace="android:authorities"
             tools:node="merge">
 
             <meta-data
-                android:name="ua.animecraft.ad.impl.MobileAdsInitializer"
+                android:name="com.anime.animecraft.ad.impl.MobileAdsInitializer"
                 android:value="androidx.startup" />
         </provider>
 

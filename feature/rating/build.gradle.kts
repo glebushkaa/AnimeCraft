@@ -9,3 +9,7 @@ plugins {
 android {
     namespace = "${APPLICATION_ID}.feature.rating"
 }
+
+dependencies {
+    implementation(projects.core.components)
+}
