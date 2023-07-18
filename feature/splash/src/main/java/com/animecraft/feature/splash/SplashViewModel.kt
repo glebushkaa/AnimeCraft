@@ -1,13 +1,14 @@
 package com.animecraft.feature.splash
 
 import com.anime.animecraft.core.android.AnimeCraftViewModel
+import com.animecraft.animecraft.common.SIX_HUNDRED_MILLIS
 import com.animecraft.core.domain.usecase.ad.ShowOpenAdUseCase
+import com.animecraft.core.domain.usecase.preferences.IncreaseTimesAppOpenedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import com.animecraft.animecraft.common.SIX_HUNDRED_MILLIS
 import javax.inject.Inject
 
 /**
@@ -16,11 +17,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val showOpenAdUseCase: ShowOpenAdUseCase
+    private val showOpenAdUseCase: ShowOpenAdUseCase,
+    private val increaseTimesAppOpenedUseCase: IncreaseTimesAppOpenedUseCase
 ) : AnimeCraftViewModel() {
 
     private val _screenState = MutableStateFlow(SplashScreenState())
     val screenState = _screenState.asStateFlow()
+
+    init {
+        increaseTimesAppOpened()
+    }
 
     fun startSplashScreen(
         appName: String,
@@ -34,6 +40,10 @@ class SplashViewModel @Inject constructor(
         changeProgressState(false)
         delay(SIX_HUNDRED_MILLIS)
         finishSplashScreen()
+    }
+
+    private fun increaseTimesAppOpened() = viewModelScope.launch {
+        increaseTimesAppOpenedUseCase()
     }
 
     private fun startAppNameAnimation(name: String) = viewModelScope.launch {

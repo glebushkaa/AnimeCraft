@@ -18,6 +18,7 @@ dependencies {
     implementation(projects.core.log)
 
     implementation(libs.play.services.ads)
+    implementation(libs.work.manager)
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)

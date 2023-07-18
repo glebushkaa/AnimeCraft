@@ -8,17 +8,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:205158083307:android:07b6f4f95dd965bb746cae",
+        "mobilesdk_app_id": "1:205158083307:android:19e127b2c1aeec7d746cae",
         "android_client_info": {
-          "package_name": "ua.anime.animecraft"
+          "package_name": "com.anime.animecraft"
         }
       },
       "oauth_client": [
         {
-          "client_id": "205158083307-nvbjdrf589j5r04cplcs4sn2fjm11l9e.apps.googleusercontent.com",
+          "client_id": "205158083307-hv1ghhbsvo2metnov4lqaui4egqo9rbf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "ua.anime.animecraft",
+            "package_name": "com.anime.animecraft",
             "certificate_hash": "4c022be681ee046d3008bebc4889da0317ae7908"
           }
         },

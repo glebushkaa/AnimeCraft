@@ -8,17 +8,17 @@ import androidx.work.BackoffPolicy
 import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
-import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkerParameters
 import com.animecraft.core.domain.repository.CategoryRepository
 import com.animecraft.core.domain.repository.SkinsRepository
+import com.animecraft.model.Skin
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
-import com.animecraft.model.Skin
+import com.animecraft.core.log.error
 import java.io.File
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -45,7 +45,7 @@ class SkinsWorkManager @AssistedInject constructor(
             skinsRepository.updateLocalSkinsFromNetwork(skinsImageMap)
             Result.success()
         }.onFailure {
-            com.animecraft.core.log.error("SkinsWorkManager", it) { it.message ?: "" }
+            error("SkinsWorkManager", it) { it.message ?: "" }
         }.getOrDefault(Result.failure())
     }
 
@@ -96,7 +96,7 @@ class SkinsWorkManager @AssistedInject constructor(
     companion object {
         fun startSkinsWorker(): OneTimeWorkRequest {
             val constraints = Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
+//                .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build()
             return OneTimeWorkRequest.Builder(SkinsWorkManager::class.java)
                 .addTag(WORKER_TAG)

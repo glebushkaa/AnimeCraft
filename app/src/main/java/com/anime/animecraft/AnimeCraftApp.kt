@@ -8,15 +8,13 @@ import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import androidx.work.Configuration
 import androidx.work.WorkManager
-import dagger.hilt.android.HiltAndroidApp
-import javax.inject.Inject
-import timber.log.Timber
+import com.anime.animecraft.activity.holder.CurrentActivityHolder
 import com.anime.animecraft.core.android.extensions.permissionGranted
 import com.anime.animecraft.download.manager.SkinsWorkFactory
 import com.anime.animecraft.download.manager.SkinsWorkManager
-import com.animecraft.activity.holder.CurrentActivityHolder
-import com.animecraft.data.store.SettingsPreferencesApiImpl
-import com.animecraft.data.store.SettingsPreferencesApiImpl.Companion.TIMES_APP_OPENED
+import dagger.hilt.android.HiltAndroidApp
+import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 4/30/2023.
@@ -28,9 +26,6 @@ class AnimeCraftApp : Application() {
     @Inject
     lateinit var skinsWorkFactory: SkinsWorkFactory
 
-    @Inject
-    lateinit var settingsPreferencesApiImpl: com.animecraft.data.store.SettingsPreferencesApiImpl
-
     override fun onCreate() {
         super.onCreate()
         CurrentActivityHolder.register(this)
@@ -38,12 +33,6 @@ class AnimeCraftApp : Application() {
         createSkinsNotificationChannel()
         initializeSkinWorkManager()
         startSkinWork()
-        increaseTimesAppOpened()
-    }
-
-    private fun increaseTimesAppOpened() {
-        val timesAppOpened = settingsPreferencesApiImpl.getInt(TIMES_APP_OPENED) ?: 0
-        settingsPreferencesApiImpl.putInt(TIMES_APP_OPENED, timesAppOpened + 1)
     }
 
     private fun initializeSkinWorkManager() {
@@ -61,15 +50,13 @@ class AnimeCraftApp : Application() {
         .build()
 
     private fun createSkinsNotificationChannel() {
-        if (SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                SkinsWorkManager.WORK_SKINS_CHANNEL_ID,
-                getString(R.string.work_skins_channel_name),
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            val notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
-        }
+        val channel = NotificationChannel(
+            SkinsWorkManager.WORK_SKINS_CHANNEL_ID,
+            getString(R.string.work_skins_channel_name),
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        val notificationManager = getSystemService(NotificationManager::class.java)
+        notificationManager.createNotificationChannel(channel)
     }
 
     private fun setupTimber() {

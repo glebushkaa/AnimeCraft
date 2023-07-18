@@ -18,6 +18,7 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.data)
     implementation(projects.core.commonAndroid)
+    implementation(projects.core.activityHolder)
     implementation(projects.core.common)
     implementation(projects.core.navigation)
     implementation(projects.core.network.api)
@@ -44,6 +45,8 @@ dependencies {
     implementation(projects.feature.downloadSkin)
     implementation(projects.feature.rating)
 
+    implementation(libs.work.manager)
+    implementation(libs.firebase.crashlytics.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.timber)
     implementation(libs.play.core)

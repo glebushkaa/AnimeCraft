@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
 import androidx.startup.Initializer
+import com.anime.animecraft.core.ad.impl.BuildConfig
 import com.animecraft.core.log.debug
 import com.animecraft.core.log.error
 import com.animecraft.core.log.info
