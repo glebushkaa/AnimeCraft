@@ -9,6 +9,7 @@
     <dimen name="preview_download_height">40dp</dimen>
     <dimen name="preview_progress_size">48dp</dimen>
 
-    <dimen name="like_button_size">24dp</dimen>
+    <dimen name="like_icon_size">24dp</dimen>
+    <dimen name="like_button_size">32dp</dimen>
 
 </resources>

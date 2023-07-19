@@ -19,3 +19,7 @@ fun List<Skin>.filterListByName(name: String) = filter {
 fun List<Skin>.filterListByCategoryId(categoryId: Int) = filter {
     it.categoryId == categoryId
 }
+
+fun <T> List<T>.performIf(predicate: Boolean, action: List<T>.() -> List<T>): List<T> {
+    return if (predicate) action(this) else this
+}

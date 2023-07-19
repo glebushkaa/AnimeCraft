@@ -14,6 +14,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import com.animecraft.animecraft.common.filterListByName
 import com.animecraft.animecraft.common.replaceAllElements
+import com.animecraft.core.domain.DispatchersProvider
+import com.animecraft.core.domain.usecase.skin.GetFavoritesSkinsFlowUseCase
+import com.animecraft.core.domain.usecase.skin.UpdateSkinFavoriteStateUseCase
 import com.animecraft.model.Skin
 import javax.inject.Inject
 
@@ -23,20 +26,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
-    private val updateSkinFavoriteStateUseCase: com.animecraft.core.domain.usecase.skin.UpdateSkinFavoriteStateUseCase,
-    private val getFavoritesSkinsFlowUseCase: com.animecraft.core.domain.usecase.skin.GetFavoritesSkinsFlowUseCase,
+    private val dispatchersProvider: DispatchersProvider,
+    private val updateSkinFavoriteStateUseCase: UpdateSkinFavoriteStateUseCase,
+    private val getFavoritesSkinsFlowUseCase: GetFavoritesSkinsFlowUseCase,
     private val getDownloadDialogDisabledFlowUseCase: GetDownloadDialogDisabledFlowUseCase,
-    private val saveSkinGameUseCase: com.animecraft.core.domain.usecase.files.SaveSkinGameUseCase
+    private val saveSkinGameUseCase: SaveSkinGameUseCase
 ) : AnimeCraftViewModel() {
 
     private val _screenState = MutableStateFlow(FavoriteScreenState())
     val screenState = _screenState.asStateFlow()
-
-    private val _favoritesFlow = MutableStateFlow(listOf<Skin>())
-    val favoritesFlow = _favoritesFlow.asStateFlow()
-
-    private val _downloadFlow = MutableStateFlow<ResourceEvent<Unit>?>(null)
-    val downloadFlow = _downloadFlow.asStateFlow()
 
     private val favorites = mutableListOf<Skin>()
 
@@ -47,20 +45,20 @@ class FavoritesViewModel @Inject constructor(
         collectDialogDisabledFlow()
     }
 
-    fun updateSearchInput(input: String) = viewModelScope.launch {
+    fun updateSearchInput(input: String) = viewModelScope.launch(dispatchersProvider.io()) {
         val state = _screenState.value.copy(searchInput = input)
         _screenState.emit(state)
         emitFilteredSkins()
     }
 
-    fun showDownloadDialog() = viewModelScope.launch {
+    fun showDownloadDialog() = viewModelScope.launch(dispatchersProvider.io()) {
         val state = _screenState.value.copy(
             downloadDialogShown = Event(true)
         )
         _screenState.emit(state)
     }
 
-    fun updateFavoriteSkin(id: Int) = viewModelScope.launch {
+    fun updateFavoriteSkin(id: Int) = viewModelScope.launch(dispatchersProvider.io()) {
         val favorite = favorites.find { it.id == id }?.favorite?.not() ?: false
         val params = com.animecraft.core.domain.usecase.skin.UpdateSkinFavoriteStateUseCase.Params(
             skinId = id, favorite = favorite
@@ -68,29 +66,32 @@ class FavoritesViewModel @Inject constructor(
         updateSkinFavoriteStateUseCase(params)
     }
 
-    fun saveGameSkinImage(id: Int) = viewModelScope.launch {
+    fun saveGameSkinImage(id: Int) = viewModelScope.launch(dispatchersProvider.io()) {
         val gameImageFileName = favorites.find { it.id == id }?.gameImageFileName ?: return@launch
         val ableToSaveInGame = SDK_INT >= Build.VERSION_CODES.Q
         val params = SaveSkinGameUseCase.Params(gameImageFileName, ableToSaveInGame)
-        val result = saveSkinGameUseCase(params).toResourceEvent()
-        _downloadFlow.emit(result)
+        val result = saveSkinGameUseCase(params)
+        val state = _screenState.value.copy(
+            downloadState = Event(result.isSuccess)
+        )
+        _screenState.emit(state)
     }
 
-    private fun emitFilteredSkins() = viewModelScope.launch {
+    private fun emitFilteredSkins() = viewModelScope.launch(dispatchersProvider.io()) {
         val searchInput = _screenState.value.searchInput
         val list = favorites.filterListByName(searchInput)
         val state = _screenState.value.copy(favorites = list)
         _screenState.emit(state)
     }
 
-    private fun collectFavoritesFlow() = viewModelScope.launch {
+    private fun collectFavoritesFlow() = viewModelScope.launch(dispatchersProvider.io()) {
         getFavoritesSkinsFlowUseCase().getOrNull()?.collect { items ->
             favorites.replaceAllElements(items)
             emitFilteredSkins()
         }
     }
 
-    private fun collectDialogDisabledFlow() = viewModelScope.launch {
+    private fun collectDialogDisabledFlow() = viewModelScope.launch(dispatchersProvider.io()) {
         getDownloadDialogDisabledFlowUseCase().getOrNull()?.collect { disabled ->
             downloadDialogDisabled = disabled
         }

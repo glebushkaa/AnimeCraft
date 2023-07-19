@@ -8,5 +8,5 @@ package com.animecraft.core.network.api.model
 data class NetworkSkin(
     val id: Int,
     val name: String,
-    val categoryId: Int
+    val category: Int
 )

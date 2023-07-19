@@ -117,12 +117,12 @@ fun MainScreen(
                 onDownloadClicked = { id ->
                     when {
                         context.permissionGranted(WRITE_EXTERNAL_STORAGE) &&
-                                SDK_INT <= VERSION_CODES.Q -> {
+                            SDK_INT <= VERSION_CODES.Q -> {
                             mainViewModel.saveGameSkinImage(id)
                         }
 
                         SDK_INT > VERSION_CODES.Q -> {
-                            mainViewModel.showDownloadDialog()
+                            mainViewModel.tryShowDownloadDialog()
                             mainViewModel.saveGameSkinImage(id)
                         }
 
@@ -147,13 +147,14 @@ fun MainScreen(
     }
 
     LaunchedEffect(key1 = screenState.downloadDialogShown) {
-        val value = screenState.downloadDialogShown.getContentIfNotHandled() ?: return@LaunchedEffect
+        val value =
+            screenState.downloadDialogShown.getContentIfNotHandled() ?: return@LaunchedEffect
         if (!value) return@LaunchedEffect
         onDownloadDialogNavigate()
     }
 
     LaunchedEffect(key1 = screenState.downloadState) {
-        val value = screenState.downloadState.getContentIfNotHandled() ?: return@LaunchedEffect
+        val value = screenState.downloadState?.getContentIfNotHandled() ?: return@LaunchedEffect
         val text = if (value) skinDownloadedText else somethingWrongText
         context.toast(text)
     }

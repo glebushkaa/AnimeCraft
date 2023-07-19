@@ -12,6 +12,6 @@ fun FirebaseSkin.toNetworkSkin(): NetworkSkin {
     return NetworkSkin(
         id = id,
         name = name ?: "",
-        categoryId = categoryId ?: 0,
+        category= category ?: 0,
     )
 }

@@ -10,5 +10,5 @@ import androidx.annotation.Keep
 data class FirebaseSkin(
     val id: Int = 0,
     val name: String? = null,
-    val categoryId: Int? = null
+    val category: Int? = null
 )

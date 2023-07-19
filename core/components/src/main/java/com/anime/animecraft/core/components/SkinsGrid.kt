@@ -40,7 +40,7 @@ fun SkinsGrid(
             header { headerItem() }
             items(
                 items = skins,
-                key = { skin -> skin.id }
+                key = { it.id }
             ) { skin ->
                 PreviewItem(
                     modifier = Modifier.animateItemPlacement(),

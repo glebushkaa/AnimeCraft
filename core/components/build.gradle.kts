@@ -12,6 +12,7 @@ android {
 dependencies {
     implementation(projects.core.theme)
     implementation(projects.core.commonAndroid)
+    implementation(projects.core.common)
     implementation(projects.core.model)
 
     implementation(libs.play.services.ads)

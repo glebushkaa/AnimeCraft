@@ -19,9 +19,15 @@ import kotlinx.coroutines.launch
 import com.animecraft.animecraft.common.TWO_SECONDS
 import com.animecraft.animecraft.common.filterListByCategoryId
 import com.animecraft.animecraft.common.filterListByName
+import com.animecraft.animecraft.common.performIf
 import com.animecraft.animecraft.common.replaceAllElements
+import com.animecraft.core.domain.DispatchersProvider
+import com.animecraft.core.log.debug
 import com.animecraft.model.Category
 import com.animecraft.model.Skin
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
 
 /**
@@ -30,6 +36,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
+    private val dispatchersProvider: DispatchersProvider,
     private val getAllSkinsFlowUseCase: GetAllSkinsFlowUseCase,
     private val updateSkinFavoriteStateUseCase: UpdateSkinFavoriteStateUseCase,
     private val getCategoriesFlowUseCase: GetCategoriesFlowUseCase,
@@ -58,26 +65,28 @@ class MainViewModel @Inject constructor(
         tryShowRateDialog()
     }
 
-    fun updateSearchInput(input: String) = viewModelScope.launch {
+    fun updateSearchInput(input: String) = viewModelScope.launch(dispatchersProvider.io()) {
         val state = _screenState.value.copy(searchInput = input)
         _screenState.emit(state)
         emitFilteredSkins()
     }
 
-    fun updateSelectedCategory(category: Category?) = viewModelScope.launch {
-        val selectedCategoryId = _screenState.value.selectedCategory?.id
-        val _category = if (category?.id == selectedCategoryId) null else category
-        val state = _screenState.value.copy(selectedCategory = _category)
-        _screenState.emit(state)
-        emitFilteredSkins()
-    }
+    fun updateSelectedCategory(category: Category?) =
+        viewModelScope.launch(dispatchersProvider.io()) {
+            val selectedCategoryId = _screenState.value.selectedCategory?.id
+            val _category = if (category?.id == selectedCategoryId) null else category
+            val state = _screenState.value.copy(selectedCategory = _category)
+            _screenState.emit(state)
+            emitFilteredSkins()
+        }
 
-    fun showDownloadDialog() = viewModelScope.launch {
+    fun tryShowDownloadDialog() = viewModelScope.launch(dispatchersProvider.io()) {
+        if (downloadDialogDisabled) return@launch
         val state = _screenState.value.copy(downloadDialogShown = Event(true))
         _screenState.emit(state)
     }
 
-    fun saveGameSkinImage(id: Int) = viewModelScope.launch {
+    fun saveGameSkinImage(id: Int) = viewModelScope.launch(dispatchersProvider.io()) {
         val gameImageFileName = skins.find { it.id == id }?.gameImageFileName ?: return@launch
         val ableToSaveInGame = SDK_INT <= VERSION_CODES.Q
         val params = SaveSkinGameUseCase.Params(gameImageFileName, ableToSaveInGame)
@@ -86,59 +95,59 @@ class MainViewModel @Inject constructor(
         _screenState.emit(state)
     }
 
-    fun updateFavoriteSkin(id: Int) = viewModelScope.launch {
+    fun updateFavoriteSkin(id: Int) = viewModelScope.launch(dispatchersProvider.io()) {
         val favorite = skins.find { it.id == id }?.favorite?.not() ?: false
         val params = UpdateSkinFavoriteStateUseCase.Params(id, favorite)
         updateSkinFavoriteStateUseCase(params)
     }
 
-    private fun emitFilteredSkins() = viewModelScope.launch {
+    private fun emitFilteredSkins() = viewModelScope.launch(dispatchersProvider.io()) {
         val category = _screenState.value.selectedCategory
         val searchInput = _screenState.value.searchInput
-        val list = skins.apply {
+        val list = skins.performIf(searchInput.isNotEmpty()) {
             filterListByName(searchInput)
-            category?.let { filterListByCategoryId(it.id) }
-        }
+        }.performIf(category != null) {
+            filterListByCategoryId(category!!.id)
+        }.toList()
         val state = _screenState.value.copy(skins = list)
         _screenState.emit(state)
     }
-
-    private fun collectCategories() = viewModelScope.launch {
+    private fun collectCategories() = viewModelScope.launch(dispatchersProvider.io()) {
         getCategoriesFlowUseCase().getOrNull()?.collect {
             val state = _screenState.value.copy(categories = it)
             _screenState.emit(state)
         }
     }
 
-    private fun tryShowRateDialog() = viewModelScope.launch {
+    private fun tryShowRateDialog() = viewModelScope.launch(dispatchersProvider.io()) {
         delay(TWO_SECONDS)
         if (!shouldRateDialogBeShown()) return@launch
         val state = _screenState.value.copy(rateDialogShown = Event(true))
         _screenState.emit(state)
     }
 
-    private fun collectSkins() = viewModelScope.launch {
+    private fun collectSkins() = viewModelScope.launch(dispatchersProvider.io()) {
         getAllSkinsFlowUseCase().getOrNull()?.collect {
             skins.replaceAllElements(it)
-            val state = _screenState.value.copy(isLoading = false)
+            val state = _screenState.value.copy(isLoading = true )
             _screenState.emit(state)
             emitFilteredSkins()
         }
     }
 
-    private fun collectDownloadDialogDisabled() = viewModelScope.launch {
+    private fun collectDownloadDialogDisabled() = viewModelScope.launch(dispatchersProvider.io()) {
         getDownloadDialogDisabledFlowUseCase().getOrNull()?.collect {
             downloadDialogDisabled = it
         }
     }
 
-    private fun collectRateDialogDisabled() = viewModelScope.launch {
+    private fun collectRateDialogDisabled() = viewModelScope.launch(dispatchersProvider.io()) {
         getRateDialogDisabledFlowUseCase().getOrNull()?.collect {
             rateDialogDisabled = it
         }
     }
 
-    private fun collectRateCompleted() = viewModelScope.launch {
+    private fun collectRateCompleted() = viewModelScope.launch(dispatchersProvider.io()) {
         getRateCompletedFlowUseCase().getOrNull()?.collect {
             rateCompleted = it
         }
@@ -146,9 +155,9 @@ class MainViewModel @Inject constructor(
 
     private fun shouldRateDialogBeShown(): Boolean {
         return !rateDialogDisabled &&
-                timesAppOpened % EVERY_THIRD_OPEN == 0 &&
-                timesAppOpened >= EVERY_THIRD_OPEN &&
-                !rateCompleted
+            timesAppOpened % EVERY_THIRD_OPEN == 0 &&
+            timesAppOpened >= EVERY_THIRD_OPEN &&
+            !rateCompleted
     }
 
     private companion object {

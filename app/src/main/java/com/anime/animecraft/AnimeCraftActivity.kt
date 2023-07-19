@@ -29,8 +29,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class AnimeCraftActivity : ComponentActivity() {
 
-    private val animeViewModel: AnimeViewModel by viewModels()
-
     @Inject
     lateinit var splitInstallManager: SplitInstallManager
 

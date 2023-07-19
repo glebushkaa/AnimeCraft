@@ -25,5 +25,6 @@ dependencies {
     implementation(projects.core.common)
 
     implementation(libs.compose.navigation)
+    implementation(libs.hilt.navigation.compose)
     implementation(libs.compose.accomponist.navigation.animation)
 }

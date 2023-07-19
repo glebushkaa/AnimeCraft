@@ -13,5 +13,5 @@ fun NetworkSkin.toSkinEntity(gameUrl: String, previewUrl: String, favorite: Bool
     gameImageFileName = gameUrl,
     previewImageFileName = previewUrl,
     favorite = favorite,
-    categoryId = categoryId
+    categoryId = category
 )

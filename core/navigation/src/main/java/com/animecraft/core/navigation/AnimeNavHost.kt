@@ -7,7 +7,9 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.dialog
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import downloadSkinDialogComposable
 import com.anime.animecraft.ui.navigation.routes.favoriteScreenComposable
@@ -30,6 +32,7 @@ import com.animecraft.feature.rating.RatingDialog
 import com.animecraft.feature.rating.ThanksDialog
 import com.animecraft.feature.settings.SettingsScreen
 import com.animecraft.feature.splash.SplashScreen
+import com.google.accompanist.navigation.animation.composable
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.

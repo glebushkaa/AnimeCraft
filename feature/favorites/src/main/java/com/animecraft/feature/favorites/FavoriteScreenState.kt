@@ -9,7 +9,7 @@ import com.animecraft.model.Skin
 
 data class FavoriteScreenState(
     val favorites: List<Skin> = listOf(),
-    val downloadState: Event<Boolean> = Event(false),
+    val downloadState: Event<Boolean>? = null,
     val searchInput: String = "",
     val downloadDialogShown: Event<Boolean> = Event(false)
 )

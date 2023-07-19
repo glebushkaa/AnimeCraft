@@ -100,9 +100,9 @@ fun SettingsScreen(
                 onShareClicked = { context.shareApp(shareAppLink) },
                 onDarkModeChanged = { settingsViewModel.updateDarkModeState() },
                 darkMode = state.darkModeEnabled,
-                downloadHelpDialogCheck = !state.downloadDialogDisabled,
+                downloadHelpDialogCheck = state.downloadDialogDisabled,
                 onDownloadSettingChanged = settingsViewModel::updateDownloadDialogSetting,
-                downloadDialogSettingVisible = !state.downloadDialogDisabled,
+                downloadDialogSettingVisible = state.downloadDialogDisabled,
                 onFeedbackClicked = settingsViewModel::showRatingDialog
             )
         }

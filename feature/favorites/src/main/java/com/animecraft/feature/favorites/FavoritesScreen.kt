@@ -135,7 +135,7 @@ fun FavoritesScreen(
     )
 
     LaunchedEffect(key1 = state.downloadState) {
-        val value = state.downloadState.getContentIfNotHandled() ?: return@LaunchedEffect
+        val value = state.downloadState?.getContentIfNotHandled() ?: return@LaunchedEffect
         val text = if (value) skinDownloadedText else somethingWrongText
         context.toast(text)
     }
