@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "${APPLICATION_ID}.feature.rating"
+    namespace = "$APPLICATION_ID.feature.rating"
 }
 
 dependencies {

@@ -23,34 +23,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.anime.animecraft.core.android.extensions.sendFeedback
 import com.anime.animecraft.core.components.AnimatedScaleDialogContent
 import com.anime.animecraft.core.components.PRE_DISMISS_DELAY
+import com.anime.animecraft.core.theme.theme.AppTheme
+import com.animecraft.animecraft.common.ONE_SECOND
 import com.animecraft.feature.rating.feedback.FeedbackDialogContent
 import com.animecraft.feature.rating.rate.RateDialogContent
 import com.animecraft.feature.rating.thanks.ThanksDialogContent
-import com.animecraft.animecraft.common.ONE_SECOND
-import com.anime.animecraft.core.theme.theme.AppTheme
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/31/2023
+ *
+ * TODO send rating to firebase as well
+ *
  */
-
-private const val MIN_GOOD_GRADE = 50
-private const val RATING_DIALOG_ANIMATION_DURATION = 600
-private val ratingDialogAnimationSpec = tween<Float>(RATING_DIALOG_ANIMATION_DURATION)
-
-private val ratingDialogModeContentTransform =
-    scaleIn(ratingDialogAnimationSpec) + fadeIn(ratingDialogAnimationSpec) with
-        scaleOut(ratingDialogAnimationSpec) + fadeOut(ratingDialogAnimationSpec)
 
 @Composable
 fun RatingDialog(
     onDismissRequest: () -> Unit = {},
     onRatingDialogDisable: () -> Unit = {},
-    onRatingDialogCompleted: () -> Unit = {}
+    onRatingDialogCompleted: () -> Unit = {},
+    ratingViewModel: RatingViewModel = hiltViewModel()
 ) {
     var isDismissed by rememberSaveable { mutableStateOf(false) }
 
@@ -143,3 +140,11 @@ private fun AnimatedRatingDialogContent(
         }
     }
 }
+
+private const val MIN_GOOD_GRADE = 50
+private const val RATING_DIALOG_ANIMATION_DURATION = 600
+private val ratingDialogAnimationSpec = tween<Float>(RATING_DIALOG_ANIMATION_DURATION)
+
+private val ratingDialogModeContentTransform =
+    scaleIn(ratingDialogAnimationSpec) + fadeIn(ratingDialogAnimationSpec) with
+        scaleOut(ratingDialogAnimationSpec) + fadeOut(ratingDialogAnimationSpec)

@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "${APPLICATION_ID}.feature.report"
+    namespace = "$APPLICATION_ID.feature.report"
 }
 
 dependencies {

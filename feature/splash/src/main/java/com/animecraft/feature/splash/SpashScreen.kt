@@ -24,11 +24,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.anime.animecraft.feature.splash.R
 import com.anime.animecraft.core.android.extensions.collectAsStateWithLifecycle
 import com.anime.animecraft.core.components.RoundedProgressIndicator
 import com.anime.animecraft.core.theme.theme.AnimeCraftTheme
 import com.anime.animecraft.core.theme.theme.AppTheme
+import com.anime.animecraft.feature.splash.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 4/30/2023.

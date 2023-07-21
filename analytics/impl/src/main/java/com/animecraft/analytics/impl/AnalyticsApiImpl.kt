@@ -2,9 +2,9 @@ package com.animecraft.analytics.impl
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
+import com.animecraft.analytics.api.AnalyticsApi
 import com.animecraft.core.log.warn
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.animecraft.analytics.api.AnalyticsApi
 import javax.inject.Inject
 
 /**

@@ -4,11 +4,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import com.animecraft.core.data.store.api.DialogsPreferencesApi
 import javax.inject.Inject
-
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 7/9/2023.

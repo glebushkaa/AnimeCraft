@@ -1,5 +1,5 @@
 @file:Suppress("LongMethod", "FunctionName", "LongParameterList")
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.animecraft.feature.settings
 
@@ -29,12 +29,12 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.anime.animecraft.feature.settings.R
 import com.anime.animecraft.core.android.extensions.collectAsStateWithLifecycle
 import com.anime.animecraft.core.android.extensions.shareApp
 import com.anime.animecraft.core.components.AppTopBar
 import com.anime.animecraft.core.components.buttons.BackButton
 import com.anime.animecraft.core.theme.theme.AppTheme
+import com.anime.animecraft.feature.settings.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/15/2023.
@@ -46,6 +46,7 @@ fun SettingsScreen(
     onLanguageScreenNavigate: () -> Unit = {},
     onReportScreenNavigate: () -> Unit = {},
     onFavoritesScreenNavigate: () -> Unit = {},
+    onRatingDialogNavigate: () -> Unit = {},
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -57,21 +58,6 @@ fun SettingsScreen(
     val state by settingsViewModel.screenState.collectAsStateWithLifecycle(
         initialValue = SettingsScreenState()
     )
-
-    /*if (ratingDialogShown) {
-        RatingDialog(
-            onDismissRequest = {
-                ratingDialogShown = false
-            },
-            onRatingDialogCompleted = {
-                mainViewModel.setRateDialogCompleted()
-            },
-            onRatingDialogDisable = {
-                mainViewModel.disableRateDialog()
-                ratingDialogShown = false
-            }
-        )
-    }*/
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -98,12 +84,12 @@ fun SettingsScreen(
                 onLanguageScreenNavigate = onLanguageScreenNavigate,
                 onReportScreenNavigate = onReportScreenNavigate,
                 onShareClicked = { context.shareApp(shareAppLink) },
-                onDarkModeChanged = { settingsViewModel.updateDarkModeState() },
+                onDarkModeChanged = { settingsViewModel.updateDarkMode() },
                 darkMode = state.darkModeEnabled,
                 downloadHelpDialogCheck = state.downloadDialogDisabled,
                 onDownloadSettingChanged = settingsViewModel::updateDownloadDialogSetting,
                 downloadDialogSettingVisible = state.downloadDialogDisabled,
-                onFeedbackClicked = settingsViewModel::showRatingDialog
+                onFeedbackClicked = onRatingDialogNavigate
             )
         }
     )

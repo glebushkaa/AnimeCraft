@@ -7,13 +7,9 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.dialog
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import downloadSkinDialogComposable
-import com.anime.animecraft.ui.navigation.routes.favoriteScreenComposable
-import com.animecraft.feature.report.ReportScreen
+import com.anime.animecraft.core.theme.theme.AppTheme
+import com.animecraft.core.navigation.composables.favoriteScreenComposable
 import com.animecraft.core.navigation.composables.infoScreenComposable
 import com.animecraft.core.navigation.composables.languageScreenComposable
 import com.animecraft.core.navigation.composables.mainScreenComposable
@@ -22,7 +18,6 @@ import com.animecraft.core.navigation.composables.reportScreenComposable
 import com.animecraft.core.navigation.composables.settingsScreenComposable
 import com.animecraft.core.navigation.composables.splashScreenComposable
 import com.animecraft.core.navigation.composables.thanksDialogComposable
-import com.anime.animecraft.core.theme.theme.AppTheme
 import com.animecraft.feature.download.skin.DownloadSkinDialog
 import com.animecraft.feature.favorites.FavoritesScreen
 import com.animecraft.feature.info.InfoScreen
@@ -30,9 +25,11 @@ import com.animecraft.feature.language.LanguageScreen
 import com.animecraft.feature.main.MainScreen
 import com.animecraft.feature.rating.RatingDialog
 import com.animecraft.feature.rating.ThanksDialog
+import com.animecraft.feature.report.ReportScreen
 import com.animecraft.feature.settings.SettingsScreen
 import com.animecraft.feature.splash.SplashScreen
-import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import downloadSkinDialogComposable
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/21/2023.
@@ -91,6 +88,9 @@ fun AnimeCraftHost(
                         route = Favorites.route,
                         popUpRoute = Settings.route
                     )
+                },
+                onRatingDialogNavigate = {
+                    navController.navigateSingleTopTo(RatingDialog.route)
                 }
             )
         }
@@ -134,7 +134,10 @@ fun AnimeCraftHost(
         }
         infoScreenComposable {
             InfoScreen(
-                onBackClicked = navController::popBackStack
+                onBackClicked = navController::popBackStack,
+                onDownloadDialogNavigate = {
+                    navController.navigateSingleTopTo(DownloadSkinDialog.route)
+                }
             )
         }
 

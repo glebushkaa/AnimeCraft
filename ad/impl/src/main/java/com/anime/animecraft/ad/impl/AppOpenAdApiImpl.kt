@@ -1,6 +1,8 @@
 package com.anime.animecraft.ad.impl
 
 import android.annotation.SuppressLint
+import com.anime.animecraft.activity.holder.CurrentActivityHolder
+import com.animecraft.ad.api.AppOpenAdApi
 import com.animecraft.core.log.error
 import com.animecraft.core.log.info
 import com.animecraft.core.log.tag
@@ -9,13 +11,11 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.appopen.AppOpenAd
-import kotlinx.coroutines.CancellableContinuation
-import kotlinx.coroutines.suspendCancellableCoroutine
-import com.anime.animecraft.activity.holder.CurrentActivityHolder
-import com.animecraft.ad.api.AppOpenAdApi
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+import kotlinx.coroutines.CancellableContinuation
+import kotlinx.coroutines.suspendCancellableCoroutine
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/29/2023

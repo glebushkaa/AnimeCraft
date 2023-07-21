@@ -1,34 +1,34 @@
+@file:Suppress("LongParameterList", "TooManyFunctions")
+
 package com.animecraft.feature.main
 
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES
 import com.anime.animecraft.core.android.AnimeCraftViewModel
 import com.anime.animecraft.core.android.Event
-import com.animecraft.core.domain.usecase.category.GetCategoriesFlowUseCase
-import com.animecraft.core.domain.usecase.files.SaveSkinGameUseCase
-import com.animecraft.core.domain.usecase.preferences.GetDownloadDialogDisabledFlowUseCase
-import com.animecraft.core.domain.usecase.preferences.GetRateCompletedFlowUseCase
-import com.animecraft.core.domain.usecase.preferences.GetRateDialogDisabledFlowUseCase
-import com.animecraft.core.domain.usecase.skin.GetAllSkinsFlowUseCase
-import com.animecraft.core.domain.usecase.skin.UpdateSkinFavoriteStateUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import com.anime.animecraft.core.components.model.GridState
 import com.animecraft.animecraft.common.TWO_SECONDS
 import com.animecraft.animecraft.common.filterListByCategoryId
 import com.animecraft.animecraft.common.filterListByName
 import com.animecraft.animecraft.common.performIf
 import com.animecraft.animecraft.common.replaceAllElements
 import com.animecraft.core.domain.DispatchersProvider
-import com.animecraft.core.log.debug
+import com.animecraft.core.domain.usecase.category.GetCategoriesFlowUseCase
+import com.animecraft.core.domain.usecase.files.SaveSkinGameUseCase
+import com.animecraft.core.domain.usecase.preferences.analytics.GetTimesAppOpenedFlowUseCase
+import com.animecraft.core.domain.usecase.preferences.download.GetDownloadDialogDisabledFlowUseCase
+import com.animecraft.core.domain.usecase.preferences.rate.GetRateCompletedFlowUseCase
+import com.animecraft.core.domain.usecase.preferences.rate.GetRateDialogDisabledFlowUseCase
+import com.animecraft.core.domain.usecase.skin.GetAllSkinsFlowUseCase
+import com.animecraft.core.domain.usecase.skin.UpdateSkinFavoriteStateUseCase
 import com.animecraft.model.Category
 import com.animecraft.model.Skin
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.
@@ -43,7 +43,8 @@ class MainViewModel @Inject constructor(
     private val saveSkinGameUseCase: SaveSkinGameUseCase,
     private val getDownloadDialogDisabledFlowUseCase: GetDownloadDialogDisabledFlowUseCase,
     private val getRateDialogDisabledFlowUseCase: GetRateDialogDisabledFlowUseCase,
-    private val getRateCompletedFlowUseCase: GetRateCompletedFlowUseCase
+    private val getRateCompletedFlowUseCase: GetRateCompletedFlowUseCase,
+    private val getTimesAppOpenedFlowUseCase: GetTimesAppOpenedFlowUseCase
 ) : AnimeCraftViewModel() {
 
     private val _screenState = MutableStateFlow(MainScreenState())
@@ -62,6 +63,7 @@ class MainViewModel @Inject constructor(
         collectDownloadDialogDisabled()
         collectRateDialogDisabled()
         collectRateCompleted()
+        collectTimesAppOpened()
         tryShowRateDialog()
     }
 
@@ -74,8 +76,8 @@ class MainViewModel @Inject constructor(
     fun updateSelectedCategory(category: Category?) =
         viewModelScope.launch(dispatchersProvider.io()) {
             val selectedCategoryId = _screenState.value.selectedCategory?.id
-            val _category = if (category?.id == selectedCategoryId) null else category
-            val state = _screenState.value.copy(selectedCategory = _category)
+            val updatedCategory = if (category?.id == selectedCategoryId) null else category
+            val state = _screenState.value.copy(selectedCategory = updatedCategory)
             _screenState.emit(state)
             emitFilteredSkins()
         }
@@ -112,6 +114,7 @@ class MainViewModel @Inject constructor(
         val state = _screenState.value.copy(skins = list)
         _screenState.emit(state)
     }
+
     private fun collectCategories() = viewModelScope.launch(dispatchersProvider.io()) {
         getCategoriesFlowUseCase().getOrNull()?.collect {
             val state = _screenState.value.copy(categories = it)
@@ -129,7 +132,7 @@ class MainViewModel @Inject constructor(
     private fun collectSkins() = viewModelScope.launch(dispatchersProvider.io()) {
         getAllSkinsFlowUseCase().getOrNull()?.collect {
             skins.replaceAllElements(it)
-            val state = _screenState.value.copy(isLoading = true )
+            val state = _screenState.value.copy(isLoading = true)
             _screenState.emit(state)
             emitFilteredSkins()
         }
@@ -153,11 +156,25 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private fun collectTimesAppOpened() = viewModelScope.launch(dispatchersProvider.io()) {
+        getTimesAppOpenedFlowUseCase().getOrNull()?.collect {
+            timesAppOpened = it
+        }
+    }
+
     private fun shouldRateDialogBeShown(): Boolean {
-        return !rateDialogDisabled &&
-            timesAppOpened % EVERY_THIRD_OPEN == 0 &&
-            timesAppOpened >= EVERY_THIRD_OPEN &&
-            !rateCompleted
+        val moreOpened = timesAppOpened > EVERY_THIRD_OPEN
+        val notCompleted = !rateCompleted
+        val notDisabled = !rateDialogDisabled
+        val everyThirdOpen = timesAppOpened % EVERY_THIRD_OPEN == 0
+        return moreOpened && notCompleted && notDisabled && everyThirdOpen
+    }
+
+    fun updateFirstItemIndex(
+        gridState: GridState
+    ) = viewModelScope.launch(dispatchersProvider.io()) {
+        val state = _screenState.value.copy(gridState = gridState)
+        _screenState.emit(state)
     }
 
     private companion object {

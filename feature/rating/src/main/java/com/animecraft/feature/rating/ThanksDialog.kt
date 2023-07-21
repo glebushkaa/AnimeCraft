@@ -11,11 +11,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
-import kotlinx.coroutines.delay
 import com.anime.animecraft.core.components.AnimatedScaleDialogContent
 import com.anime.animecraft.core.components.PRE_DISMISS_DELAY
-import com.animecraft.feature.rating.thanks.ThanksDialogContent
 import com.anime.animecraft.core.theme.theme.AppTheme
+import com.animecraft.feature.rating.thanks.ThanksDialogContent
+import kotlinx.coroutines.delay
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 6/1/2023

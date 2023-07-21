@@ -1,16 +1,15 @@
 package com.anime.animecraft.core.network.impl
 
-import com.google.firebase.database.FirebaseDatabase
-import kotlinx.coroutines.tasks.await
-import com.animecraft.core.network.api.NetworkDatabaseApi
-import com.animecraft.core.network.api.model.NetworkCategory
-import com.animecraft.core.network.api.model.NetworkSkin
 import com.anime.animecraft.core.network.impl.mapper.toNetworkCategory
 import com.anime.animecraft.core.network.impl.mapper.toNetworkSkin
 import com.anime.animecraft.core.network.impl.model.FirebaseCategory
 import com.anime.animecraft.core.network.impl.model.FirebaseSkin
+import com.animecraft.core.network.api.NetworkDatabaseApi
+import com.animecraft.core.network.api.model.NetworkCategory
+import com.animecraft.core.network.api.model.NetworkSkin
+import com.google.firebase.database.FirebaseDatabase
 import javax.inject.Inject
-
+import kotlinx.coroutines.tasks.await
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 7/9/2023.

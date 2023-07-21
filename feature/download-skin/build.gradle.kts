@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "${APPLICATION_ID}.feature.download.skin"
+    namespace = "$APPLICATION_ID.feature.download.skin"
 }
 
 dependencies {

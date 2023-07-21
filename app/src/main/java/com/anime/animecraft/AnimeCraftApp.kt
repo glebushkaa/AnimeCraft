@@ -13,8 +13,8 @@ import com.anime.animecraft.core.android.extensions.permissionGranted
 import com.anime.animecraft.download.manager.SkinsWorkFactory
 import com.anime.animecraft.download.manager.SkinsWorkManager
 import dagger.hilt.android.HiltAndroidApp
-import timber.log.Timber
 import javax.inject.Inject
+import timber.log.Timber
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 4/30/2023.

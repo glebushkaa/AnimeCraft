@@ -1,10 +1,10 @@
 package com.animecraft.core.domain.usecase.ad
 
-import com.animecraft.core.domain.usecase.core.ResultUseCase
+import com.animecraft.ad.api.AppOpenAdApi
 import com.animecraft.core.domain.usecase.ad.ShowOpenAdUseCase.Params
+import com.animecraft.core.domain.usecase.core.ResultUseCase
 import com.animecraft.core.domain.usecase.core.UseCase
 import com.animecraft.core.domain.usecase.core.UseCaseLogger
-import com.animecraft.ad.api.AppOpenAdApi
 import javax.inject.Inject
 
 /**
@@ -14,7 +14,7 @@ import javax.inject.Inject
 class ShowOpenAdUseCase @Inject constructor(
     private val appOpenAdApi: AppOpenAdApi,
     useCaseLogger: UseCaseLogger
-): ResultUseCase<Unit, Params>(useCaseLogger) {
+) : ResultUseCase<Unit, Params>(useCaseLogger) {
 
     override suspend fun invoke(params: Params) = runCatching {
         appOpenAdApi.run {
@@ -25,5 +25,5 @@ class ShowOpenAdUseCase @Inject constructor(
 
     data class Params(
         val adUnitId: String
-    ): UseCase.Params
+    ) : UseCase.Params
 }

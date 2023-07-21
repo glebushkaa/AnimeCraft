@@ -8,5 +8,5 @@ data class Language(
     val id: Int,
     val iconResId: Int,
     val nameResId: Int,
-    val locale: String,
+    val locale: String
 )

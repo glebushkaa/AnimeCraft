@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "${APPLICATION_ID}.feature.settings"
+    namespace = "$APPLICATION_ID.feature.settings"
 }
 
 dependencies {

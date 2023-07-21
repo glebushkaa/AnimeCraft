@@ -3,7 +3,7 @@ package com.animecraft.feature.splash
 import com.anime.animecraft.core.android.AnimeCraftViewModel
 import com.animecraft.animecraft.common.SIX_HUNDRED_MILLIS
 import com.animecraft.core.domain.usecase.ad.ShowOpenAdUseCase
-import com.animecraft.core.domain.usecase.preferences.IncreaseTimesAppOpenedUseCase
+import com.animecraft.core.domain.usecase.preferences.analytics.IncreaseTimesAppOpenedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,7 +1,8 @@
+@file:Suppress("FunctionName")
+
 package com.animecraft.feature.info.components
 
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,10 +18,10 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
-import com.anime.animecraft.feature.info.R
 import com.anime.animecraft.core.components.RoundedProgressIndicator
 import com.anime.animecraft.core.components.buttons.BackButton
 import com.anime.animecraft.core.theme.theme.AppTheme
+import com.anime.animecraft.feature.info.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 7/11/2023
@@ -33,7 +34,6 @@ fun SkinInfoCard(
     imageLoadingState: (AsyncImagePainter.State) -> Unit = {},
     onBackClicked: () -> Unit
 ) {
-
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -53,6 +53,19 @@ fun SkinInfoCard(
                 )
         ) {
             BackButton(onBackClicked)
+
+            this@Card.AnimatedVisibility(
+                modifier = Modifier.align(Alignment.Center),
+                visible = loading
+            ) {
+                RoundedProgressIndicator(
+                    modifier = Modifier
+                        .size(dimensionResource(id = R.dimen.info_progress_bar_size)),
+                    color = AppTheme.colors.primary,
+                    strokeWidth = AppTheme.strokes.huge
+                )
+            }
+
             AsyncImage(
                 model = previewImageUrl,
                 modifier = Modifier
@@ -61,21 +74,6 @@ fun SkinInfoCard(
                 contentDescription = stringResource(id = R.string.info_skin),
                 onState = imageLoadingState
             )
-            androidx.compose.animation.AnimatedVisibility(
-                visible = loading,
-                enter = fadeIn(),
-                exit = fadeOut()
-            ) {
-                RoundedProgressIndicator(
-                    modifier = Modifier
-                        .size(
-                            dimensionResource(id = R.dimen.info_progress_bar_size)
-                        )
-                        .align(Alignment.Center),
-                    color = AppTheme.colors.primary,
-                    strokeWidth = AppTheme.strokes.huge
-                )
-            }
         }
     }
 }

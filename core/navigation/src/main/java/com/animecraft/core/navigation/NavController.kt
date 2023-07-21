@@ -3,7 +3,6 @@ package com.animecraft.core.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 7/9/2023.
  */

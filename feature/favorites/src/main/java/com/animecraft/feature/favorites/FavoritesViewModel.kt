@@ -4,21 +4,19 @@ import android.os.Build
 import android.os.Build.VERSION.SDK_INT
 import com.anime.animecraft.core.android.AnimeCraftViewModel
 import com.anime.animecraft.core.android.Event
-import com.anime.animecraft.core.android.ResourceEvent
-import com.anime.animecraft.core.android.extensions.toResourceEvent
-import com.animecraft.core.domain.usecase.files.SaveSkinGameUseCase
-import com.animecraft.core.domain.usecase.preferences.GetDownloadDialogDisabledFlowUseCase
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import com.animecraft.animecraft.common.filterListByName
 import com.animecraft.animecraft.common.replaceAllElements
 import com.animecraft.core.domain.DispatchersProvider
+import com.animecraft.core.domain.usecase.files.SaveSkinGameUseCase
+import com.animecraft.core.domain.usecase.preferences.download.GetDownloadDialogDisabledFlowUseCase
 import com.animecraft.core.domain.usecase.skin.GetFavoritesSkinsFlowUseCase
 import com.animecraft.core.domain.usecase.skin.UpdateSkinFavoriteStateUseCase
 import com.animecraft.model.Skin
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/12/2023.
@@ -60,8 +58,9 @@ class FavoritesViewModel @Inject constructor(
 
     fun updateFavoriteSkin(id: Int) = viewModelScope.launch(dispatchersProvider.io()) {
         val favorite = favorites.find { it.id == id }?.favorite?.not() ?: false
-        val params = com.animecraft.core.domain.usecase.skin.UpdateSkinFavoriteStateUseCase.Params(
-            skinId = id, favorite = favorite
+        val params = UpdateSkinFavoriteStateUseCase.Params(
+            skinId = id,
+            favorite = favorite
         )
         updateSkinFavoriteStateUseCase(params)
     }

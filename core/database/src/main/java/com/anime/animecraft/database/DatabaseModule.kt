@@ -2,14 +2,14 @@ package com.anime.animecraft.database
 
 import android.content.Context
 import androidx.room.Room
+import com.anime.animecraft.database.database.SkinsDatabase
+import com.anime.animecraft.database.database.SkinsDatabase.Companion.SKINS_DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
-import com.anime.animecraft.database.database.SkinsDatabase
-import com.anime.animecraft.database.database.SkinsDatabase.Companion.SKINS_DATABASE_NAME
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/26/2023

@@ -57,9 +57,9 @@ object ThanksDialog : AnimeCraftDestination {
 
 object Info : AnimeCraftDestination {
     override val route = INFO
-    const val idArg = "idArg"
-    val routeWithArgs = "$route/{$idArg}"
+    private const val skinIdArg = "skinId"
+    val routeWithArgs = "$route/{$skinIdArg}"
     val arguments = listOf(
-        navArgument(idArg) { type = NavType.IntType }
+        navArgument(skinIdArg) { type = NavType.IntType }
     )
 }

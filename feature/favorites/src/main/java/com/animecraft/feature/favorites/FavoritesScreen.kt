@@ -3,7 +3,7 @@
 
 package com.animecraft.feature.favorites
 
-import android.Manifest
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -34,19 +33,21 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.anime.animecraft.feature.favorites.R
 import com.anime.animecraft.core.android.extensions.collectAsStateWithLifecycle
 import com.anime.animecraft.core.android.extensions.permissionGranted
 import com.anime.animecraft.core.android.extensions.toast
-import kotlinx.coroutines.launch
 import com.anime.animecraft.core.components.AppTopBar
 import com.anime.animecraft.core.components.SearchBar
 import com.anime.animecraft.core.components.SkinsGrid
 import com.anime.animecraft.core.components.ad.BannerAd
 import com.anime.animecraft.core.components.buttons.BackButton
 import com.anime.animecraft.core.components.buttons.ScrollTopButton
+import com.anime.animecraft.core.components.extensions.rememberForeverLazyGridState
+import com.anime.animecraft.core.components.model.GridState
 import com.anime.animecraft.core.theme.theme.AppTheme
+import com.anime.animecraft.feature.favorites.R
 import com.animecraft.model.Skin
+import kotlinx.coroutines.launch
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/12/2023.
@@ -112,7 +113,7 @@ fun FavoritesScreen(
                 onLikeClicked = favoritesViewModel::updateFavoriteSkin,
                 onDownloadClicked = { id ->
                     when {
-                        context.permissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE) &&
+                        context.permissionGranted(WRITE_EXTERNAL_STORAGE) &&
                             Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q -> {
                             favoritesViewModel.saveGameSkinImage(id)
                         }
@@ -121,10 +122,9 @@ fun FavoritesScreen(
                             favoritesViewModel.showDownloadDialog()
                             favoritesViewModel.saveGameSkinImage(id)
                         }
-
                         else -> {
                             currentSkinDownloadId = id
-                            writePermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            writePermissionLauncher.launch(WRITE_EXTERNAL_STORAGE)
                         }
                     }
                 },
@@ -145,14 +145,19 @@ fun FavoritesScreen(
 private fun FavoritesScreenContent(
     modifier: Modifier = Modifier,
     favorites: List<Skin> = listOf(),
+    gridState: GridState? = null,
     onBackClick: () -> Unit = {},
     onItemClicked: (Int) -> Unit = {},
     onLikeClicked: (Int) -> Unit = {},
     onDownloadClicked: (Int) -> Unit = {},
+    onGridStateUpdate: (GridState) -> Unit = {},
     searchQuery: String = "",
     onSearchQueryChanged: (String) -> Unit = {}
 ) {
-    val skinsGridState = rememberLazyGridState()
+    val skinsGridState = rememberForeverLazyGridState(
+        gridState = gridState,
+        onDispose = onGridStateUpdate
+    )
     val scope = rememberCoroutineScope()
     val isScrollToTopVisible by remember {
         derivedStateOf { skinsGridState.firstVisibleItemIndex > 2 }

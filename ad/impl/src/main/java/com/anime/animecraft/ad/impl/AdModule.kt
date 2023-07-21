@@ -1,10 +1,10 @@
 package com.anime.animecraft.ad.impl
 
+import com.animecraft.ad.api.AppOpenAdApi
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import com.animecraft.ad.api.AppOpenAdApi
 import javax.inject.Singleton
 
 /**

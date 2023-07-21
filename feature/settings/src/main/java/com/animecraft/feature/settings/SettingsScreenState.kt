@@ -2,7 +2,6 @@ package com.animecraft.feature.settings
 
 import com.anime.animecraft.core.android.Event
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 7/11/2023
  */

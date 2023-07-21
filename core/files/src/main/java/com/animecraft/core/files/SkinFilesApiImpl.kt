@@ -10,13 +10,13 @@ import android.os.Environment.getExternalStoragePublicDirectory
 import android.provider.MediaStore
 import androidx.annotation.RequiresApi
 import com.animecraft.core.domain.files.SkinFilesApi
+import com.animecraft.core.log.error
+import com.animecraft.core.log.tag
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import java.io.FileOutputStream
 import javax.inject.Inject
 import javax.inject.Singleton
-import com.animecraft.core.log.tag
-import com.animecraft.core.log.error
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/28/2023
@@ -25,7 +25,7 @@ import com.animecraft.core.log.error
 @Singleton
 class SkinFilesApiImpl @Inject constructor(
     @ApplicationContext private val context: Context
-): SkinFilesApi {
+) : SkinFilesApi {
 
     override fun saveSkinToMinecraft(fileName: String) = runCatching {
         val minecraftDir = getExternalStoragePublicDirectory(MINECRAFT_DIRECTORY_PATH)

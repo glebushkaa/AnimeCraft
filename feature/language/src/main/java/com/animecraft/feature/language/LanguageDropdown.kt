@@ -26,8 +26,8 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.anime.animecraft.feature.language.R
 import com.anime.animecraft.core.theme.theme.AppTheme
+import com.anime.animecraft.feature.language.R
 import com.animecraft.model.Language
 
 /**

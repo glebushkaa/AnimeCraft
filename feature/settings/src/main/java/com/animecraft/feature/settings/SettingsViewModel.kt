@@ -1,16 +1,15 @@
 package com.animecraft.feature.settings
 
 import com.anime.animecraft.core.android.AnimeCraftViewModel
-import com.anime.animecraft.core.android.Event
-import com.animecraft.core.domain.usecase.preferences.GetDarkModeStateFlowUseCase
-import com.animecraft.core.domain.usecase.preferences.GetDownloadDialogDisabledFlowUseCase
-import com.animecraft.core.domain.usecase.preferences.UpdateDarkModeUseCase
-import com.animecraft.core.domain.usecase.preferences.UpdateDownloadDialogDisabledUseCase
+import com.animecraft.core.domain.usecase.preferences.darkmode.GetDarkModeStateFlowUseCase
+import com.animecraft.core.domain.usecase.preferences.darkmode.UpdateDarkModeUseCase
+import com.animecraft.core.domain.usecase.preferences.download.GetDownloadDialogDisabledFlowUseCase
+import com.animecraft.core.domain.usecase.preferences.download.UpdateDownloadDialogDisabledUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/30/2023
@@ -34,9 +33,9 @@ class SettingsViewModel @Inject constructor(
         collectDarkModeState()
     }
 
-    fun updateDarkModeState() = viewModelScope.launch {
+    fun updateDarkMode() = viewModelScope.launch {
         val darkModeEnabled = _screenState.value.darkModeEnabled
-        val params = UpdateDarkModeUseCase.Params(darkModeEnabled)
+        val params = UpdateDarkModeUseCase.Params(!darkModeEnabled)
         updateDarkModeUseCase(params)
     }
 
@@ -45,13 +44,6 @@ class SettingsViewModel @Inject constructor(
     ) = viewModelScope.launch {
         systemInDarkModeByDefault = isSystemInDarkModeByDefault
         collectDarkModeState()
-    }
-
-    fun showRatingDialog() = viewModelScope.launch {
-        val state = _screenState.value.copy(
-            ratingDialogShown = Event(true)
-        )
-        _screenState.emit(state)
     }
 
     fun updateDownloadDialogSetting() = viewModelScope.launch {

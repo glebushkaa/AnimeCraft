@@ -22,12 +22,12 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.anime.animecraft.feature.language.R
 import com.anime.animecraft.core.android.extensions.collectAsStateWithLifecycle
 import com.anime.animecraft.core.android.extensions.updateLanguage
 import com.anime.animecraft.core.components.AppTopBar
 import com.anime.animecraft.core.components.buttons.BackButton
 import com.anime.animecraft.core.theme.theme.AppTheme
+import com.anime.animecraft.feature.language.R
 import com.animecraft.model.Language
 
 /**
@@ -136,10 +136,12 @@ private fun LanguageConfirmButton(
         modifier = modifier
             .fillMaxWidth()
             .height(
-                dimensionResource(id = R.dimen.confirm_button_height),
+                dimensionResource(id = R.dimen.confirm_button_height)
             ),
         shape = AppTheme.shapes.medium,
-        elevation = ButtonDefaults.buttonElevation(defaultElevation = AppTheme.elevations.small),
+        elevation = ButtonDefaults.buttonElevation(
+            defaultElevation = AppTheme.elevations.small
+        ),
         colors = ButtonDefaults.buttonColors(
             containerColor = AppTheme.colors.primary
         ),

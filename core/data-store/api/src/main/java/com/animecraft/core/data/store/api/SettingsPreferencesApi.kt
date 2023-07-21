@@ -10,7 +10,7 @@ interface SettingsPreferencesApi {
 
     val languageFlow: Flow<String?>
     val darkModeEnabled: Flow<Boolean?>
-    val timesAppOpened: Flow<Int>
+    val timesAppOpened: Flow<Int?>
 
     suspend fun updateLanguage(language: String)
 

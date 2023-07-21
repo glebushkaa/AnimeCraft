@@ -6,10 +6,10 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import com.animecraft.core.data.store.api.SettingsPreferencesApi
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 7/11/2023
@@ -29,9 +29,9 @@ class SettingsPreferencesApiImpl @Inject constructor(
             it[booleanPreferencesKey(DARK_MODE_ENABLED)]
         }
 
-    override val timesAppOpened: Flow<Int>
+    override val timesAppOpened: Flow<Int?>
         get() = dataStore.data.map {
-            it[intPreferencesKey(TIMES_APP_OPENED)] ?: 0
+            it[intPreferencesKey(TIMES_APP_OPENED)]
         }
 
     override suspend fun updateLanguage(language: String) {

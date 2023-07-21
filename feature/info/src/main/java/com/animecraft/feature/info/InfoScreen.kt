@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName", "experimental:function-signature", "LongMethod")
+@file:Suppress("FunctionName", "LongParameterList", "LongMethod")
 
 package com.animecraft.feature.info
 
@@ -27,17 +27,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImagePainter
-import com.anime.animecraft.feature.info.R
 import com.anime.animecraft.core.android.extensions.collectAsStateWithLifecycle
 import com.anime.animecraft.core.android.extensions.permissionGranted
 import com.anime.animecraft.core.android.extensions.toast
-import com.anime.animecraft.core.components.ad.BannerAd
 import com.anime.animecraft.core.components.CategoryItem
+import com.anime.animecraft.core.components.ad.BannerAd
 import com.anime.animecraft.core.components.buttons.DownloadButton
 import com.anime.animecraft.core.components.buttons.LikeButton
 import com.anime.animecraft.core.components.extensions.advanceShadow
-import com.animecraft.animecraft.common.capitalize
 import com.anime.animecraft.core.theme.theme.AppTheme
+import com.anime.animecraft.feature.info.R
+import com.animecraft.animecraft.common.capitalize
 import com.animecraft.feature.info.components.SkinInfoCard
 import com.animecraft.model.Skin
 
@@ -104,7 +104,7 @@ fun InfoScreen(
     }
 
     LaunchedEffect(key1 = state.downloadState) {
-        val value = state.downloadState.getContentIfNotHandled() ?: return@LaunchedEffect
+        val value = state.downloadState?.getContentIfNotHandled() ?: return@LaunchedEffect
         val text = if (value) skinDownloadedText else somethingWrongText
         context.toast(text)
     }

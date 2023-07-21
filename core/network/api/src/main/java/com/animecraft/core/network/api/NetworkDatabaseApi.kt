@@ -3,7 +3,6 @@ package com.animecraft.core.network.api
 import com.animecraft.core.network.api.model.NetworkCategory
 import com.animecraft.core.network.api.model.NetworkSkin
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 7/9/2023.
  */

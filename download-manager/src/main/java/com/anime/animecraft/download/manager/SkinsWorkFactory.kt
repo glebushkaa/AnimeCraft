@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
-import javax.inject.Inject
 import com.animecraft.core.domain.repository.CategoryRepository
 import com.animecraft.core.domain.repository.SkinsRepository
+import javax.inject.Inject
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/27/2023.

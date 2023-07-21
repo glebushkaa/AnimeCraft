@@ -29,10 +29,10 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import com.anime.animecraft.feature.rating.R
 import com.anime.animecraft.core.components.buttons.FilledDialogButton
 import com.anime.animecraft.core.components.buttons.OutlinedDialogButton
 import com.anime.animecraft.core.theme.theme.AppTheme
+import com.anime.animecraft.feature.rating.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/31/2023.

@@ -6,7 +6,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.dialog
 import com.animecraft.core.navigation.RatingDialog
 
-
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 7/9/2023.
  */

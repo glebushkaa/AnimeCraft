@@ -26,6 +26,7 @@ dependencies {
     implementation(projects.core.dataStore.api)
     implementation(projects.core.dataStore.impl)
     implementation(projects.core.files)
+    implementation(projects.core.utils)
 
     implementation(projects.ad.api)
     implementation(projects.ad.impl)

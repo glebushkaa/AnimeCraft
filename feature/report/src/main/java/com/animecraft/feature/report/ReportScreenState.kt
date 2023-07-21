@@ -5,6 +5,6 @@ package com.animecraft.feature.report
  */
 
 data class ReportScreenState(
-     val report: String = "",
-     val thanksDialogShown: Boolean = false
+    val report: String = "",
+    val thanksDialogShown: Boolean = false
 )

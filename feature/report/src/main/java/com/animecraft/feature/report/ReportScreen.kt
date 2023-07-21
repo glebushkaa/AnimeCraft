@@ -1,4 +1,4 @@
-@file:Suppress("FunctionName", "MagicNumber")
+@file:Suppress("FunctionName", "LongMethod")
 @file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.animecraft.feature.report
@@ -25,13 +25,13 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.anime.animecraft.feature.report.R
 import com.anime.animecraft.core.android.extensions.collectAsStateWithLifecycle
 import com.anime.animecraft.core.android.extensions.sendReport
 import com.anime.animecraft.core.components.AppTopBar
 import com.anime.animecraft.core.components.buttons.BackButton
 import com.anime.animecraft.core.components.buttons.FilledDialogButton
 import com.anime.animecraft.core.theme.theme.AppTheme
+import com.anime.animecraft.feature.report.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 6/1/2023
@@ -128,7 +128,9 @@ private fun ReportScreenContent(
             onValueChange = {
                 val query = if (it.length > MAX_REPORT_LENGTH) {
                     it.substring(0, MAX_REPORT_LENGTH)
-                } else it
+                } else {
+                    it
+                }
                 onReportChanged(query)
             },
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -141,7 +143,7 @@ private fun ReportScreenContent(
                 Text(
                     text = stringResource(id = R.string.tell_us_your_report),
                     style = AppTheme.typography.titleMedium.copy(fontWeight = FontWeight.SemiBold),
-                    color = AppTheme.colors.onBackground.copy(0.6f)
+                    color = AppTheme.colors.onBackground.copy(HINT_COLOR_ALPHA)
                 )
             }
         )
@@ -160,3 +162,4 @@ private fun ReportScreenContent(
 }
 
 private const val MAX_REPORT_LENGTH = 1000
+private const val HINT_COLOR_ALPHA = 0.5f

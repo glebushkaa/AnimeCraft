@@ -11,7 +11,7 @@ data class InfoScreenState(
     val skin: Skin? = null,
     val categoryName: String? = null,
     val categoryVisible: Boolean = false,
-    val downloadState: Event<Boolean> = Event(false),
+    val downloadState: Event<Boolean>? = null,
     val downloadDialogShown: Event<Boolean> = Event(false),
     val loading: Boolean = false
 )

@@ -28,10 +28,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.anime.animecraft.feature.download.skin.R
 import com.anime.animecraft.core.components.AnimatedScaleDialogContent
 import com.anime.animecraft.core.components.buttons.DontShowAgainButton
 import com.anime.animecraft.core.theme.theme.AppTheme
+import com.anime.animecraft.feature.download.skin.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/28/2023
@@ -63,10 +63,10 @@ fun DownloadSkinDialog(
                         downloadViewModel.updateDownloadDialogDisabled()
                         dismissRequest()
 //                        isDismissed = true
-
                     }
                 )
-            })
+            }
+        )
     }
 
     /* LaunchedEffect(key1 = isDismissed) {

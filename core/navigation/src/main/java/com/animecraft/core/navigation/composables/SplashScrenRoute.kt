@@ -13,9 +13,9 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
-import com.google.accompanist.navigation.animation.composable
 import com.animecraft.animecraft.common.HALF_SECOND
 import com.animecraft.core.navigation.Splash
+import com.google.accompanist.navigation.animation.composable
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 6/2/2023

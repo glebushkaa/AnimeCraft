@@ -1,13 +1,13 @@
 package com.animecraft.feature.report
 
 import com.anime.animecraft.core.android.AnimeCraftViewModel
+import com.animecraft.animecraft.common.ONE_SECOND
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import com.animecraft.animecraft.common.ONE_SECOND
-import javax.inject.Inject
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 7/11/2023

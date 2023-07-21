@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.os.LocaleListCompat
 import com.anime.animecraft.core.common.android.R
-import com.animecraft.core.log.tag
 import com.animecraft.core.log.error
+import com.animecraft.core.log.tag
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/30/2023

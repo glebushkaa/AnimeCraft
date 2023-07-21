@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -33,11 +32,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.anime.animecraft.feature.main.R
 import com.anime.animecraft.core.android.extensions.collectAsStateWithLifecycle
 import com.anime.animecraft.core.android.extensions.permissionGranted
 import com.anime.animecraft.core.android.extensions.toast
-import kotlinx.coroutines.launch
 import com.anime.animecraft.core.components.AppTopBar
 import com.anime.animecraft.core.components.CategoriesFlowRow
 import com.anime.animecraft.core.components.RoundedProgressIndicator
@@ -45,9 +42,13 @@ import com.anime.animecraft.core.components.SearchBar
 import com.anime.animecraft.core.components.SkinsGrid
 import com.anime.animecraft.core.components.ad.BannerAd
 import com.anime.animecraft.core.components.buttons.ScrollTopButton
+import com.anime.animecraft.core.components.extensions.rememberForeverLazyGridState
+import com.anime.animecraft.core.components.model.GridState
 import com.anime.animecraft.core.theme.theme.AppTheme
+import com.anime.animecraft.feature.main.R
 import com.animecraft.model.Category
 import com.animecraft.model.Skin
+import kotlinx.coroutines.launch
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.
@@ -114,6 +115,7 @@ fun MainScreen(
                 categories = screenState.categories,
                 onItemClicked = onItemNavigate,
                 onSearchQueryUpdated = mainViewModel::updateSearchInput,
+                onGridStateUpdated = mainViewModel::updateFirstItemIndex,
                 onDownloadClicked = { id ->
                     when {
                         context.permissionGranted(WRITE_EXTERNAL_STORAGE) &&
@@ -135,7 +137,8 @@ fun MainScreen(
                 selectedCategory = screenState.selectedCategory,
                 onCategorySelected = mainViewModel::updateSelectedCategory,
                 onLikeClicked = { id -> mainViewModel.updateFavoriteSkin(id) },
-                areSkinsLoaded = screenState.isLoading
+                areSkinsLoaded = screenState.isLoading,
+                gridState = screenState.gridState
             )
         }
     )
@@ -165,19 +168,25 @@ private fun MainScreenContent(
     modifier: Modifier = Modifier,
     searchQuery: String,
     skins: List<Skin>,
+    gridState: GridState?,
     categories: List<Category>,
     selectedCategory: Category? = null,
     onItemClicked: (Int) -> Unit = {},
     onSearchQueryUpdated: (String) -> Unit = {},
     onDownloadClicked: (Int) -> Unit = {},
     onLikeClicked: (Int) -> Unit = {},
+    onGridStateUpdated: (GridState) -> Unit = {},
     onCategorySelected: (Category) -> Unit = {},
     areSkinsLoaded: Boolean = false
 ) {
-    val skinsGridState = rememberLazyGridState()
+    val skinsGridState = rememberForeverLazyGridState(
+        gridState = gridState,
+        onDispose = onGridStateUpdated
+    )
     val isScrollToTopVisible by remember {
         derivedStateOf { skinsGridState.firstVisibleItemIndex > 2 }
     }
+
     val scope = rememberCoroutineScope()
 
     Column(

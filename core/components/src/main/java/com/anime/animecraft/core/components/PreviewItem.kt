@@ -30,7 +30,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
-import com.anime.animecraft.core.components.R
 import com.anime.animecraft.core.components.buttons.DownloadButton
 import com.anime.animecraft.core.components.buttons.LikeButton
 import com.anime.animecraft.core.components.extensions.advanceShadow
