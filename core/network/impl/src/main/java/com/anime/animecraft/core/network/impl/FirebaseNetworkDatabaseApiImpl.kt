@@ -21,6 +21,13 @@ class FirebaseNetworkDatabaseApiImpl @Inject constructor(
 
     private val skinsRef = database.getReference("skins")
     private val categoriesRef = database.getReference("categories")
+    private val ratingsRef = database.getReference("ratings")
+
+    override suspend fun sendRating(rating: Int) {
+        val child = ratingsRef.child(rating.toString())
+        val value = child.get().await().value as? Long ?: 0
+        child.setValue(value + 1).await()
+    }
 
     override suspend fun getAllCategories(): List<NetworkCategory> {
         val dataSnapshot = categoriesRef.get().await()

@@ -51,8 +51,8 @@ fun LikeButton(favorite: Boolean, likeClick: () -> Unit = {}) {
     }
 }
 
-private const val INITIAL_FAVORITE_SCALE_IN_VALUE = 0.6f
-private const val TARGET_FAVORITE_SCALE_OUT_VALUE = 1f
+private const val INITIAL_FAVORITE_SCALE_IN_VALUE = 0.4f
+private const val TARGET_FAVORITE_SCALE_OUT_VALUE = 0.8f
 
 private const val INITIAL_NON_FAVORITE_SCALE_IN_VALUE = 0.4f
 private const val TARGET_NON_FAVORITE_SCALE_OUT_VALUE = 0.8f

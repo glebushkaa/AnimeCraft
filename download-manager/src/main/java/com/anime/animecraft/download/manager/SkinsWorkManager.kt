@@ -96,7 +96,6 @@ class SkinsWorkManager @AssistedInject constructor(
     companion object {
         fun startSkinsWorker(): OneTimeWorkRequest {
             val constraints = Constraints.Builder()
-//                .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build()
             return OneTimeWorkRequest.Builder(SkinsWorkManager::class.java)
                 .addTag(WORKER_TAG)

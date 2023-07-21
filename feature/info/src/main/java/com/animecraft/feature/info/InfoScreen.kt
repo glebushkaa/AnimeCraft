@@ -179,7 +179,9 @@ private fun InfoScreenContent(
                 .advanceShadow(
                     borderRadius = downloadButtonBorderRadius,
                     blurRadius = downloadButtonBlurRadius,
-                    color = AppTheme.colors.primary
+                    color = AppTheme.colors.primary.copy(
+                        alpha = DOWNLOAD_COLOR_ALPHA
+                    )
                 ),
             onClick = onDownloadClicked
         )
@@ -187,3 +189,5 @@ private fun InfoScreenContent(
         BannerAd()
     }
 }
+
+private const val DOWNLOAD_COLOR_ALPHA = 0.8f

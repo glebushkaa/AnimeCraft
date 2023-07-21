@@ -12,4 +12,6 @@ interface NetworkDatabaseApi {
     suspend fun getAllCategories(): List<NetworkCategory>
 
     suspend fun getAllSkins(): List<NetworkSkin>
+
+    suspend fun sendRating(rating: Int)
 }

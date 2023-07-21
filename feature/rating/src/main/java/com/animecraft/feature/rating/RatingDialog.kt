@@ -37,16 +37,11 @@ import kotlinx.coroutines.launch
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/31/2023
- *
- * TODO send rating to firebase as well
- *
  */
 
 @Composable
 fun RatingDialog(
     onDismissRequest: () -> Unit = {},
-    onRatingDialogDisable: () -> Unit = {},
-    onRatingDialogCompleted: () -> Unit = {},
     ratingViewModel: RatingViewModel = hiltViewModel()
 ) {
     var isDismissed by rememberSaveable { mutableStateOf(false) }
@@ -74,8 +69,9 @@ fun RatingDialog(
         AnimatedScaleDialogContent(content = {
             AnimatedRatingDialogContent(
                 onDismissRequest = { isDismissed = true },
-                onRatingDialogDisable = onRatingDialogDisable,
-                onRatingDialogCompleted = onRatingDialogCompleted
+                onRatingDialogDisable = ratingViewModel::disableRatingDialog,
+                onRatingDialogCompleted = ratingViewModel::setRatingCompleted,
+                onRatingSend = ratingViewModel::sendRating
             )
         }, isDismissed = isDismissed)
     }
@@ -85,7 +81,8 @@ fun RatingDialog(
 private fun AnimatedRatingDialogContent(
     onDismissRequest: () -> Unit = {},
     onRatingDialogDisable: () -> Unit = {},
-    onRatingDialogCompleted: () -> Unit = {}
+    onRatingDialogCompleted: () -> Unit = {},
+    onRatingSend: (Int) -> Unit = {}
 ) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
@@ -104,6 +101,7 @@ private fun AnimatedRatingDialogContent(
                     onRatingDialogDisable()
                 },
                 rateClicked = {
+                    onRatingSend(it)
                     currentRatingDialog = if (it <= MIN_GOOD_GRADE) {
                         RatingDialogMode.FEEDBACK
                     } else {
