@@ -34,14 +34,13 @@ import com.anime.animecraft.core.components.buttons.DownloadButton
 import com.anime.animecraft.core.components.buttons.LikeButton
 import com.anime.animecraft.core.components.extensions.advanceShadow
 import com.anime.animecraft.core.theme.theme.AppTheme
+import com.animecraft.animecraft.common.capitalize
 import com.animecraft.model.Skin
 import ua.anime.animecraft.core.components.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.
  */
-
-// TODO REMOVE CAPITALIZE
 
 @Composable
 fun PreviewItem(
