@@ -6,10 +6,10 @@ import android.app.DownloadManager.Request.NETWORK_WIFI
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
-import com.anime.animecraft.core.download.manager.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.File
 import javax.inject.Inject
+import ua.anime.animecraft.download.manager.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/28/2023

@@ -9,4 +9,6 @@ interface NetworkStorageApi {
     suspend fun getPreviewImageUrl(id: Int): String
 
     suspend fun getGameImageUrl(id: Int): String
+
+    suspend fun getGameImageBytes(id: Int): ByteArray
 }

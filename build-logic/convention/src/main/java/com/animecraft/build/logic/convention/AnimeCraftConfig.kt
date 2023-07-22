@@ -6,7 +6,7 @@ package com.animecraft.build.logic.convention
 
 object AnimeCraftConfig {
 
-    const val APPLICATION_ID = "com.anime.animecraft"
+    const val APPLICATION_ID = "ua.anime.animecraft"
 
     const val MIN_SDK_VERSION = 26
     const val TARGET_SDK_VERSION = 33

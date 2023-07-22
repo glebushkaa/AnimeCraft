@@ -17,6 +17,7 @@ import java.io.File
 import java.io.FileOutputStream
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.coroutineScope
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/28/2023
@@ -26,6 +27,26 @@ import javax.inject.Singleton
 class SkinFilesApiImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : SkinFilesApi {
+
+    override suspend fun saveFileFromBytes(fileName: String, bytes: ByteArray) {
+        coroutineScope {
+            val file = File(
+                context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                fileName
+            )
+            val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            file.outputStream().use {
+                bitmap.compress(Bitmap.CompressFormat.PNG, IMAGE_QUALITY, it)
+            }
+        }
+    }
+
+    override fun checkGameSkinExist(fileName: String): Boolean {
+        return File(
+            context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+            fileName
+        ).exists()
+    }
 
     override fun saveSkinToMinecraft(fileName: String) = runCatching {
         val minecraftDir = getExternalStoragePublicDirectory(MINECRAFT_DIRECTORY_PATH)

@@ -34,7 +34,7 @@ import com.anime.animecraft.core.android.extensions.shareApp
 import com.anime.animecraft.core.components.AppTopBar
 import com.anime.animecraft.core.components.buttons.BackButton
 import com.anime.animecraft.core.theme.theme.AppTheme
-import com.anime.animecraft.feature.settings.R
+import ua.anime.animecraft.feature.settings.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/15/2023.
@@ -51,7 +51,7 @@ fun SettingsScreen(
 ) {
     val context = LocalContext.current
     val shareAppLink = stringResource(
-        id = com.anime.animecraft.core.common.android.R.string.share_app_link
+        id = ua.anime.animecraft.core.common.android.R.string.share_app_link
     )
     val isSystemInDarkMode = isSystemInDarkTheme()
 

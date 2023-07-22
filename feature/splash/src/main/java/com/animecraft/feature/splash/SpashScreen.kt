@@ -28,7 +28,7 @@ import com.anime.animecraft.core.android.extensions.collectAsStateWithLifecycle
 import com.anime.animecraft.core.components.RoundedProgressIndicator
 import com.anime.animecraft.core.theme.theme.AnimeCraftTheme
 import com.anime.animecraft.core.theme.theme.AppTheme
-import com.anime.animecraft.feature.splash.R
+import ua.anime.animecraft.feature.splash.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 4/30/2023.
@@ -43,8 +43,8 @@ fun SplashScreen(
         SplashScreenState()
     )
 
-    val adAppResId = com.anime.animecraft.core.common.android.R.string.ad_app_id
-    val appNameResId = com.anime.animecraft.core.common.android.R.string.app_name
+    val adAppResId = ua.anime.animecraft.core.common.android.R.string.ad_app_id
+    val appNameResId = ua.anime.animecraft.core.common.android.R.string.app_name
     val openAdUnitId = stringResource(id = adAppResId)
     val appName = stringResource(id = appNameResId)
 

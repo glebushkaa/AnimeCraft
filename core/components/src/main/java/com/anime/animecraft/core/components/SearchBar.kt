@@ -20,6 +20,7 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import ua.anime.animecraft.core.components.R
 import com.anime.animecraft.core.theme.theme.AppTheme
 
 /**
@@ -37,7 +38,7 @@ fun SearchBar(
             .fillMaxWidth()
             .height(
                 dimensionResource(
-                    id = com.anime.animecraft.core.common.android.R.dimen.search_bar_height
+                    id = ua.anime.animecraft.core.common.android.R.dimen.search_bar_height
                 )
             )
             .clip(AppTheme.shapes.huge)

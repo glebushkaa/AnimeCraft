@@ -33,8 +33,8 @@ import com.anime.animecraft.core.components.AnimatedScaleDialogContent
 import com.anime.animecraft.core.components.PRE_DISMISS_DELAY
 import com.anime.animecraft.core.components.buttons.DontShowAgainButton
 import com.anime.animecraft.core.theme.theme.AppTheme
-import com.anime.animecraft.feature.download.skin.R
 import kotlinx.coroutines.delay
+import ua.anime.animecraft.feature.download.skin.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/28/2023
@@ -70,12 +70,12 @@ fun DownloadSkinDialog(
         )
     }
 
-     LaunchedEffect(key1 = isDismissed) {
-         if (isDismissed) {
-             delay(PRE_DISMISS_DELAY)
-             dismissRequest()
-         }
-     }
+    LaunchedEffect(key1 = isDismissed) {
+        if (isDismissed) {
+            delay(PRE_DISMISS_DELAY)
+            dismissRequest()
+        }
+    }
 }
 
 @Composable

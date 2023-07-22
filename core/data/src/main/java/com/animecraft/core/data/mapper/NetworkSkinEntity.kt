@@ -1,7 +1,7 @@
 package com.animecraft.core.data.mapper
 
-import com.animecraft.core.network.api.model.NetworkSkin
 import com.anime.animecraft.database.entity.SkinEntity
+import com.animecraft.core.network.api.model.NetworkSkin
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/27/2023.

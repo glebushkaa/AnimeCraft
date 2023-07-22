@@ -9,8 +9,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import com.anime.animecraft.core.components.R
 import com.anime.animecraft.core.theme.theme.AppTheme
+import ua.anime.animecraft.core.components.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 6/10/2023

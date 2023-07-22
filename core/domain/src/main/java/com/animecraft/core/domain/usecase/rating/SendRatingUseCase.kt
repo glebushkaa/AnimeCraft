@@ -4,10 +4,10 @@ import com.animecraft.core.domain.DispatchersProvider
 import com.animecraft.core.domain.usecase.core.ResultUseCase
 import com.animecraft.core.domain.usecase.core.UseCase
 import com.animecraft.core.domain.usecase.core.UseCaseLogger
-import com.animecraft.core.network.api.NetworkDatabaseApi
 import com.animecraft.core.domain.usecase.rating.SendRatingUseCase.Params
-import kotlinx.coroutines.withContext
+import com.animecraft.core.network.api.NetworkDatabaseApi
 import javax.inject.Inject
+import kotlinx.coroutines.withContext
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 7/21/2023
@@ -27,5 +27,5 @@ class SendRatingUseCase @Inject constructor(
 
     data class Params(
         val rating: Int
-    ): UseCase.Params
+    ) : UseCase.Params
 }

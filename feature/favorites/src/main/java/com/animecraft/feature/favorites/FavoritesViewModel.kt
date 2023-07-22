@@ -1,7 +1,5 @@
 package com.animecraft.feature.favorites
 
-import android.os.Build
-import android.os.Build.VERSION.SDK_INT
 import com.anime.animecraft.core.android.AnimeCraftViewModel
 import com.anime.animecraft.core.android.Event
 import com.animecraft.animecraft.common.filterListByName
@@ -67,8 +65,7 @@ class FavoritesViewModel @Inject constructor(
 
     fun saveGameSkinImage(id: Int) = viewModelScope.launch(dispatchersProvider.io()) {
         val gameImageFileName = favorites.find { it.id == id }?.gameImageFileName ?: return@launch
-        val ableToSaveInGame = SDK_INT >= Build.VERSION_CODES.Q
-        val params = SaveSkinGameUseCase.Params(gameImageFileName, ableToSaveInGame)
+        val params = SaveSkinGameUseCase.Params(id, gameImageFileName)
         val result = saveSkinGameUseCase(params)
         val state = _screenState.value.copy(
             downloadState = Event(result.isSuccess)

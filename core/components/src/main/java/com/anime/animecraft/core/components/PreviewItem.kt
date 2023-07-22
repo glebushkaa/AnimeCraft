@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import com.anime.animecraft.core.components.buttons.DownloadButton
@@ -36,6 +35,7 @@ import com.anime.animecraft.core.components.buttons.LikeButton
 import com.anime.animecraft.core.components.extensions.advanceShadow
 import com.anime.animecraft.core.theme.theme.AppTheme
 import com.animecraft.model.Skin
+import ua.anime.animecraft.core.components.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.
@@ -52,10 +52,10 @@ fun PreviewItem(
     itemClick: (Int) -> Unit = {}
 ) {
     val downloadBorderRadius = dimensionResource(
-        id = com.anime.animecraft.core.common.android.R.dimen.download_button_border_radius
+        id = ua.anime.animecraft.core.common.android.R.dimen.download_button_border_radius
     )
     val downloadBorderBlurRadius = dimensionResource(
-        id = com.anime.animecraft.core.common.android.R.dimen.download_button_blur_radius
+        id = ua.anime.animecraft.core.common.android.R.dimen.download_button_blur_radius
     )
 
     Column(

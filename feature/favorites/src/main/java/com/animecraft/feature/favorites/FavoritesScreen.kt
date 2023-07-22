@@ -45,9 +45,9 @@ import com.anime.animecraft.core.components.buttons.ScrollTopButton
 import com.anime.animecraft.core.components.extensions.rememberForeverLazyGridState
 import com.anime.animecraft.core.components.model.GridState
 import com.anime.animecraft.core.theme.theme.AppTheme
-import com.anime.animecraft.feature.favorites.R
 import com.animecraft.model.Skin
 import kotlinx.coroutines.launch
+import ua.anime.animecraft.feature.favorites.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/12/2023.

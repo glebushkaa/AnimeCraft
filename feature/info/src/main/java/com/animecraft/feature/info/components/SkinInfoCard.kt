@@ -21,7 +21,7 @@ import coil.compose.AsyncImagePainter
 import com.anime.animecraft.core.components.RoundedProgressIndicator
 import com.anime.animecraft.core.components.buttons.BackButton
 import com.anime.animecraft.core.theme.theme.AppTheme
-import com.anime.animecraft.feature.info.R
+import ua.anime.animecraft.feature.info.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 7/11/2023

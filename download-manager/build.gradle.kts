@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    namespace = "$APPLICATION_ID.core.download.manager"
+    namespace = "$APPLICATION_ID.download.manager"
 }
 
 dependencies {

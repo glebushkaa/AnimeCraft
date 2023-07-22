@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.anime.animecraft.core.theme.theme.AppTheme
+import ua.anime.animecraft.core.components.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/12/2023.
@@ -29,7 +30,7 @@ fun AppTopBar(
     likeClicked: () -> Unit = {}
 ) {
     val appName = stringResource(
-        com.anime.animecraft.core.common.android.R.string.app_name
+        ua.anime.animecraft.core.common.android.R.string.app_name
     )
 
     val likeIcon =

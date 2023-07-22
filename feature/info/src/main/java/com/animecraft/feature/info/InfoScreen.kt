@@ -36,10 +36,10 @@ import com.anime.animecraft.core.components.buttons.DownloadButton
 import com.anime.animecraft.core.components.buttons.LikeButton
 import com.anime.animecraft.core.components.extensions.advanceShadow
 import com.anime.animecraft.core.theme.theme.AppTheme
-import com.anime.animecraft.feature.info.R
 import com.animecraft.animecraft.common.capitalize
 import com.animecraft.feature.info.components.SkinInfoCard
 import com.animecraft.model.Skin
+import ua.anime.animecraft.feature.info.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/12/2023.
@@ -122,10 +122,10 @@ private fun InfoScreenContent(
     skinImageLoadingState: (AsyncImagePainter.State) -> Unit = {}
 ) {
     val downloadButtonBlurRadius = dimensionResource(
-        id = com.anime.animecraft.core.common.android.R.dimen.download_button_blur_radius
+        id = ua.anime.animecraft.core.common.android.R.dimen.download_button_blur_radius
     )
     val downloadButtonBorderRadius = dimensionResource(
-        id = com.anime.animecraft.core.common.android.R.dimen.download_button_border_radius
+        id = ua.anime.animecraft.core.common.android.R.dimen.download_button_border_radius
     )
 
     Column(

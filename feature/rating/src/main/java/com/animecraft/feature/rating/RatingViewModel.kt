@@ -1,13 +1,12 @@
 package com.animecraft.feature.rating
 
 import com.anime.animecraft.core.android.AnimeCraftViewModel
-import com.animecraft.core.domain.DispatchersProvider
 import com.animecraft.core.domain.usecase.preferences.rate.CompleteRateDialogUseCase
 import com.animecraft.core.domain.usecase.preferences.rate.DisableRateDialogUseCase
 import com.animecraft.core.domain.usecase.rating.SendRatingUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 7/19/2023

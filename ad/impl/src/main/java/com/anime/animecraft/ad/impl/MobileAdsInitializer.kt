@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.provider.Settings
 import androidx.startup.Initializer
-import com.anime.animecraft.core.ad.impl.BuildConfig
 import com.animecraft.core.log.debug
 import com.animecraft.core.log.error
 import com.animecraft.core.log.info
@@ -14,6 +13,7 @@ import com.google.android.gms.ads.RequestConfiguration
 import com.google.android.gms.ads.initialization.InitializationStatus
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import ua.anime.animecraft.core.ad.impl.BuildConfig
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/29/2023

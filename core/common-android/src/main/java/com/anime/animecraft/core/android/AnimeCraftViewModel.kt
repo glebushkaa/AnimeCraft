@@ -1,13 +1,13 @@
 package com.anime.animecraft.core.android
 
 import androidx.lifecycle.ViewModel
+import com.animecraft.core.log.error
 import com.animecraft.core.log.tag
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import com.animecraft.core.log.error
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 4/30/2023.

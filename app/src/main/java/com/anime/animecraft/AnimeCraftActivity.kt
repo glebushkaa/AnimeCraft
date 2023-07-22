@@ -19,21 +19,13 @@ import com.anime.animecraft.core.android.extensions.collectAsStateWithLifecycle
 import com.anime.animecraft.core.android.extensions.toast
 import com.anime.animecraft.core.theme.theme.AnimeCraftTheme
 import com.anime.animecraft.utils.DarkModeHandler.darkModeState
-import com.animecraft.analytics.api.AnalyticsApi
 import com.animecraft.core.navigation.AnimeCraftHost
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.google.android.play.core.splitinstall.SplitInstallManager
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
+import ua.anime.animecraft.R
 
 @AndroidEntryPoint
 class AnimeCraftActivity : AppCompatActivity() {
-
-    @Inject
-    lateinit var splitInstallManager: SplitInstallManager
-
-    @Inject
-    lateinit var analyticsApiImpl: AnalyticsApi
 
     private val animeViewModel: AnimeViewModel by viewModels()
 
@@ -49,7 +41,6 @@ class AnimeCraftActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setCurrentLanguage()
         if (SDK_INT <= Build.VERSION_CODES.Q) writePermissionLauncher.launch(WRITE_EXTERNAL_STORAGE)
         setContent {
             val isSystemInDarkMode = isSystemInDarkTheme()
@@ -65,17 +56,8 @@ class AnimeCraftActivity : AppCompatActivity() {
     fun AnimeCraftApp() {
         val navController = rememberAnimatedNavController()
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            analyticsApiImpl.setCurrentScreen(destination.route ?: "")
+            animeViewModel.sendScreenAnalytic(destination.route ?: "")
         }
         AnimeCraftHost(navController = navController)
-    }
-
-    private fun setCurrentLanguage() {
-        /*val language = animeViewModel.getSelectedLanguage(Locale.getDefault().language)
-        updateLanguage(
-            language = language.languageLocale,
-            country = language.countryLocale,
-            splitInstallManager = splitInstallManager
-        )*/
     }
 }

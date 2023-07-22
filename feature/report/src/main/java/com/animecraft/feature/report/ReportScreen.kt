@@ -31,7 +31,7 @@ import com.anime.animecraft.core.components.AppTopBar
 import com.anime.animecraft.core.components.buttons.BackButton
 import com.anime.animecraft.core.components.buttons.FilledDialogButton
 import com.anime.animecraft.core.theme.theme.AppTheme
-import com.anime.animecraft.feature.report.R
+import ua.anime.animecraft.feature.report.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 6/1/2023

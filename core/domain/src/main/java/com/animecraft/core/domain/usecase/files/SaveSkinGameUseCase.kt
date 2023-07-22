@@ -1,7 +1,7 @@
 package com.animecraft.core.domain.usecase.files
 
 import com.animecraft.core.domain.DispatchersProvider
-import com.animecraft.core.domain.files.SkinFilesApi
+import com.animecraft.core.domain.repository.FilesRepository
 import com.animecraft.core.domain.usecase.core.ResultUseCase
 import com.animecraft.core.domain.usecase.core.UseCase
 import com.animecraft.core.domain.usecase.core.UseCaseLogger
@@ -14,24 +14,22 @@ import kotlinx.coroutines.withContext
  */
 
 class SaveSkinGameUseCase @Inject constructor(
-    private val skinFilesApi: SkinFilesApi,
+    private val filesRepository: FilesRepository,
     private val dispatchersProvider: DispatchersProvider,
     useCaseLogger: UseCaseLogger
 ) : ResultUseCase<Unit, Params>(useCaseLogger) {
 
     override suspend fun invoke(params: Params) = runCatching {
         withContext(dispatchersProvider.io()) {
-            if (params.ableToSaveInGame) {
-                val result = skinFilesApi.saveSkinToMinecraft(params.fileName)
-                if (!result.isSuccess) skinFilesApi.saveSkinToGallery(params.fileName) else result
-            } else {
-                skinFilesApi.saveSkinToGallery(params.fileName)
-            }.getOrThrow()
+            val fileName = params.fileName.ifBlank {
+                filesRepository.saveSkinFromStorage(params.id)
+            }
+            filesRepository.saveGameSkinToUser(fileName).getOrThrow()
         }
     }
 
     data class Params(
-        val fileName: String,
-        val ableToSaveInGame: Boolean
+        val id: Int,
+        val fileName: String
     ) : UseCase.Params
 }

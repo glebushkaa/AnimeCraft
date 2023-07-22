@@ -27,8 +27,8 @@ import com.anime.animecraft.core.android.extensions.updateLanguage
 import com.anime.animecraft.core.components.AppTopBar
 import com.anime.animecraft.core.components.buttons.BackButton
 import com.anime.animecraft.core.theme.theme.AppTheme
-import com.anime.animecraft.feature.language.R
 import com.animecraft.model.Language
+import ua.anime.animecraft.feature.language.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 6/1/2023

@@ -2,8 +2,8 @@ package com.anime.animecraft.download.manager
 
 import android.content.Context
 import androidx.core.app.NotificationCompat
-import com.anime.animecraft.core.download.manager.R
 import com.anime.animecraft.download.manager.SkinsWorkManager.Companion.WORK_SKINS_CHANNEL_ID
+import ua.anime.animecraft.download.manager.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/27/2023.

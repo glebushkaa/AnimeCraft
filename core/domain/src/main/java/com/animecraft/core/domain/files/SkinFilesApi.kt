@@ -9,4 +9,8 @@ interface SkinFilesApi {
     fun saveSkinToMinecraft(fileName: String): Result<Unit>
 
     fun saveSkinToGallery(fileName: String): Result<Unit>
+
+    fun checkGameSkinExist(fileName: String): Boolean
+
+    suspend fun saveFileFromBytes(fileName: String, bytes: ByteArray)
 }

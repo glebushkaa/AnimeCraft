@@ -2,8 +2,6 @@
 
 package com.animecraft.feature.main
 
-import android.os.Build.VERSION.SDK_INT
-import android.os.Build.VERSION_CODES
 import com.anime.animecraft.core.android.AnimeCraftViewModel
 import com.anime.animecraft.core.android.Event
 import com.anime.animecraft.core.components.model.GridState
@@ -90,8 +88,7 @@ class MainViewModel @Inject constructor(
 
     fun saveGameSkinImage(id: Int) = viewModelScope.launch(dispatchersProvider.io()) {
         val gameImageFileName = skins.find { it.id == id }?.gameImageFileName ?: return@launch
-        val ableToSaveInGame = SDK_INT <= VERSION_CODES.Q
-        val params = SaveSkinGameUseCase.Params(gameImageFileName, ableToSaveInGame)
+        val params = SaveSkinGameUseCase.Params(id, gameImageFileName)
         val isResultSuccessful = saveSkinGameUseCase(params).isSuccess
         val state = _screenState.value.copy(downloadState = Event(isResultSuccessful))
         _screenState.emit(state)

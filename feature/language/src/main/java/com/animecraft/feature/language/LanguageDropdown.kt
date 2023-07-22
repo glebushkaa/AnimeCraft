@@ -27,8 +27,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.anime.animecraft.core.theme.theme.AppTheme
-import com.anime.animecraft.feature.language.R
 import com.animecraft.model.Language
+import ua.anime.animecraft.feature.language.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/30/2023

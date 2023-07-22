@@ -17,10 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import com.anime.animecraft.core.components.R
 import com.anime.animecraft.core.theme.theme.AppTheme
 import com.animecraft.animecraft.common.HUNDRED_MILLIS
 import com.animecraft.animecraft.common.THREE_HUNDRED_MILLIS
+import ua.anime.animecraft.core.components.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/28/2023

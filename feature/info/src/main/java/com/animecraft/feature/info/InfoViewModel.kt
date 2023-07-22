@@ -2,8 +2,6 @@
 
 package com.animecraft.feature.info
 
-import android.os.Build
-import android.os.Build.VERSION.SDK_INT
 import androidx.lifecycle.SavedStateHandle
 import coil.compose.AsyncImagePainter
 import com.anime.animecraft.core.android.AnimeCraftViewModel
@@ -62,8 +60,8 @@ class InfoViewModel @Inject constructor(
 
     fun saveGameSkinImage() = viewModelScope.launch(dispatchersProvider.io()) {
         val gameImageFileName = _screenState.value.skin?.gameImageFileName ?: return@launch
-        val ableToSaveInGame = SDK_INT <= Build.VERSION_CODES.Q
-        val params = SaveSkinGameUseCase.Params(gameImageFileName, ableToSaveInGame)
+        val id = _screenState.value.skin?.id ?: return@launch
+        val params = SaveSkinGameUseCase.Params(id, gameImageFileName)
         val isResultSuccessful = saveSkinGameUseCase(params).isSuccess
         val state = _screenState.value.copy(downloadState = Event(isResultSuccessful))
         _screenState.emit(state)

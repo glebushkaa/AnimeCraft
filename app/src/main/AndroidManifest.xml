@@ -22,11 +22,11 @@
         android:theme="@style/Theme.AnimeCraft"
         tools:targetApi="tiramisu">
         <activity
-            android:name=".AnimeCraftActivity"
+            android:name="com.anime.animecraft.AnimeCraftActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AnimeCraft">
+            android:theme="@style/Theme.AnimeCraft"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

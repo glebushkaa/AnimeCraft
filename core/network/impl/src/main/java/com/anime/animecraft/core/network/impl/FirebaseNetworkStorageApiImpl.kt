@@ -16,6 +16,12 @@ class FirebaseNetworkStorageApiImpl @Inject constructor(
     private val preview = storage.getReference("preview")
     private val game = storage.getReference("game")
 
+    override suspend fun getGameImageBytes(id: Int): ByteArray {
+        return game.child("$id.png")
+            .getBytes(Long.MAX_VALUE)
+            .await()
+    }
+
     override suspend fun getPreviewImageUrl(id: Int): String {
         return preview.child("$id.png")
             .downloadUrl
