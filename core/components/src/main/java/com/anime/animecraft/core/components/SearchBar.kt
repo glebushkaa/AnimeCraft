@@ -20,8 +20,8 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import ua.anime.animecraft.core.components.R
 import com.anime.animecraft.core.theme.theme.AppTheme
+import ua.anime.animecraft.core.components.R
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 5/7/2023.
