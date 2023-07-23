@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="skin_downloaded">Скин загружен</string>
+    <string name="something_went_wrong">Что-то пошло не так, возможно, мы пытаемся загрузить скины. Пожалуйста, попробуйте позже</string>
+    <string name="we_cant_load_without_permission">К сожалению, мы не можем загружать скины без разрешения</string>
+</resources>

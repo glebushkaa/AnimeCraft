@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="confirm_button_height">48dp</dimen>
+    <dimen name="dropdown_height">60dp</dimen>
+    <dimen name="dropdown_icon_size">24dp</dimen>
+
+</resources>

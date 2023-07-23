@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="download">Pobierz</string>
+    <string name="worker_notification_text">Pobieranie…</string>
+    <string name="worker_notification_title">Pobieranie skórek</string>
+</resources>

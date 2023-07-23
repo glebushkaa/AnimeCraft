@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="download">Herunterladen</string>
+    <string name="worker_notification_text">Herunterladen…</string>
+    <string name="worker_notification_title">Herunterladen von Skins</string>
+</resources>

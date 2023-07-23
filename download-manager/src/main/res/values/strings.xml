@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="download">Download</string>
+    <string name="worker_notification_text">Downloading…</string>
+    <string name="worker_notification_title">Downloading skins</string>
+    <string name="work_skins_channel_name" translatable="false">skins_channel_name</string>
+</resources>

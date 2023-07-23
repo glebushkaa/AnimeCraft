@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="skin_downloaded">Peau téléchargée</string>
+    <string name="something_went_wrong">Quelque chose n\'a pas fonctionné, peut-être avons-nous essayé de télécharger des skins. Veuillez réessayer plus tard.</string>
+    <string name="we_cant_load_without_permission">Malheureusement, nous ne pouvons pas télécharger de skins sans autorisation. </string>
+</resources>
