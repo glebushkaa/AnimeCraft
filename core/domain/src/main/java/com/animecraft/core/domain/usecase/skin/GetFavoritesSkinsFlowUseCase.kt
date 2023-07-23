@@ -1,11 +1,11 @@
 package com.animecraft.core.domain.usecase.skin
 
-import kotlinx.coroutines.flow.Flow
 import com.animecraft.core.domain.repository.FavoritesRepository
 import com.animecraft.core.domain.usecase.core.ResultNoneParamsUseCase
 import com.animecraft.core.domain.usecase.core.UseCaseLogger
 import com.animecraft.model.Skin
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Created by gle.bushkaa email(gleb.mokryy@gmail.com) on 7/1/2023
