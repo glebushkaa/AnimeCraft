@@ -50,9 +50,7 @@ fun SettingsScreen(
     settingsViewModel: SettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    val shareAppLink = stringResource(
-        id = ua.anime.animecraft.core.common.android.R.string.share_app_link
-    )
+    val shareAppLink = stringResource(id = R.string.share_app_link)
     val isSystemInDarkMode = isSystemInDarkTheme()
 
     val state by settingsViewModel.screenState.collectAsStateWithLifecycle(

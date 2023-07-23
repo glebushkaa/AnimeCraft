@@ -1,30 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="splash_picture">スプラッシュピクチャー</string>
-    <string name="search_icon">検索アイコン</string>
-    <string name="find_skin">肌を探す…</string>
-    <string name="like_icon">ライクアイコン</string>
-    <string name="settings_icon">設定アイコン</string>
-    <string name="preview_card">プレビューカード</string>
-    <string name="download">ダウンロード</string>
-    <string name="info_skin">肌情報</string>
-    <string name="back">バック</string>
-    <string name="explore">Explore</string>
-    <string name="favorites">お気に入り</string>
-    <string name="language">言語</string>
-    <string name="settings">設定方法</string>
-    <string name="notifications_new_skins">新スキンに関するお知らせ</string>
-    <string name="dark_mode">ダークモード</string>
-    <string name="worker_notification_text">ダウンロード…</string>
-    <string name="worker_notification_title">スキンのダウンロード</string>
-    <string name="how_download_skin">Minecraftでこのスキンをダウンロードするにはどうしたらいいですか？</string>
-    <string name="download_skin_reason_description">androidのバージョンが10以上なので、スキンを直接ゲームに読み込むことができないんです：</string>
-    <string name="skin_description_picture">肌の説明画像</string>
-    <string name="dont_show_this_again">もう見せないでください</string>
-    <string name="drop_down_arrow">ドロップダウン矢印</string>
-    <string name="flag_image">フラッグイメージ</string>
-    <string name="confirm">確認</string>
-    <string name="download_help_dialog">ヘルプダイアログのダウンロード</string>
     <string name="provide_your_feedback">お客様の評価は私たちにとって重要です。ぜひ、ご意見をお聞かせください。ありがとうございました！</string>
     <string name="do_you_enjoy_our_app">私たちのアプリを楽しんでいますか？</string>
     <string name="rate_us">評価する</string>
@@ -39,25 +14,4 @@
     <string name="thank_you_image">お礼の画像</string>
     <string name="we_will_enhance_app">今後もアプリの充実を目指し、協力していきたいと思います！</string>
     <string name="you_are_welcome">どういたしまして</string>
-    <string name="change_language">言語を変更する</string>
-    <string name="send_report">レポート送信</string>
-    <string name="share_app">シェアアプリ</string>
-    <string name="tell_us_your_report">あなたのレポートをお聞かせください…</string>
-    <string name="report">報告書</string>
-    <string name="disable_ad">広告を無効にする</string>
-    <string name="rate_us_button_image">評価する」ボタン画像</string>
-    <string name="skin_downloaded">ダウンロードした肌</string>
-    <string name="something_went_wrong">スキンをダウンロードしようとすると、何か問題が発生しました。後でもう一度試してください。</string>
-    <string name="we_cant_load_without_permission">残念ながら、許可なくスキンをダウンロードすることはできません</string>
-
-    <!--Languages-->
-    <string name="russian">ロシアン</string>
-    <string name="ukrainian">ウクライナ語</string>
-    <string name="english">イングリッシュ</string>
-    <string name="spanish">スパニッシュ</string>
-    <string name="german">ジャーマン</string>
-    <string name="french">フレンチ</string>
-    <string name="polish">ポーリッシュ</string>
-    <string name="japanese">やまと</string>
-    <!--Languages-->
 </resources>

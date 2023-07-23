@@ -1,64 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">AnimeCraft</string>
-    <string name="splash_picture">Заставка</string>
-    <string name="search_icon">Іконка пошуку</string>
-    <string name="find_skin">Знайти скін…</string>
-    <string name="like_icon">Іконка вподобань</string>
-    <string name="settings_icon">Іконка налаштувань</string>
-    <string name="preview_card">Картка попереднього перегляду</string>
-    <string name="download">Завантажити</string>
-    <string name="info_skin">Інформація про скін</string>
-    <string name="back">Назад</string>
-    <string name="explore">Переглянути</string>
-    <string name="favorites">Вподобані</string>
-    <string name="language">Мова</string>
-    <string name="settings">Налаштування</string>
-    <string name="notifications_new_skins">Повідомлення про нові скіни</string>
-    <string name="dark_mode">Темний режим</string>
-    <string name="worker_notification_text">Завантажується…</string>
-    <string name="worker_notification_title">Заватаження скінів</string>
-    <string name="how_download_skin">Як завантажити цей скін у Minecraft?</string>
-    <string name="download_skin_reason_description">Оскільки у вас версія андроїд вище 10, ми не можемо завантажити скін безпосередньо в гру.\n\nТому ми покажемо вам, як це зробити:</string>
-    <string name="skin_description_picture">Картинка з описом скіна</string>
-    <string name="dont_show_this_again">Не показувати знов</string>
-    <string name="drop_down_arrow">Стрілка випадаючого меню</string>
-    <string name="flag_image">Картинка прапору</string>
-    <string name="confirm">Підтвердити</string>
-    <string name="download_help_dialog">Діалогове вікно допомоги</string>
-    <string name="provide_your_feedback">Ваша оцінка важлива для нас. Будь ласка, знайдіть хвилинку, щоб залишити свій відгук. Дякуємо!</string>
-    <string name="do_you_enjoy_our_app">Вам подобається наш додаток?</string>
-    <string name="rate_us">Оцініть нас</string>
-    <string name="not_now">Не зараз</string>
-    <string name="smile_image">Зображення посмішки</string>
-    <string name="sorry_to_hear">Прикро це чути…</string>
-    <string name="tell_us_your_feedback">Залиште нам свій відгук…</string>
-    <string name="please_provide_your_thoughts">Будь ласка, викладіть свої думки та причини в текстовому полі. Ми цінуємо ваш відгук і хотіли б почути його від вас.</string>
-    <string name="cancel">Скасувати</string>
-    <string name="submit">Надіслати</string>
-    <string name="thank_you">Дякуємо!</string>
-    <string name="we_will_enhance_app">Ми продовжимо працювати разом над вдосконаленням нашого додатку!</string>
-    <string name="you_are_welcome">Нема за що</string>
-    <string name="thank_you_image">Спасибі зображення</string>
-    <string name="change_language">Змінити мову</string>
     <string name="send_report">Надіслати скаргу</string>
-    <string name="share_app">Поділитися додатком</string>
     <string name="tell_us_your_report">Розкажіть нам про свою скаргу…</string>
     <string name="report">Скарга</string>
-    <string name="disable_ad">Вимкнути рекламу</string>
-    <string name="rate_us_button_image">Оцініть зображення кнопки</string>
-    <string name="skin_downloaded">Скін завантажено</string>
-    <string name="something_went_wrong">Щось пішло не так, можливо, ми намагаємося завантажити скіни. Будь ласка, спробуйте пізніше</string>
-    <string name="we_cant_load_without_permission">На жаль, ми не можемо завантажити скіни без дозволу</string>
-
-    <!--Languages-->
-    <string name="russian">Російська</string>
-    <string name="ukrainian">Українська</string>
-    <string name="english">Англійська</string>
-    <string name="spanish">Іспанська</string>
-    <string name="german">Німецька</string>
-    <string name="french">Французька</string>
-    <string name="polish">Польська</string>
-    <string name="japanese">Японський</string>
-    <!--Languages-->
 </resources>

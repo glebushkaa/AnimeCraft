@@ -29,9 +29,7 @@ fun AppTopBar(
     settingsClicked: () -> Unit = {},
     likeClicked: () -> Unit = {}
 ) {
-    val appName = stringResource(
-        ua.anime.animecraft.core.common.android.R.string.app_name
-    )
+    val appName = stringResource(R.string.app_name)
 
     val likeIcon =
         if (likeIconFilled) R.drawable.ic_filled_like else R.drawable.ic_like
