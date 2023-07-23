@@ -38,6 +38,5 @@ class SkinsDownloadManager @Inject constructor(
             .setDestinationUri(Uri.fromFile(file))
             .setTitle(gameFileName)
             .setDescription(context.getString(R.string.download))
-            .setAllowedNetworkTypes(NETWORK_MOBILE or NETWORK_WIFI)
     }
 }

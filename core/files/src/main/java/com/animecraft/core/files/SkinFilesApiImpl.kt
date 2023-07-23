@@ -29,7 +29,7 @@ class SkinFilesApiImpl @Inject constructor(
 ) : SkinFilesApi {
 
     override suspend fun saveFileFromBytes(fileName: String, bytes: ByteArray) {
-        coroutineScope {
+        runCatching {
             val file = File(
                 context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
                 fileName
@@ -37,6 +37,10 @@ class SkinFilesApiImpl @Inject constructor(
             val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
             file.outputStream().use {
                 bitmap.compress(Bitmap.CompressFormat.PNG, IMAGE_QUALITY, it)
+            }
+        }.onFailure {
+            error(it.tag(), it) {
+                it.message ?: "SaveFileFromBytes error occurred"
             }
         }
     }

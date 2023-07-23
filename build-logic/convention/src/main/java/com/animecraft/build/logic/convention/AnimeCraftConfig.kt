@@ -12,6 +12,6 @@ object AnimeCraftConfig {
     const val TARGET_SDK_VERSION = 33
     const val COMPILE_SDK_VERSION = 33
 
-    const val VERSION_CODE = 11
+    const val VERSION_CODE = 12
     const val VERSION_NAME = "1.0.0"
 }
