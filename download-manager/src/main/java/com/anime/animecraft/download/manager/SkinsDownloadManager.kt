@@ -1,8 +1,6 @@
 package com.anime.animecraft.download.manager
 
 import android.app.DownloadManager
-import android.app.DownloadManager.Request.NETWORK_MOBILE
-import android.app.DownloadManager.Request.NETWORK_WIFI
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
