@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="skin_downloaded">Pobrana skórka</string>
+    <string name="something_went_wrong">Coś poszło nie tak, być może próbujemy pobrać skórki. Spróbuj ponownie później</string>
+    <string name="we_cant_load_without_permission">Niestety, nie możemy pobierać skórek bez pozwolenia</string>
+</resources>

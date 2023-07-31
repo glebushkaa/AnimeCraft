@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language">Язык</string>
+    <string name="drop_down_arrow">Стрелочка выпадающего списка</string>
+    <string name="flag_image">Картинка флага</string>
+    <string name="confirm">Подтвердить</string>
+
+    <string name="russian">Русский</string>
+    <string name="ukrainian">Украинский</string>
+    <string name="english">Английский</string>
+    <string name="spanish">Испанский</string>
+    <string name="german">Немецкий</string>
+    <string name="french">Французский</string>
+    <string name="polish">Польский</string>
+    <string name="japanese">Японский</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="send_report">Надіслати скаргу</string>
+    <string name="tell_us_your_report">Розкажіть нам про свою скаргу…</string>
+    <string name="report">Скарга</string>
+</resources>

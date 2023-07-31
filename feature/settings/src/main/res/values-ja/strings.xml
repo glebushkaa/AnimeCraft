@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">設定方法</string>
+    <string name="dark_mode">ダークモード</string>
+    <string name="download_help_dialog">ヘルプダイアログのダウンロード</string>
+    <string name="rate_us">評価する</string>
+    <string name="change_language">言語を変更する</string>
+    <string name="send_report">レポート送信</string>
+    <string name="share_app">シェアアプリ</string>
+    <string name="rate_us_button_image">評価する」ボタン画像</string>
+</resources>

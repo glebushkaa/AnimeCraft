@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">Ajustes</string>
+    <string name="dark_mode">Modo oscuro</string>
+    <string name="download_help_dialog">Descargar diálogo de ayuda</string>
+    <string name="rate_us">Valóranos</string>
+    <string name="change_language">Cambiar de idioma</string>
+    <string name="send_report">Enviar informe</string>
+    <string name="share_app">Compartir aplicación</string>
+    <string name="rate_us_button_image">Imagen del botón valóranos</string>
+</resources>

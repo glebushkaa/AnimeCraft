@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="we_cant_load_without_permission">Malheureusement, nous ne pouvons pas télécharger de skins sans autorisation. </string>
+</resources>

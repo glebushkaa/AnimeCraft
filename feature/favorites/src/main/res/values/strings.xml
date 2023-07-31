@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="something_went_wrong">Something went wrong, maybe we try to download skins. Please, try later again</string>
+    <string name="we_cant_load_without_permission">Unfortunately, we can\'t download skins without permission</string>
+    <string name="favorites">Favorites</string>
+    <string name="skin_downloaded">Skin downloaded</string>
+</resources>

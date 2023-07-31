@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language">Мова</string>
+    <string name="drop_down_arrow">Стрілка випадаючого меню</string>
+    <string name="flag_image">Картинка прапору</string>
+    <string name="confirm">Підтвердити</string>
+
+    <string name="russian">Російська</string>
+    <string name="ukrainian">Українська</string>
+    <string name="english">Англійська</string>
+    <string name="spanish">Іспанська</string>
+    <string name="german">Німецька</string>
+    <string name="french">Французька</string>
+    <string name="polish">Польська</string>
+    <string name="japanese">Японський</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="download">Descargar</string>
+    <string name="worker_notification_text">Descargando…</string>
+    <string name="worker_notification_title">Descargar máscaras</string>
+</resources>

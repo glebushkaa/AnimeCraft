@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language">Język</string>
+    <string name="drop_down_arrow">Strzałka w dół</string>
+    <string name="flag_image">Obraz flagi</string>
+    <string name="confirm">Potwierdzenie</string>
+
+    <string name="russian">Rosyjski</string>
+    <string name="ukrainian">Ukraiński</string>
+    <string name="english">Angielski</string>
+    <string name="spanish">Hiszpański</string>
+    <string name="german">Niemiecki</string>
+    <string name="french">Francuski</string>
+    <string name="polish">Polski</string>
+    <string name="japanese">Japoński</string>
+</resources>

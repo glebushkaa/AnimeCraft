@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="language">Idioma</string>
+    <string name="drop_down_arrow">Flecha desplegable</string>
+    <string name="flag_image">Imagen de la bandera</string>
+    <string name="confirm">Confirm</string>
+
+    <string name="russian">Ruso</string>
+    <string name="ukrainian">Ucraniano</string>
+    <string name="english">Inglés</string>
+    <string name="spanish">Español</string>
+    <string name="german">Alemán</string>
+    <string name="french">Francés</string>
+    <string name="polish">Polaco</string>
+    <string name="japanese">Japonés</string>
+</resources>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">Ustawienia</string>
+    <string name="dark_mode">Tryb ciemny</string>
+    <string name="download_help_dialog">Pobierz okno dialogowe pomocy</string>
+    <string name="rate_us">Oceń nas</string>
+    <string name="change_language">Zmień język</string>
+    <string name="send_report">Wyślij raport</string>
+    <string name="share_app">Udostępnij aplikację</string>
+    <string name="rate_us_button_image">Obraz przycisku Oceń nas</string>
+</resources>

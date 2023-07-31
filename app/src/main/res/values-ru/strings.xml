@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="we_cant_load_without_permission">К сожалению, мы не можем загружать скины без разрешения</string>
+</resources>

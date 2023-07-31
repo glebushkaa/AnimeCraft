@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">Einstellungen</string>
+    <string name="dark_mode">Dunkler Modus</string>
+    <string name="download_help_dialog">Hilfe-Dialog herunterladen</string>
+    <string name="rate_us">Bewerten Sie uns</string>
+    <string name="change_language">Sprache ändern</string>
+    <string name="send_report">Bericht senden</string>
+    <string name="share_app">App teilen</string>
+    <string name="rate_us_button_image">Bewerten Sie uns Schaltfläche Bild</string>
+</resources>
