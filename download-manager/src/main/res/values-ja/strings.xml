@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="download">ダウンロード</string>
+    <string name="worker_notification_text">ダウンロード…</string>
+    <string name="worker_notification_title">スキンのダウンロード</string>
+</resources>

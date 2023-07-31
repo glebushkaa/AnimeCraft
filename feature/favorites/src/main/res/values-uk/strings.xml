@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="favorites">Вподобані</string>
+    <string name="skin_downloaded">Скін завантажено</string>
+    <string name="something_went_wrong">Щось пішло не так, можливо, ми намагаємося завантажити скіни. Будь ласка, спробуйте пізніше</string>
+    <string name="we_cant_load_without_permission">На жаль, ми не можемо завантажити скіни без дозволу</string>
+</resources>

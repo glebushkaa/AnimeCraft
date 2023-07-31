@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="how_download_skin">Minecraftでこのスキンをダウンロードするにはどうしたらいいですか？</string>
+    <string name="download_skin_reason_description">androidのバージョンが10以上なので、スキンを直接ゲームに読み込むことができないんです：</string>
+    <string name="skin_description_picture">肌の説明画像</string>
+</resources>

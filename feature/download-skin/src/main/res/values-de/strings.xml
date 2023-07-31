@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="how_download_skin">Wie kann ich diesen Skin in Minecraft herunterladen?</string>
+    <string name="download_skin_reason_description">Da du eine Android-Version über 10 hast, können wir keinen Skin direkt in das Spiel laden.\n\nDaher zeigen wir dir, wie es geht:</string>
+    <string name="skin_description_picture">Hautbeschreibung Bild</string>
+</resources>

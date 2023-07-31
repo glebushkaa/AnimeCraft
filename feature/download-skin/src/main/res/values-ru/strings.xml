@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="how_download_skin">Как я могу загрузить скин прямо в Майнкрафт?</string>
+    <string name="download_skin_reason_description">Поскольку у вас версия android старше 10, мы не можем загрузить скин прямо в игру.\n\nПоэтому мы покажем вам, как это сделать:</string>
+    <string name="skin_description_picture">Описание картинки скина</string>
+</resources>

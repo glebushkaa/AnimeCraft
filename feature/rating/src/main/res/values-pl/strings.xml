@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="provide_your_feedback">Twoja ocena ma dla nas znaczenie. Poświęć chwilę, aby przekazać nam swoją opinię. Dziękujemy!</string>
+    <string name="do_you_enjoy_our_app">Podoba Ci się nasza aplikacja?</string>
+    <string name="rate_us">Oceń nas</string>
+    <string name="not_now">Nie teraz</string>
+    <string name="smile_image">Obraz uśmiechu</string>
+    <string name="sorry_to_hear">Przykro mi to słyszeć…</string>
+    <string name="tell_us_your_feedback">Przekaż nam swoją opinię…</string>
+    <string name="please_provide_your_thoughts">Prosimy o podanie swoich przemyśleń i powodów w polu tekstowym. Cenimy Twoją opinię i chcielibyśmy poznać Twoje zdanie.</string>
+    <string name="cancel">Anuluj</string>
+    <string name="submit">Prześlij</string>
+    <string name="thank_you">Dziękuję!</string>
+    <string name="thank_you_image">Dziękuję za zdjęcie</string>
+    <string name="we_will_enhance_app">Będziemy kontynuować współpracę, aby ulepszyć naszą aplikację!</string>
+    <string name="you_are_welcome">Nie ma za co</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="favorites">Favoriten</string>
+    <string name="skin_downloaded">Skin heruntergeladen</string>
+    <string name="something_went_wrong">Etwas ist schief gegangen, vielleicht haben wir versucht, Skins herunterzuladen. Bitte, versuchen Sie es später noch einmal</string>
+    <string name="we_cant_load_without_permission">Leider können wir ohne Erlaubnis keine Skins herunterladen.</string>
+</resources>

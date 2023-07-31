@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="provide_your_feedback">Ihre Bewertung ist für uns wichtig. Bitte nehmen Sie sich einen Moment Zeit, um uns Ihr Feedback zu geben. Wir danken Ihnen!</string>
+    <string name="do_you_enjoy_our_app">Gefällt Ihnen unsere App?</string>
+    <string name="rate_us">Bewerten Sie uns</string>
+    <string name="not_now">Nicht jetzt</string>
+    <string name="smile_image">Bild lächeln</string>
+    <string name="sorry_to_hear">Tut mir leid, das zu hören…</string>
+    <string name="tell_us_your_feedback">Sagen Sie uns Ihr Feedback…</string>
+    <string name="please_provide_your_thoughts">Bitte tragen Sie Ihre Gedanken und Gründe in das Textfeld ein. Wir schätzen Ihr Feedback und würden uns freuen, von Ihnen zu hören.</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="submit">Einreichen</string>
+    <string name="thank_you">Ich danke Ihnen!</string>
+    <string name="thank_you_image">Danke, Bild</string>
+    <string name="we_will_enhance_app">Wir werden weiterhin gemeinsam an der Verbesserung unserer App arbeiten!</string>
+    <string name="you_are_welcome">Bitte sehr</string>
+</resources>

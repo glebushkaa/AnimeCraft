@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="drop_down_arrow">Drop down arrow</string>
+    <string name="flag_image">Flag image</string>
+    <string name="confirm">Confirm</string>
+    <string name="language">Language</string>
+
+    <string name="russian">Russian</string>
+    <string name="ukrainian">Ukrainian</string>
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
+    <string name="german">German</string>
+    <string name="french">French</string>
+    <string name="polish">Polish</string>
+    <string name="japanese">Japanese</string>
+</resources>

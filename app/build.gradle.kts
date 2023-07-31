@@ -1,128 +1,54 @@
-@file:Suppress("FunctionName")
-
-import com.android.build.api.dsl.Packaging
+@file:Suppress("FunctionName", "UnstableApiUsage")
 
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.hilt)
-    alias(libs.plugins.ktlint)
-    alias(libs.plugins.detekt)
+    id("animecraft.lint")
+    id("animecraft.application")
+    id("animecraft.feature")
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.parcelize)
-    kotlin("kapt")
 }
 
 android {
-    namespace = "ua.anime.animecraft"
-    compileSdk = 33
-
-    defaultConfig {
-        applicationId = "ua.anime.animecraft"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 5
-        versionName = "1.0.0"
-
-        vectorDrawables.useSupportLibrary = true
-    }
-
     bundle {
-        language {
-            enableSplit = false
-        }
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.7"
-    }
-    fun Packaging.() {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-
-    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-        version.set(libs.versions.ktlint.runtime)
-        android.set(true)
-        verbose.set(true)
-        outputToConsole.set(true)
-        ignoreFailures.set(false)
-        enableExperimentalRules.set(false)
-        filter {
-            exclude("**/generated/**")
-            include("**/kotlin/**")
-        }
-    }
-
-    configure<io.gitlab.arturbosch.detekt.extensions.DetektExtension> {
-        config = rootProject.files("config/detekt/detekt.yml")
+        language.enableSplit = false
     }
 }
 
 dependencies {
-    implementation(libs.kotlinx.coroutines.android)
+    implementation(projects.core.domain)
+    implementation(projects.core.data)
+    implementation(projects.core.commonAndroid)
+    implementation(projects.core.activityHolder)
+    implementation(projects.core.common)
+    implementation(projects.core.navigation)
+    implementation(projects.core.network.api)
+    implementation(projects.core.network.impl)
+    implementation(projects.core.dataStore.api)
+    implementation(projects.core.dataStore.impl)
+    implementation(projects.core.files)
+    implementation(projects.core.utils)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle)
+    implementation(projects.ad.api)
+    implementation(projects.ad.impl)
 
-    val composeBom = platform(libs.androidx.compose.bom)
-    implementation(composeBom)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.tooling)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.material)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.compose.navigation)
-    implementation(libs.compose.accomponist.navigation.animation)
+    implementation(projects.downloadManager)
 
-    implementation(libs.coil.compose)
+    implementation(projects.analytics.api)
+    implementation(projects.analytics.impl)
 
-    implementation(libs.appcompat)
-
-    implementation(libs.billing)
-
-    implementation(libs.play.services.ads)
-    implementation(libs.play.core)
-
-    implementation(libs.timber)
+    implementation(projects.feature.splash)
+    implementation(projects.feature.main)
+    implementation(projects.feature.info)
+    implementation(projects.feature.language)
+    implementation(projects.feature.favorites)
+    implementation(projects.feature.settings)
+    implementation(projects.feature.report)
+    implementation(projects.feature.downloadSkin)
+    implementation(projects.feature.rating)
 
     implementation(libs.work.manager)
-
-    implementation(libs.room.ktx)
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
-
-    implementation(libs.firebase.analytics.ktx)
-    implementation(libs.firebase.realtime.database.ktx)
-    implementation(libs.firebase.storage.ktx)
     implementation(libs.firebase.crashlytics.ktx)
-
-    implementation(libs.hilt.android)
-    implementation(libs.hilt.navigation.compose)
-    implementation(libs.hilt.work)
-    kapt(libs.hilt.compiler)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.timber)
+    implementation(libs.play.core)
 }

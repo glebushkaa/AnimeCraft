@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="how_download_skin">Як завантажити цей скін у Minecraft?</string>
+    <string name="download_skin_reason_description">Оскільки у вас версія андроїд вище 10, ми не можемо завантажити скін безпосередньо в гру.\n\nТому ми покажемо вам, як це зробити:</string>
+    <string name="skin_description_picture">Картинка з описом скіна</string>
+</resources>

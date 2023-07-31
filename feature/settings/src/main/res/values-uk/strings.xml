@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">Налаштування</string>
+    <string name="dark_mode">Темний режим</string>
+    <string name="download_help_dialog">Діалогове вікно допомоги</string>
+    <string name="rate_us">Оцініть нас</string>
+    <string name="change_language">Змінити мову</string>
+    <string name="send_report">Надіслати скаргу</string>
+    <string name="share_app">Поділитися додатком</string>
+    <string name="rate_us_button_image">Оцініть зображення кнопки</string>
+</resources>

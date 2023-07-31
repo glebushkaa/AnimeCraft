@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="how_download_skin">Jak mogę pobrać tę skórkę w Minecrafcie?</string>
+    <string name="download_skin_reason_description">Ponieważ masz wersję Androida powyżej 10, nie możemy załadować skórki bezpośrednio do gry.\n\nPokażemy więc, jak to zrobić:</string>
+    <string name="skin_description_picture">Obraz opisu skórki</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="send_report">Wyślij raport</string>
+    <string name="tell_us_your_report">Opowiedz nam swój raport…</string>
+    <string name="report">Raport</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="provide_your_feedback">Ваша оцінка важлива для нас. Будь ласка, знайдіть хвилинку, щоб залишити свій відгук. Дякуємо!</string>
+    <string name="do_you_enjoy_our_app">Вам подобається наш додаток?</string>
+    <string name="rate_us">Оцініть нас</string>
+    <string name="not_now">Не зараз</string>
+    <string name="smile_image">Зображення посмішки</string>
+    <string name="sorry_to_hear">Прикро це чути…</string>
+    <string name="tell_us_your_feedback">Залиште нам свій відгук…</string>
+    <string name="please_provide_your_thoughts">Будь ласка, викладіть свої думки та причини в текстовому полі. Ми цінуємо ваш відгук і хотіли б почути його від вас.</string>
+    <string name="cancel">Скасувати</string>
+    <string name="submit">Надіслати</string>
+    <string name="thank_you">Дякуємо!</string>
+    <string name="we_will_enhance_app">Ми продовжимо працювати разом над вдосконаленням нашого додатку!</string>
+    <string name="you_are_welcome">Нема за що</string>
+    <string name="thank_you_image">Спасибі зображення</string>
+</resources>

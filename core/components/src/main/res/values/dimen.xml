@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="category_item_height">32dp</dimen>
+
+    <dimen name="preview_item_height">220dp</dimen>
+    <dimen name="preview_item_width">160dp</dimen>
+    <dimen name="preview_image_height">120dp</dimen>
+    <dimen name="preview_download_height">40dp</dimen>
+    <dimen name="preview_progress_size">48dp</dimen>
+
+    <dimen name="like_icon_size">24dp</dimen>
+    <dimen name="like_button_size">32dp</dimen>
+
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">AnimeCraft</string>
+    <string name="mailto" translatable="false">mailto:</string>
+    <string name="email_address" translatable="false">gleb.mokryy.work@gmail.com</string>
+    <string name="animecraft_feedback" translatable="false">AnimeCraft Feedback</string>
+    <string name="animecraft_report" translatable="false">AnimeCraft Report</string>
+
+    <!--Ad-->
+    <string name="ad_app_id" translatable="false">ca-app-pub-3479574369280836/5197390047</string>
+    <string name="banner_ad_id" translatable="false">ca-app-pub-3479574369280836/8286889131</string>
+    <!--Ad-->
+</resources>
